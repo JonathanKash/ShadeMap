@@ -13,6 +13,15 @@ ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
 
 CENTER = (29.6516, -82.3248)  # Gainesville
+
+# stops that have a photo in docs/photos/, from outputs/stop_photos.csv (header only until
+# the first upload, which is fine). Reading the list means popups never link a missing file.
+_manifest = ROOT / "outputs" / "stop_photos.csv"
+PHOTO_FILE = {}
+if _manifest.exists():
+    _photos = pd.read_csv(_manifest, dtype={"stop_id": str, "file": str})
+    PHOTO_FILE = {sid: f for sid, f in zip(_photos["stop_id"], _photos["file"])
+                  if (DOCS / "photos" / f).exists()}
 # sequential ramp, light to dark, one color per fifth of ranked stops
 RAMP = ["#ffffb2", "#fecc5c", "#fd8d3c", "#f03b20", "#bd0026"]
 RAMP_LABELS = [
@@ -93,6 +102,11 @@ def popup_html(r, ranked):
                 f'<div>Not ranked: {escape(str(r["excluded_reason"]))}</div>')
         heat = ("no data" if pd.isna(r["mean_lst_c"])
                 else f'{r["mean_lst_c"]:.1f} C / {r["mean_lst_f"]:.1f} F')
+    img = PHOTO_FILE.get(str(r["stop_id"]))
+    photo = (f'<img src="photos/{escape(img)}" alt="Photo of {name}" loading="lazy" '
+             f'style="width:100%;margin-top:6px;border-radius:4px">'
+             f'<div style="font-size:11px;color:#52606d">Photo: ShadeMap team</div>'
+             if img else "")
     return (
         f'<div class="popup">{head}'
         f'<div>Routes: {routes}</div>'
@@ -100,6 +114,7 @@ def popup_html(r, ranked):
         f'<div>Summer morning heat nearby: {heat}</div>'
         f'<div>{SHELTER_TEXT.get(r["shelter_status"], "Shelter status unknown")}</div>'
         f'<div>{green}</div>'
+        f'{photo}'
         f'</div>'
     )
 
