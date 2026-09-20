@@ -19,10 +19,19 @@ need = pd.read_csv(root / "outputs" / "shade_need.csv", dtype={"stop_id": str})
 canopy = pd.read_csv(root / "outputs" / "stop_canopy.csv", dtype={"stop_id": str})
 near = pd.read_csv(root / "outputs" / "nearest_shelter.csv", dtype={
     "stop_id": str, "nearest_sheltered_stop_id": str})
+water_path = root / "outputs" / "stop_water.csv"
+water = (pd.read_csv(water_path, dtype={"stop_id": str})[["stop_id", "walk_min"]]
+         .rename(columns={"walk_min": "water_walk_min"})
+         if water_path.exists() else None)
 
 df = (scored
       .merge(need[["stop_id", "shade_need_rank"]], on="stop_id", how="left")
       .merge(canopy[["stop_id", "pct_green"]], on="stop_id", how="left"))
+if water is not None:
+    df = df.merge(water, on="stop_id", how="left")
+else:
+    df["water_walk_min"] = None
+    print("WARNING: outputs/stop_water.csv missing, water walk empty")
 
 # city commission district per stop (dataGNV 4pxv-ww5v, cached in data/).
 # Stops outside city limits get district None and the page falls back to
@@ -73,6 +82,7 @@ for _, s in df.iterrows():
         "excluded": None if pd.isna(s.excluded_reason) else s.excluded_reason,
         "flags": flags.get(s.stop_id, []),
         "district": None if pd.isna(s.district) else s.district,
+        "water": None if pd.isna(s.water_walk_min) else round(float(s.water_walk_min), 1),
     })
 
 out = {"n_ranked": n_ranked, "stops": stops}

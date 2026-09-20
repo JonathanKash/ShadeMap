@@ -1,0 +1,972 @@
+stop_id,stop_name,nearest_fountain_m,walk_min,no_water_within_5min
+346,Westbound E University Avenue @ SE 21st Street,886,11.1,True
+1116,Valwood Neighborhood,1487,18.6,True
+1543,NW 2nd St @ NW 16th Ave Northbound,485,6.1,True
+194,Eastbound SW 2nd Avenue @ SW 26th Street,1411,17.6,True
+1608,Shell Rock Villas,1333,16.7,True
+1290,Alachua County Courthouse,311,3.9,False
+300,Fast Eddie's Restaurant,892,11.1,True
+381,Altrusa House of Gainesville,1382,17.3,True
+187,Community Foundation of North Central Florida,900,11.3,True
+1557,The Ridge @ SW 38th TER northbound,724,9.1,True
+1506,The Trophy Shop,797,10.0,True
+157,Westgate Shopping Center,881,11.0,True
+111,Southbound SE 15th Street @ SE 4th Avenue,1151,14.4,True
+436,Applebee's @ NW 13th Street,1169,14.6,True
+518,Santa Fe College @ NW 83rd Street,2784,34.8,True
+1169,Northwood Pines Neighborhood,613,7.7,True
+1056,Linton Oaks Neighborhood,1548,19.3,True
+150,University Lutheran Church,183,2.3,False
+528,Northwest Baptist Church,2147,26.8,True
+535,B'Nai Israel School & Day Care,1359,17.0,True
+461,University Club Apartments,1823,22.8,True
+1475,President's Park,876,11.0,True
+773,Arbor Park Apartments,916,11.5,True
+1427,Holy Faith Catholic Church,1570,19.6,True
+1141,Wilmot Gardens,338,4.2,False
+709,McCoy Court Apartments,727,9.1,True
+46,Beaty Towers,104,1.3,False
+932,UF Law School,1218,15.2,True
+252,Plaza Verde - NW 23rd Avenue,567,7.1,True
+1494,NE 15th St @ NE 20th Pl,385,4.8,False
+206,AT&T Building,547,6.8,True
+979,Landmark Woods Neighborhood,1674,20.9,True
+369,CVS @ NW 13th Street,1084,13.5,True
+697,Masonic Temple,392,4.9,False
+521,Santa Fe College,3026,37.8,True
+1483,aloft Hotel @ Hull Rd Eastbound,907,11.3,True
+1553,Health Department,578,7.2,True
+537,Willowcroft Neighborhood,636,7.9,True
+599,Morningside Nature Center,715,8.9,True
+1397,Westbound SW 24th Ave @ SW 61st St,1458,18.2,True
+1341,Enclave 4,1234,15.4,True
+1253,Graham Hall,232,2.9,False
+1623,SW 6th St nearside SW 5th Ave (southbound),388,4.8,False
+442,Southbound SW 13th Street @ Inner Road,184,2.3,False
+794,Sai Quick Stop,891,11.1,True
+1486,Campus Circle Apartments,893,11.2,True
+1261,Gardenia Garden Apartments,46,0.6,False
+241,Grace Presbyterian Church,1241,15.5,True
+757,Pointe 23 Apartments,872,10.9,True
+736,Wesley United Methodist Church,1233,15.4,True
+226,Oak Gate Apartments,1687,21.1,True
+769,The Collier Companies,414,5.2,True
+1547,Sam's Club,483,6.0,True
+414,Barnhill Clinic,1217,15.2,True
+508,NW 23rd Ave NW 43rd St,2003,25.0,True
+444,University Housing Office,60,0.8,False
+259,ALDI Food Market,1097,13.7,True
+1498,NE 15th St @ NE 3rd Ave Farside,626,7.8,True
+695,Oakbrook Walk Condominiums,663,8.3,True
+1114,Haile Plantation Neighborhood,923,11.5,True
+1139,Casablanca Apartments,1835,22.9,True
+1352,Colonial Oaks,250,3.1,False
+590,Southbound SE 43rd Street @ E University Avenue,1433,17.9,True
+1064,Treebecka Park Apartments,1955,24.4,True
+1323,College Manor Apartments,354,4.4,False
+1311,Depot Ave Farside SW 3rd St,298,3.7,False
+681,US 441 South,1698,21.2,True
+987,Millhopper Branch Library,2171,27.1,True
+216,Gainesville Police Department,1151,14.4,True
+39,The Bartram Apartments,1130,14.1,True
+1501,NE 15th St @ NE 8th Ave,270,3.4,False
+1471,Westgate Plaza,901,11.3,True
+467,Cancer and Genetics Research,498,6.2,True
+725,Southeast Car Agency,2059,25.7,True
+853,Northbound SE 11th Street @ SE 2nd Avenue,930,11.6,True
+579,Southbound NE 25th Street @ NE 6th Avenue,786,9.8,True
+363,SW 13th Street & W University Avenue,275,3.4,False
+1034,Madison Cove Apartments,2077,26.0,True
+789,Sun Bay Apartments,838,10.5,True
+687,Bivens Cove Apartments,723,9.0,True
+1472,Mavis Tires,998,12.5,True
+317,Northbound SE 35th Street @ SE 18th Ave,1820,22.7,True
+181,Millpond Apartments,1474,18.4,True
+275,NW 6th St @ NW 22nd Ave,1189,14.9,True
+796,Sun Bay Apartments,864,10.8,True
+195,University of Florida Law School,1191,14.9,True
+561,Eastbound NE 8th Avenue @ NE 11th Street,114,1.4,False
+997,Robin Lane Neighborhood,3219,40.2,True
+1101,Tower Plaza,1124,14.0,True
+988,Monterey Apartments,1832,22.9,True
+463,University Commons,1089,13.6,True
+545,NW 16th Ave @ NW 17th St,747,9.3,True
+477,Cancer & Genetics Research Center,487,6.1,True
+663,UF Health Pediatric ER,448,5.6,True
+486,Gator Place Condominiums,2268,28.3,True
+1627,SW 32nd Road @ The Vibe (Eastbound),470,5.9,True
+424,Girls Place of Alachua County,1248,15.6,True
+1003,The Arc,3566,44.6,True
+92,Lincoln Estates,1305,16.3,True
+1085,The Gardens Apartments,1144,14.3,True
+37,Brandywine Apartments,934,11.7,True
+1611,NW 2nd Lane @ NW 140th Way,5934,74.2,True
+685,The Landings Apartments,768,9.6,True
+840,Hilton University of Florida Conference Center,379,4.7,False
+430,Misty Oaks Apartments,1029,12.9,True
+977,Millennium Center,1401,17.5,True
+391,Gethsemane Lutheran Church,1710,21.4,True
+758,David's BBQ,727,9.1,True
+517,Shenandoah Neighborhood,2392,29.9,True
+367,Xerographic Copy Center,1144,14.3,True
+748,Fearnside Family Services Center,612,7.6,True
+630,Southbound NE 9th Street @ NE 3rd Avenue,576,7.2,True
+413,Northwood Oaks Neighborhood,852,10.7,True
+1454,Northeast Park,31,0.4,False
+192,UF Golf Course,1148,14.3,True
+1343,Northside Park and Senior Recreational Center,74,0.9,False
+1430,NE 39th Ave @ Waldo Rd,1230,15.4,True
+865,Department of Children and Families,563,7.0,True
+449,Hideaway Apartments,2111,26.4,True
+375,Brook Wood Terrace Neighborhood,406,5.1,True
+1621,SW 8th Ave @ Nearside SW 67th Terr,1312,16.4,True
+562,Sunny Food Mart,146,1.8,False
+1145,Fraternity Row II across Springs,995,12.4,True
+282,D.R. Williams Fellowship Hall,1055,13.2,True
+453,Windsor Park Apartments,1832,22.9,True
+1568,The Lark Apartments,476,5.9,True
+1453,St. Patrick Catholic Church,42,0.5,False
+856,UF Health Family Medicine Eastside Northbound,410,5.1,True
+1108,Sunrise Subdivision (Southbound),1839,23.0,True
+22,Country Village,910,11.4,True
+684,UF Health Florida Recovery Center,934,11.7,True
+1489,Village Point 4,959,12.0,True
+934,Campus Church of Christ,1362,17.0,True
+775,Sweetwater on 16th Apartments,794,9.9,True
+531,Eastbound NW 23rd Avenue @ NW 46th Street,2403,30.0,True
+1440,Mt. Olive Primitive Baptist Church,392,4.9,False
+1011,NW Grille Seafood,1815,22.7,True
+955,Gainesville Place Apartments,851,10.6,True
+1391,Metrocorp Center,1436,18.0,True
+595,Lake Forest Trails Neighborhood,1523,19.0,True
+1089,Harbor Cove Apartments,522,6.5,True
+1057,Linton Oaks Neighborhood @ SW 61st Street,1493,18.7,True
+743,Pine Forest Homes,2099,26.2,True
+1600,Markets West,2168,27.1,True
+42,Shands Hospital @ Center Drive,194,2.4,False
+627,Southbound NE 9th Street @ NE 7th Avenue,348,4.3,False
+1549,Hilton Garden Inn,279,3.5,False
+98,SE Hawthorne Rd @ SE 18th St Eastbound,1081,13.5,True
+1306,Publix at Butler Plaza,38,0.5,False
+1278,Northbound Fort Clarke Boulevard @ Eagle Point,2856,35.7,True
+514,Westbound NW 23rd Avenue @ NW 63rd Terrace,1976,24.7,True
+706,Wash King,140,1.8,False
+814,Pinetree Gardens,489,6.1,True
+438,The Gate Food Store @ NW 13th Street,618,7.7,True
+124,Lincoln Estates Neighborhood,1466,18.3,True
+1620,SW 87th Dr @ Nearside SW 27th Ln,1373,17.2,True
+182,Gainesville Health & Fitness,1587,19.8,True
+1267,University Commons Apartments,944,11.8,True
+218,Bailey Village Assisted Living,918,11.5,True
+1470,Gainesville Women's Club,1105,13.8,True
+307,Southeast Gator Liquor @ Hawthorne Road,830,10.4,True
+1046,Tower Village Apartments,603,7.5,True
+670,Dollar General,1339,16.7,True
+1317,GRACE Marketplace,964,12.1,True
+426,Ridgeview Baptist Church,1285,16.1,True
+1119,CROM Equipment Rentals,1832,22.9,True
+980,NW 14th Place @ NW 43rd Street,1708,21.3,True
+237,Sandy's Boutique,653,8.2,True
+101,SE 24th Street - Dollar General Store,746,9.3,True
+1177,Fifield Hall,612,7.6,True
+671,Lakeshore Towers Apartments,1312,16.4,True
+184,Alarion Bank,1380,17.2,True
+1351,Hailey Gardens,429,5.4,True
+2,Hampton Inn Hotel,241,3.0,False
+7,Infinity Hall,640,8.0,True
+589,Eastside Plaza,937,11.7,True
+609,Mt Carmel Baptist Church,975,12.2,True
+87,Lincoln Estate Neighborhood,1573,19.7,True
+811,Pinnacle Point Apartments,992,12.4,True
+556,Northbound NE 9th Street @ E University Avenue,690,8.6,True
+711,Chelsea Apartments Eastbound,917,11.5,True
+1173,Cultural Plaza,82,1.0,False
+716,NE 28th Avenue @ NE 15th Street,119,1.5,False
+1082,Sparrow Apartments,1592,19.9,True
+1015,Southbound NW 43rd Street @ NW 33rd Court,1954,24.4,True
+1081,Sparrow Apartments,1556,19.5,True
+1479,Sorrento New Home Community,203,2.5,False
+419,NW 39th Avenue @ NW 34th Street,2002,25.0,True
+1319,Gainesville Regional Airport Outbound,817,10.2,True
+201,West University Avenue & SW 12th St,456,5.7,True
+203,University of Florida Human Resources,783,9.8,True
+9,Campus USA Credit Union,376,4.7,False
+1153,Tolbert Residence Hall,279,3.5,False
+1551,Social Security Administration,373,4.7,False
+1054,Tower Oaks Glenn Apartments,1940,24.2,True
+1389,Eastbound NW 39th AVE @ NW 37th ST,1657,20.7,True
+279,Little Warriors Day School,940,11.8,True
+1372,Newberry Rd @ NW 75th,1053,13.2,True
+947,Gainesville Place Apartments @ SW 35th Place,1500,18.7,True
+110,Veteran's Honor Center,1026,12.8,True
+1206,Arlington Square Apartments,229,2.9,False
+1216,Arlington Square Apartments,211,2.6,False
+533,NW 23rd Ave NW 43rd St,1885,23.6,True
+993,Huntington Lakes Apartments,1900,23.8,True
+1333,Enclave 1,1104,13.8,True
+759,Pine Grove Apartments,423,5.3,True
+1349,Hilton Garden Inn,346,4.3,False
+360,Norman Field,145,1.8,False
+666,Health Science Center Administration,671,8.4,True
+946,Victoria Station Apartments,1152,14.4,True
+1120,Life Storage,1776,22.2,True
+1610,Jonesville Publix,6027,75.3,True
+1140,Southbound SW 27th Street @ SW 35th Place,1711,21.4,True
+97,Veteran's Honor Center,1036,12.9,True
+349,Westbound E University Avenue @ NE 16th Street,722,9.0,True
+1183,Cultural Plaza,185,2.3,False
+784,Southbound Williston Road @ SE 1st Terrace,336,4.2,False
+26,Whole Foods @ Butler Town Center,466,5.8,True
+1301,Stoneridge Apartments,977,12.2,True
+342,Alachua County Sheriffs Department,763,9.5,True
+1058,Linton Oaks,1325,16.6,True
+1289,Pepboys Auto @ Newberry RD,1391,17.4,True
+764,Gainesville Shopping Center South,551,6.9,True
+228,Northbound NW 6th Street @ NW 33rd Avenue,1957,24.5,True
+507,Capital City Bank @ NW 16th Boulevard,1836,23.0,True
+255,Rural King,974,12.2,True
+1166,Ironwood Golf Course,824,10.3,True
+804,Family Housing,318,4.0,False
+1393,Northbound NW 55th ST @ NW 14th AVE,1351,16.9,True
+1187,Microbiology/Cell Science Building,480,6.0,True
+756,Westbound NE 23rd Avenue @ NE 9th Street,877,11.0,True
+483,University Club Apartments,1862,23.3,True
+396,Barnhill Clinic,1155,14.4,True
+1036,Westgate Mobile Manor Park,1865,23.3,True
+996,Emerald Woods Neighborhood,2747,34.3,True
+1096,Oaks Square Complex,587,7.3,True
+1124,Dogwood Dog Park,2102,26.3,True
+525,Hickory Woods Neighborhood,2013,25.2,True
+858,Lakeside Housing Complex,543,6.8,True
+1112,Vet Mem PK,292,3.7,False
+844,Maguire Field,301,3.8,False
+409,North Walmart Supercenter,269,3.4,False
+970,Williston Plaza,2282,28.5,True
+1043,Asbury Park Apartments,1555,19.4,True
+1159,Phi Kappa Tau,274,3.4,False
+672,City College Gainesville,1124,14.0,True
+450,Lexington Crossing Apartments,1984,24.8,True
+673,Stayable Select Hotel,833,10.4,True
+690,Comfort Suites Hotel,1108,13.8,True
+140,Alachua County Office of the State Attorney,459,5.7,True
+1420,Southbound SW 13th ST @ SW 14th AVE,697,8.7,True
+325,Verdant Cove Apartments,1736,21.7,True
+347,SE 18th St @ E University Avenue,724,9.0,True
+998,Springhill Professional Center,3953,49.4,True
+632,Florida School of Traditional Midwifery,503,6.3,True
+1337,Gainesville Place,1381,17.3,True
+306,Eastbound University Avenue @ SE 24th Street,627,7.8,True
+14,Frazier Rogers Hall,67,0.8,False
+125,SE 12th Avenue @ SE 17th Drive,1596,20.0,True
+1098,North Florida Regional Medical Center,381,4.8,False
+152,Hillel at the University of Florida,426,5.3,True
+247,Gainesville High School,838,10.5,True
+1,Rosa Parks RTS Downtown Station,10,0.1,False
+1550,Hotel Eleo @ SW 16th Ave Westbound,873,10.9,True
+1303,O2B Kids @ SW 37th BLVD,839,10.5,True
+1104,The Gardens Apartments,1219,15.2,True
+838,34th St Plaza,792,9.9,True
+373,Furniture Kingdom,666,8.3,True
+389,Westbound NW 39th Avenue @ NW 31st Street,2163,27.0,True
+833,Addison Lane,529,6.6,True
+144,Leonardo's 706,828,10.3,True
+395,YMCA @ NW 34th Street,1361,17.0,True
+236,Early Learning Coalition,424,5.3,True
+1016,Millhopper Branch Library,2221,27.8,True
+1049,Tower Road Branch Library,843,10.5,True
+256,Mount Pleasant Cemetary,1127,14.1,True
+1613,Town of Tioga (Eastbound),5426,67.8,True
+1055,Split Rock Conservation Area,1831,22.9,True
+618,Duval Elementary School,567,7.1,True
+1585,NW 6th St @ NW 3rd Ave,849,10.6,True
+899,NE 16th Avenue @ NE 15th Street,566,7.1,True
+802,Lakeside Apartments,490,6.1,True
+388,Springtree Subdivision,2146,26.8,True
+1194,Commuter Lot/Garage 14,286,3.6,False
+53,Innovation Square East,677,8.5,True
+718,Northbound NE 15th Street @ NE 31st Avenue,331,4.1,False
+668,Ronald McDonald House of Gainesville,887,11.1,True
+787,Treehouse Village Apartments,936,11.7,True
+1270,Gainesville Place Apartments,842,10.5,True
+1325,Division of Blind Services,1683,21.0,True
+1492,Butler Plaza,257,3.2,False
+693,home2 Hotel,1362,17.0,True
+262,Westgate Mobile Manor Park,448,5.6,True
+1609,Jonesville Arbor Greens,5634,70.4,True
+1100,West Newberry Rd Nearside NW 69th Ter,604,7.5,True
+52,Eastbound SW 2nd Avenue @ SW 10th Street,560,7.0,True
+261,Sunshine Inn,717,9.0,True
+1554,Marshall's @ Plaza Blvd (Westbound),483,6.0,True
+1136,Wilmot Gardens,303,3.8,False
+338,Durelle Heights Neighborhood,1689,21.1,True
+174,Terwilliger Elementary School,231,2.9,False
+154,Westbound University Avenue @ NW 23rd Drive,1233,15.4,True
+145,Westbound W University Ave @ NW 10th St,683,8.5,True
+1038,A Child's Place,1762,22.0,True
+1025,Landmark Woods Neighborhood,1674,20.9,True
+394,Family Dollar @ NW 34th Street,1474,18.4,True
+63,Norwood Neighborhood,426,5.3,True
+541,Raintree Neighborhood,1219,15.2,True
+1051,Walgreens @ SW 24th Avenue,1320,16.5,True
+766,Fire Stone @ N Main Street,807,10.1,True
+440,North 13th Street @ NW 1st Avenue,375,4.7,False
+824,Hampton Oaks Apartments,565,7.1,True
+277,NW 6th Street @ NW 19th Lane,1021,12.8,True
+1559,Butler Plaza North,352,4.4,False
+852,Triangle Club,949,11.9,True
+428,Southbound NW 21st Street @ NW 36th Avenue,1433,17.9,True
+1213,Lexington Crossing Apartments,2092,26.1,True
+1137,Cypress Villas,2248,28.1,True
+454,Northbound SW 27th Street @ SW 35th Place,1710,21.4,True
+1264,Cottage Grove Apartments at Gainesville,1507,18.8,True
+859,Cabana Beach Apartments (Exit),619,7.7,True
+441,Tigert Hall,171,2.1,False
+847,Corry Village,1036,12.9,True
+393,Capri Neighborhood,1419,17.7,True
+842,Southwest Recreation Center,65,0.8,False
+1115,Stillwind Neighborhood,1279,16.0,True
+848,Lake Alice Field,844,10.5,True
+798,Sigma Alpha Epsilon,706,8.8,True
+1329,Alachua County Jail,758,9.5,True
+179,Eastbound W Newberry Rd @ NW 53rd Terrace,1113,13.9,True
+330,Westbound Hawthorne Road @ SE 39th Street,1847,23.1,True
+1087,Pine Meadow Apartments,810,10.1,True
+1387,Sable Chase Neighborhood,1788,22.4,True
+82,McPherson Recreational Center,1027,12.8,True
+27,Chili's Grill and Bar @ Butler Plaza,342,4.3,False
+1482,Lake Alice Conservation Area,685,8.6,True
+99,SE Hawthorne Rd @ SE 21st St Eastbound,1051,13.1,True
+460,Towne Parc Apartments,2005,25.1,True
+1444,Alight Apts,922,11.5,True
+785,Springhill Baptist Church,385,4.8,False
+40,Shands Care Helicopter Pad,682,8.5,True
+526,Eastbound NW 23rd Avenue @ NW 63rd Terrace,1964,24.5,True
+1013,Pine Woods Apartments,1514,18.9,True
+96,Northbound SE 15th Street @ SE 3rd Avenue,1104,13.8,True
+498,NW 24th St @ NW 16th Avenue,1215,15.2,True
+462,University of Florida Energy Research,1447,18.1,True
+1386,Breckenridge Neighborhood,1589,19.9,True
+967,Hunters Run Apartments,2414,30.2,True
+398,Sorrento New Home Community,190,2.4,False
+983,Millhopper Pines Apartments,1909,23.9,True
+578,Southbound NE 25th Street @ NE 8th Avenue,979,12.2,True
+839,Florida Department Of Agriculture,484,6.1,True
+1234,NE Walmart Supercenter,164,2.0,False
+1063,Linton Oaks @ SW 24th Ave,1638,20.5,True
+800,Corry Village,1060,13.2,True
+1002,Santa Fe College @ NW 83rd Street (Northbound),3263,40.8,True
+963,Keys Residential Complex Midblock,578,7.2,True
+634,Alachua County School Board Administration,208,2.6,False
+596,Lake Forest Elementary School,1476,18.4,True
+135,Dignity Project,582,7.3,True
+732,Oak Gate Condominiums,1718,21.5,True
+466,Forestry Field Lab/Plant Growth,964,12.0,True
+345,Harper's Pointe,770,9.6,True
+24,Take 5 Car Wash,972,12.1,True
+714,Boulware Charter School,307,3.8,False
+304,Eastbound University Avenue @ SE 21st Street,892,11.2,True
+254,Big Lot on NW 13th Street,863,10.8,True
+744,Wade Raulerson Honda Dealership,1719,21.5,True
+741,Gainesville Public Works,1743,21.8,True
+417,Capri Neighborhood,1464,18.3,True
+1059,Linton Oaks Neighborhood @ SW 64th Terrace,1260,15.7,True
+1625,SW 6th St & SW 3rd Ave (southbound),546,6.8,True
+807,University Village South Apartments,183,2.3,False
+425,Eastbound NW 39th Ave at NW 19th St Green Tree Pk,1043,13.0,True
+1496,Family Dollar Shopping Center,867,10.8,True
+1259,Sunco @ E University Avenue,1393,17.4,True
+334,Southbound SE 35th Street @ SE 20th Avenue,2018,25.2,True
+1552,Circle K @ Newberry/Tower Road,1168,14.6,True
+350,Fast Eddie's Restaurant,925,11.6,True
+1005,Springhill Professional Center,3936,49.2,True
+15,Center Dr @ Museum Rd,153,1.9,False
+1318,GRACE Marketplace,953,11.9,True
+920,GRU Administration Building,330,4.1,False
+1395,Southbound NW 55th ST @ NW 9th LN,1010,12.6,True
+846,Lakeside Residential Complex,575,7.2,True
+598,Eastside Plaza,1002,12.5,True
+1109,Tower 24 Shopping Center,1155,14.4,True
+791,Oakbrook Walk Condominiums @ SW 16th Avenue,870,10.9,True
+971,US Post Office @ SW 34th Street,1958,24.5,True
+1269,Archer Court Apartments,997,12.5,True
+1321,The Enclave Apartments,1102,13.8,True
+828,Rockwood Villas Apartments,1104,13.8,True
+855,Walgreens @ NE 3rd Avenue,546,6.8,True
+1010,Huntington Lakes Apartments,1942,24.3,True
+835,Kensington Apartments South,815,10.2,True
+969,UF Health Professional Park,2387,29.8,True
+472,Rawlings Hall,185,2.3,False
+801,UF Bat Houses,727,9.1,True
+242,McDonald's @ NW 13th Street,1086,13.6,True
+1484,Varsity House Apartments @ SW 38th Ter,908,11.4,True
+1023,Suburban Heights Neighborhood,1718,21.5,True
+994,Faith Presbyterian Church,2120,26.5,True
+329,Chevron Food Mart @ SE 43rd Street,2105,26.3,True
+136,SE 4th Street @ SE 10th Ave,349,4.4,False
+945,Ridgemar Commons,943,11.8,True
+1024,Landmark Woods Neighborhood,1699,21.2,True
+555,Eastbound E University Avenue @ SE 8th Street,523,6.5,True
+128,Southbound SE 15th Street @ SE 14th Avenue,1207,15.1,True
+45,University Police Department,220,2.7,False
+968,Hideaway Apartments,2334,29.2,True
+386,Forest of the Unicorn Neighborhood,1701,21.3,True
+1068,CVS Pharmacy @ SW 75th Street,1398,17.5,True
+131,Westbound SE 22nd Avenue @ SE 13th Street,747,9.3,True
+740,Stephen Foster Elementary School @ 39th Ave,1430,17.9,True
+1363,Shands Parking Garage,270,3.4,False
+910,UF Health Family Medicine Eastside,399,5.0,False
+1616,SW 24th Avenue & School House Road,1260,15.8,True
+295,Williams Elementary School,1329,16.6,True
+569,Duval Elementary School,462,5.8,True
+456,Arbor Park Apartments,2058,25.7,True
+390,NW 39th Avenue @ NW 34th Street,1962,24.5,True
+285,Santa Fe Blount Center,714,8.9,True
+1502,Northbound Metcalfe Elementary School,700,8.8,True
+1398,Westbound SW 24th AVE @ SW 75th ST,1357,17.0,True
+845,Lakeside,494,6.2,True
+822,Palm Garden of Gainesville,810,10.1,True
+90,Lincoln Estate Neighborhood,1468,18.4,True
+1276,Paddock Club Apartments,2310,28.9,True
+737,Wawa @ NW 13th St,889,11.1,True
+686,CDS Family and Behavioral Services,720,9.0,True
+190,The Wynwood Apartments,1025,12.8,True
+60,SE 4th Street @ SE 10th Avenue,342,4.3,False
+586,Pine Meadows Apartments,215,2.7,False
+965,Gator Corner Dining,362,4.5,False
+749,Village Green Apartments,385,4.8,False
+635,BLVD Gainesville,862,10.8,True
+358,The Cotton Club,667,8.3,True
+331,Eastside Food Store,1418,17.7,True
+500,NW 27th Terrace @ NW 16th Avenue,923,11.5,True
+1240,Northbound NE 25th Street @ NE 3rd Place,579,7.2,True
+597,Sunrise Store @ SE 43rd Street,1446,18.1,True
+696,University Police Department,164,2.1,False
+689,Boardwalk Apartments,959,12.0,True
+1184,Weed Science Building,439,5.5,True
+314,Faith Missionary Church,1941,24.3,True
+761,Sandwich Inn @ NE 16th Ave,181,2.3,False
+149,West Univ Avenue @ NW 17th Street,122,1.5,False
+832,Liv Apartments,195,2.4,False
+1632,Inner Road Eastbound,163,2.0,False
+451,Lexington Crossing Apartments,1907,23.8,True
+1039,Kanapaha Station Plaza,1746,21.8,True
+319,Northbound SE 35th Street @ SE 16th Avenue,1620,20.2,True
+172,Oaks Mall SW 62nd Blvd,303,3.8,False
+372,Lux 13 Apartments,840,10.5,True
+735,Rena's Ballroom,1376,17.2,True
+488,Countryside at the University Apartments,2282,28.5,True
+642,University Terrace Condominiums,1141,14.3,True
+1300,Gainesville Jrs. Volleyball Club,806,10.1,True
+421,Walnut Creek Neighborhood,1808,22.6,True
+524,Quail Ridge Neighborhood,2090,26.1,True
+164,Millennium Center,1296,16.2,True
+1618,Queen of Peace Church,1664,20.8,True
+1122,Westgate Manor Park,1881,23.5,True
+1017,Radiant Credit Union,2313,28.9,True
+1040,Town & Country Veterinarians,1795,22.4,True
+954,Enclave Apartments,1243,15.5,True
+200,Anderson Hall,109,1.4,False
+43,Center Dr @ Museum Rd,136,1.7,False
+313,Lana's Place,1933,24.2,True
+869,Fair View Apartments,440,5.5,True
+1168,Northwood Oaks Neighborhood,845,10.6,True
+1491,Lowe's @ Butler Plaza Eastbound,213,2.7,False
+1135,Shands Visitor Parking,251,3.1,False
+221,Family Acupuncture Center,971,12.1,True
+707,Pine Grove Apartments,432,5.4,True
+1497,Alachua School Bus Parking Lot,1123,14.0,True
+1121,SunState,1783,22.3,True
+1091,Home Depot @ NW 4th Boulevard,720,9.0,True
+315,Eastbound SE 21st Avenue @ SE 32nd Terrace,1967,24.6,True
+1324,Sorority Row,409,5.1,True
+730,Southbound NW 6th Street @ NW 32nd Place,1949,24.4,True
+1237,Museum Walk Apartments,620,7.8,True
+1000,The Arc,3568,44.6,True
+147,Target Copy @ W University Avenue,210,2.6,False
+1041,Bank of America @ Tower Square on Archer Road,1915,23.9,True
+423,Palmetto Woods Neighborhood,1415,17.7,True
+57,Hippodrome Theatre,277,3.5,False
+803,UF Counseling and Wellness Center,444,5.6,True
+309,Alachua County Sheriff's Office,820,10.2,True
+1181,UF Orthopaedics Institute,527,6.6,True
+1279,Hidden Oak Elementary School,3144,39.3,True
+927,Ben Hill Griffin Stadium North End Zone,370,4.6,False
+61,Dignity Project,577,7.2,True
+1405,Eastbound SW 24th AVE @ SW 84th ST,1702,21.3,True
+64,Sugarhill Neighborhood @ SE 4th Street,182,2.3,False
+113,Southbound SE 15th Street @ SE 7th Avenue,1409,17.6,True
+10,Norman Hall,377,4.7,False
+1044,Kanapaha Middle School,1187,14.8,True
+1330,Alachua County Jail (Westbound),733,9.2,True
+1009,Faith Presbyterian Church,2140,26.7,True
+808,Hilton University of Florida Conference Center,477,6.0,True
+1394,Southbound NW 55th ST @ NW 14th AVE,1344,16.8,True
+197,Ben Hill Griffin Stadium,317,4.0,False
+215,Williams Fellowship Hall,1091,13.6,True
+990,Magnolia Park Neighborhood,1548,19.4,True
+496,Forest Ridge Neighborhood,825,10.3,True
+1254,Gator Corner Dining Facility @ Gale Lemerand,300,3.7,False
+308,Eastbound Hawthorne Road @ SE 26th Street,790,9.9,True
+746,Eden Park Apartments,873,10.9,True
+1018,CVS @ Millhopper,2201,27.5,True
+1144,Fraternity Row,976,12.2,True
+900,16th Avenue Detailing & Window Tinting,547,6.8,True
+544,NW 16th Avenue @ NW 20th Way,690,8.6,True
+1622,SW 6th St nearside SW 5th Ave,327,4.1,False
+1460,Enclave 3,1315,16.4,True
+1474,Renaissance Jewelers,1063,13.3,True
+667,Summit House Condominiums,846,10.6,True
+12,Norman Field @ SW 8th Avenue,189,2.4,False
+608,Northbound NE 25th Street @ NE 6th Avenue,814,10.2,True
+949,Lexington Crossing Apartments,1847,23.1,True
+877,Quick Mart @ NE 15th Street,751,9.4,True
+1111,Kenwood Neighborhood,288,3.6,False
+366,University House Apartments,903,11.3,True
+617,Westbound NE 8th Avenue @ NE 23nd Street,773,9.7,True
+999,Northridge Neighborhood,3781,47.3,True
+156,West University Ave @ NW 28th St,1118,14.0,True
+815,Daily Mart,183,2.3,False
+191,Westgate Plaza,1080,13.5,True
+1248,Parkside II Apartments,419,5.2,True
+1275,Westbound Newberry Road @ Fort Clarke Boulevard,2135,26.7,True
+1083,Cricket Club Apartments,1437,18.0,True
+239,Publix @ NW 39th Avenue,1098,13.7,True
+420,Vida Springs Church,2141,26.8,True
+902,Department of Children and Families,541,6.8,True
+258,M&E Auto Specialists,1391,17.4,True
+752,NE 15th Street @ NE 26th Avenue,99,1.2,False
+917,Westbound SE 4th Avenue @ SE 8th Street,630,7.9,True
+339,Northbound SE 27th Street @ SE 15th Avenue,1446,18.1,True
+636,Greenwich Green Apartments,960,12.0,True
+1379,Westbound NW 39th AVE @ NW 10th ST,1189,14.9,True
+324,Eastside High School,1847,23.1,True
+38,University Commons,951,11.9,True
+336,Faith Missionary Church,1933,24.2,True
+1364,Southbound SE 19th TER @ SE 12th AVE,1576,19.7,True
+898,Rose Food Store,400,5.0,False
+89,Lincoln Estate Neighborhood,1597,20.0,True
+680,Bridge House,1320,16.5,True
+429,Glen Springs Apartments,1185,14.8,True
+1238,Sorority Row,403,5.0,True
+726,Bella Vista Village,1932,24.1,True
+20,Mt Vernon Apartments,1082,13.5,True
+100,GTEC,946,11.8,True
+560,Northbound NE 9th Street @ NE 8th Avenue,341,4.3,False
+523,Shenandoah Neighborhood,2387,29.8,True
+692,Village Square,1291,16.1,True
+1006,Robin Lane Neighborhood,3218,40.2,True
+643,Ridgemar Apartments,835,10.4,True
+399,The Home Depot @ NW 53rd Avenue,456,5.7,True
+1469,Eastbound University Avenue @ SW 23rd DR,1214,15.2,True
+1026,Holy Faith Catholic Church,1576,19.7,True
+132,Westbound SE 22nd Avenue @ SE 12th Street,516,6.4,True
+1084,Reflections Apartments,1255,15.7,True
+1192,Turlington Hall,61,0.8,False
+55,Second Avenue Center Apartments,505,6.3,True
+850,GRU Administration Building,324,4.0,False
+402,ABC Liquor Store @ NW 34th Street,241,3.0,False
+992,Tire Plus @ NW 39th Avenue,1756,22.0,True
+4,The Continuum,498,6.2,True
+320,Kangaroo @ SE 35th Street,1431,17.9,True
+1504,PPG Paints Store,788,9.8,True
+1079,Westbound SW 8th Avenue @ SW 70th Terrace,1365,17.1,True
+185,SIMED Health,1174,14.7,True
+721,NE 39th Ave WB Farside NE 15th St,825,10.3,True
+738,Green Oak Villa,1111,13.9,True
+1138,Arbor Apartments,2081,26.0,True
+1459,Kensington South @ 38th Terrace,915,11.4,True
+585,Eastbound SE 25th Terrace @ E University Avenue,389,4.9,False
+427,Altrusa House of Gainesville,1377,17.2,True
+1312,Depot Ave nearside SW 3rd St,310,3.9,False
+1283,Ft Clarke Middle School,3355,41.9,True
+966,Weimer Hall,122,1.5,False
+755,Highland Court Manor Neighborhood @ NE 23rd Avenue,550,6.9,True
+729,Southbound SW 6th Street @ NW 36th Avenue,1744,21.8,True
+1630,SW 32nd Rd @ The Vibe (Westbound),440,5.5,True
+166,Gainesville Health & Fitness,1646,20.6,True
+303,Alachua County School Board Administration Annex,758,9.5,True
+335,Westbound SE 21st Avenue @ SE 32nd Terrace,1960,24.5,True
+1377,CVS - NW 39th Ave @ NW 13th St,963,12.0,True
+159,Fire Station @ W University Ave,984,12.3,True
+1612,Town of Tioga,5460,68.3,True
+1001,Santa Fe College @ NW 83rd Street,3279,41.0,True
+482,University of Florida Energy Research,1464,18.3,True
+1447,Gardenia Gardens,34,0.4,False
+133,Gainesville Housing Authority,180,2.3,False
+1072,Sparrow Apartments,1604,20.0,True
+1560,Eastwood Meadows,1754,21.9,True
+1392,Northbound NW 55th St @ NW 9th Ln,1027,12.8,True
+108,SE 24th Street at Hawthorne Road,759,9.5,True
+502,Zion Evangelical Lutheran Church,570,7.1,True
+1113,Tower Village,608,7.6,True
+1193,Rawlings Hall,147,1.8,False
+776,Spring Hill Church,388,4.8,False
+223,NW 6th St NW 21st Ln,1135,14.2,True
+724,Westbound NE 39th Ave at Main St - Gsville Nissan,1780,22.3,True
+623,Westbound NE 13th Street @ NE 8th Avenue,281,3.5,False
+510,Suburban Apartments,2370,29.6,True
+1381,Publix - NW 39th AVE @ NW 13th ST,963,12.0,True
+1626,SW 43rd St @ Cracker Barrel,905,11.3,True
+1209,Oxford Terrace Apartments,236,2.9,False
+408,Northbound NW 23rd Terrace @ US Hwy 441,962,12.0,True
+913,Southbound SE 11th Street @ SE 2nd Avenue,883,11.0,True
+768,Friends of the Library Alachua County,599,7.5,True
+382,Ridgeview Baptist Church,1308,16.4,True
+783,Chevron Gas Station @ Williston Road,335,4.2,False
+1601,Markets West (Eastbound),2151,26.9,True
+1631,Inner Road Westbound,148,1.9,False
+909,Episcopal Children's Services,331,4.1,False
+248,Gainesville High School,963,12.0,True
+238,CVS @ NW 13th Street,825,10.3,True
+1103,Tower Hill,1154,14.4,True
+868,Gainesville Christian Center,577,7.2,True
+1592,Pizza Hut Archer Rd Eastbound,395,4.9,False
+1359,Gainesville Healthcare Center,682,8.5,True
+1284,Ft Clarke Middle School,3328,41.6,True
+1384,Metrocorp Center,1404,17.5,True
+13,Beaty Towers,79,1.0,False
+1174,Lacrosse Field,341,4.3,False
+739,Eastbound NW 39th Avenue @ NW 10th Street,1246,15.6,True
+134,Norwood Neighborhood (North),440,5.5,True
+1007,Unicorn Hill Farm,2780,34.7,True
+733,Bel Air Apartments,1511,18.9,True
+280,American Auto Insurance,1045,13.1,True
+563,MLK Center and Citizens Field,290,3.6,False
+489,Southbound SW 23rd Street @ Williston Road,2323,29.0,True
+682,Budget Inn,1259,15.7,True
+1555,Marshall's @ Plaza Blvd,479,6.0,True
+469,Commuter Lot Parking Garage @ Gale Lemerand,262,3.3,False
+1495,Passage Family Church,404,5.0,True
+1499,NE 15th St @ NE 3rd Ave Nearside,595,7.4,True
+1126,Haystacks Housing Complex,1461,18.3,True
+452,Gainesville Place Apartments @ SW 35th Place,1525,19.1,True
+797,Hume Hall,406,5.1,True
+323,Chevron Food Mart @ SE 43rd Street,2115,26.4,True
+473,Reitz Union,100,1.2,False
+28,Bonefish Grill Seafood Restaurant @ Butler Plaza,161,2.0,False
+196,Pressly Stadium,875,10.9,True
+683,Meridian Behavioral Healthcare (Northbound),1147,14.3,True
+1505,Planned Furnishings,697,8.7,True
+66,Eastbound SE 22nd Avenue @ SE 12th Street,553,6.9,True
+849,Hume Hall (Eastbound),386,4.8,False
+1067,Carriage House Lane,1337,16.7,True
+664,UF Health Shands North Tower,534,6.7,True
+165,Orthopedic Institute,1498,18.7,True
+171,Oaks Mall @ NW 62nd Blvd,206,2.6,False
+619,Bartley Temple United Methodist Church,316,4.0,False
+661,Seacoast Bank @ SW 37th Boulevard,659,8.2,True
+742,Bella Vista Village Eastbound,1960,24.5,True
+985,Thorn Brook Shops,2194,27.4,True
+1455,North Walmart Supercenter,330,4.1,False
+786,Sweetwater on 16th Apartments (Northbound),787,9.8,True
+1378,Westbound NW 39th AVE @ NW 12th ST,1071,13.4,True
+1374,Westbound NW 39th AVE @ NW 19th TER,1026,12.8,True
+1078,Gordon Manor Neighborhood,1310,16.4,True
+703,US Post Office @ Main St,344,4.3,False
+1273,SW 38th Terr nearside SW 20th Ave,919,11.5,True
+827,Lakewood Villas Apartments,1390,17.4,True
+316,SE 35th St @ SE 21st Avenue,2039,25.5,True
+384,Girls Place of Alachua County,1213,15.2,True
+44,Frazier Rogers Hall (Eastbound),56,0.7,False
+1473,Fire Station,889,11.1,True
+837,The Park Apartments,974,12.2,True
+753,Smokey Bear Park,95,1.2,False
+956,Old Archer Road @ SW 34th Street,686,8.6,True
+387,Walnut Creek Neighborhood,1790,22.4,True
+433,Brookwood Terrace,411,5.1,True
+1373,CVS @ SW 13th St,932,11.7,True
+485,Southwood Apartments,2283,28.5,True
+243,Verizon Shop,951,11.9,True
+1548,Sam's Club,483,6.0,True
+1581,Brain Institute Northbound,320,4.0,False
+208,Bo Diddley Community Plaza,107,1.3,False
+405,Pine Ridge Apartments,586,7.3,True
+591,Compassionate Outreach,1463,18.3,True
+1439,Cohens Temple,387,4.8,False
+432,Cobblestone Apartments,612,7.7,True
+1556,The Ridge @ SW 38th TER southbound,718,9.0,True
+1062,Linton Oaks Neighborhood @ SW 61st Street,1510,18.9,True
+455,Casablanca East Apartments,1817,22.7,True
+374,UF Health Homecare,478,6.0,True
+962,Keys Residential Complex,738,9.2,True
+439,NW 13th St @ Nearside NW 3rd Pl Southbound,485,6.1,True
+1277,Legacy @ Fort Clarke Apartments,2630,32.9,True
+217,Big Ron's Yoga,1043,13.0,True
+107,Health Department,729,9.1,True
+825,The Earl Apartments,773,9.7,True
+416,Pizza Hut @ NW 34th Street,1398,17.5,True
+337,Lana's Place,1927,24.1,True
+704,Kangaroo @ N Main St,283,3.5,False
+36,Capstone Quarters Apartments,968,12.1,True
+161,Plaza Royale,847,10.6,True
+1061,Linton Oaks Neighborhood @ SW 63rd Terrace,1247,15.6,True
+146,Holiday Inn @ W University Avenue,341,4.3,False
+188,Regal Royal Park Stadium 16,805,10.1,True
+468,Parking & Transportation Services,349,4.4,False
+6,720 SW 2nd Ave,698,8.7,True
+127,Lincoln Estates Neighborhood,1349,16.9,True
+925,The HUB,34,0.4,False
+142,Seagle Building,577,7.2,True
+220,Medical Marijuana Treatment Center,895,11.2,True
+587,Fred Cone Park,72,0.9,False
+109,Phase III Supply,1001,12.5,True
+129,McPherson Recreational Center,1015,12.7,True
+85,Lincoln Estate Neighborhood,1364,17.1,True
+343,Dollar General,802,10.0,True
+67,Eastbound SE 22nd Avenue @ SE 13th Street,737,9.2,True
+116,Waldo Rd @ SE 7th Avenue,1050,13.1,True
+723,Highland Court,1104,13.8,True
+1285,Southbound Fort Clarke Boulevard @ Eagle Point,2879,36.0,True
+249,NW 16th Ave NW 13th St,949,11.9,True
+186,Life South Blood Center,1055,13.2,True
+728,Stephen Foster Elementary School,1559,19.5,True
+851,Eastbound SE 4th Avenue @ SE 8th Street,624,7.8,True
+16,Shands Hospital @ Center Drive,231,2.9,False
+1008,Greystone Community,2438,30.5,True
+332,Southbound SE 35th Street @ SE 16th Avenue,1617,20.2,True
+1542,The Polos Southwest Entrance,2270,28.4,True
+953,Gainesville Place Apartments,1340,16.8,True
+515,Hickory Woods Neighborhood,2020,25.3,True
+1614,Celebration Pointe SW 45th St & SW 31st Pl,605,7.6,True
+543,Forest Ridge Neighborhood,873,10.9,True
+715,Smokey Bear Park,85,1.1,False
+260,Auto Zone @ NW 13th Street,910,11.4,True
+790,Parklands Care Center,920,11.5,True
+434,Direct Auto Insurance,1215,15.2,True
+311,Southbound SE 27th Street @ SE 15th Avenue,1446,18.1,True
+1478,Tractor Supply Co @ NW 53rd Avenue,463,5.8,True
+229,Northbound NW 6th Street @ NW 36th Avenue,1741,21.8,True
+762,Brakes 4 Less,296,3.7,False
+553,Downtown Library,65,0.8,False
+1400,Westbound SW 24th AVE @ SW 84th ST,1678,21.0,True
+1027,Best Buy @ Butler Plaza,467,5.8,True
+820,Spyglass Apartments,1441,18.0,True
+592,Lake Forest Trails Neighborhood,1515,18.9,True
+1286,Legacy @ Fort Clarke Apartments,2614,32.7,True
+532,NW 23rd Ave @ NW 43rd St,2222,27.8,True
+1388,Sable Chase Neighborhood,1810,22.6,True
+1500,NE 15th St @ NE 7th Ave,294,3.7,False
+3,Westbound SW 2nd Avenue @ SW 2nd Street,336,4.2,False
+788,Aldi @ SW 16th Avenue,912,11.4,True
+678,Residence Inn,952,11.9,True
+189,Center for Independent Living,859,10.7,True
+1050,Bellamy Grand,1095,13.7,True
+602,Pine Meadows Apartments,265,3.3,False
+1035,Kanapaha Botanical Gardens,1990,24.9,True
+810,Campus USA,760,9.5,True
+1053,Galen College of Nursing,1406,17.6,True
+479,Campus Edge Condominiums,948,11.9,True
+403,Kangaroo Gas @ NW 34th Street,247,3.1,False
+1236,Cabana Beach Apartments (SW 52nd St),583,7.3,True
+385,Sonic Drive In,1470,18.4,True
+816,Canopy Apartments,94,1.2,False
+1012,Autumn Woods Neighborhood,1657,20.7,True
+1047,Vet Mem PK,344,4.3,False
+522,The Pentecostals of Gainesville,2591,32.4,True
+818,Redpoint Apartments,804,10.1,True
+364,Publix @ NW 13th St and W Univ Ave,449,5.6,True
+301,Eastbound University Avenue @ SE 15th Street,755,9.4,True
+795,The Retreat Apartments,934,11.7,True
+1102,Advance Auto Parts,1113,13.9,True
+225,Northbound NW 6th Street @ NW 26th Avenue,1476,18.5,True
+701,CVS Pharmacy @ N Main Street,608,7.6,True
+1221,Eastbound NW 23rd Avenue @ NW 13th Street,923,11.5,True
+368,LifeSouth Community Blood Center @ NW 13th Street,1273,15.9,True
+322,E Hawthorne Road @ SE 39th Terrace,1862,23.3,True
+1274,Krystal @ Newberry Road,1374,17.2,True
+418,Southbound NW 34th Street @ NW 41st Avenue,1734,21.7,True
+56,Eastbound SW 2nd Ave @ SW 2nd St,320,4.0,False
+380,Kiwanis Park,1472,18.4,True
+819,Rockwood Villas Apartments,1175,14.7,True
+915,Triangle Club,952,11.9,True
+437,All Star Automotive,798,10.0,True
+669,Liv+ Apartments 13th St,1092,13.7,True
+1223,Forest Meadows Funeral Home,1323,16.5,True
+538,Covenant Church,539,6.7,True
+1033,Westbound Archer Road @ SW 50th Street,1660,20.8,True
+481,University Commons,1121,14.0,True
+823,Hampton Oaks Apartments,495,6.2,True
+1326,UF Counseling and Wellness Center,426,5.3,True
+978,Lenox Place Apartments,1647,20.6,True
+1280,Hidden Oak Elementary School,3148,39.4,True
+1380,Westbound NW 39th AVE @ NW 7th ST,1367,17.1,True
+1165,Hills Mini Storage,1199,15.0,True
+122,Lincoln Estates,1322,16.5,True
+829,Forest View Apartments,850,10.6,True
+1185,Microbiology/Cell Science Building,486,6.1,True
+379,Northbound NW 21st Avenue @ NW 33rd Avenue,1227,15.3,True
+935,Westbound SW 2nd Avenue @ SW 30th Street,1138,14.2,True
+447,Hunters Run,2369,29.6,True
+1493,Butler Plaza Transfer Station,30,0.4,False
+143,Santa Fe College Charles L. Blount Center,662,8.3,True
+1239,Caroline Manor Affordable Housing,456,5.7,True
+529,First Church of the Nazarene,2381,29.8,True
+1022,Southbound NW 43rd Street @ NW 15th Place,1765,22.1,True
+754,NE 23rd Ave Farside NE 14th St Westbound,276,3.5,False
+1170,Pine Ridge Apartments,289,3.6,False
+516,Quail Ridge Neighborhood,2092,26.2,True
+1176,Fifield Hall,627,7.8,True
+490,The Polos Apartments,2496,31.2,True
+1125,Hailey Forest Condominiums,1668,20.8,True
+984,Millhopper Plaza,2018,25.2,True
+459,SW 23rd Terrace @ SW 35th Place,2208,27.6,True
+722,Eden Park at Ironwood,962,12.0,True
+168,Capital City Bank @ Newberry Road,1190,14.9,True
+1019,Millhopper Plaza,2026,25.3,True
+341,Alachua County Sheriffs Department,914,11.4,True
+571,Northbound NE 24th Street @ NE 8th Avenue,850,10.6,True
+662,McKnight Brain Institute,297,3.7,False
+1629,SW 43rd St @ Texas Roadhouse,878,11.0,True
+175,Oaks Mall SW 62nd Blvd,286,3.6,False
+84,Northbound SE 15th Street @ SE 13th Place,1256,15.7,True
+326,Eastwood Meadows,1764,22.0,True
+676,Chop Stix Cafe,745,9.3,True
+204,Innovation Square North,785,9.8,True
+1118,Arredondo Farms,1936,24.2,True
+1146,Beta Theta Pi across Springs,901,11.3,True
+478,IFAS Lab,983,12.3,True
+760,Wash King (Southbound),162,2.0,False
+1402,Westbound SW 87th Dr @ SW 91st St,1341,16.8,True
+153,Westbound University Avenue @ NW 22nd Street,906,11.3,True
+198,St. Augustine Catholic Church,74,0.9,False
+245,Plaza Verde @ NW 13th St Southbound,799,10.0,True
+1123,Broken Arrow Bluff Community,1984,24.8,True
+1222,Hearing Aid Gainesville,1205,15.1,True
+1105,Cricket Club Apartments,1442,18.0,True
+115,Williams Elementary School,1195,14.9,True
+465,Campus Edge Condominiums,958,12.0,True
+312,Durelle Heights Neighborhood,1719,21.5,True
+1428,FDOT Operations Center,1897,23.7,True
+1617,SW 24th Avenue & School House Road (Eastbound),1240,15.5,True
+292,The Cotton Club,649,8.1,True
+484,Towne Parc Apartments,2020,25.2,True
+511,First Church of the Nazarene,2402,30.0,True
+25,Westbound Archer Road @ SW 34th Street,791,9.9,True
+327,The Verdant Cove,1681,21.0,True
+158,Westgate Plaza,874,10.9,True
+1069,Sunrise Subdivision,1879,23.5,True
+205,The Continuum,613,7.7,True
+679,Meridian Behavioral Healthcare,1142,14.3,True
+446,UF Health Archer Road,469,5.9,True
+1042,Publix @ Tower Square on SW 75th Street,1935,24.2,True
+912,Waldo Road @ NE 1st Avenue,615,7.7,True
+1624,SW 6th St & SW 3rd Ave,522,6.5,True
+139,City Hall,192,2.4,False
+1396,Eastbound SW 24th Ave @ Majestic Oaks,1364,17.1,True
+830,Cabana Beach Apartments (SW 20th Ave),477,6.0,True
+981,Northbound NW 43rd Street @ NW 16th Place,1747,21.8,True
+972,Laurels Apartments,1694,21.2,True
+1287,Paddock Club Apartments,2319,29.0,True
+407,Hampton Court Apartments,969,12.1,True
+546,NW 16th Ave @ NW 13th St,987,12.3,True
+435,State Farm Insurance @ NW 13th Street,1339,16.7,True
+1268,Brandywine Apartments,952,11.9,True
+1305,Best Buy @ Butler Plaza,442,5.5,True
+1020,Southbound NW 43rd Street @ NW 19th Avenue,1903,23.8,True
+163,Allstate Insurance @ Newberry Road,1090,13.6,True
+457,Hickory Place Apartments,2241,28.0,True
+1004,Windsor Assisted Living,3747,46.8,True
+1048,Kanapaha Park,149,1.9,False
+1619,Queen of Peace Church (Eastbound),1899,23.7,True
+1628,SW 52nd St @ Cabana Beach,606,7.6,True
+18,Shands Hospital @ Davis Cancer Pavilion,578,7.2,True
+568,Mount Zion Church of God,305,3.8,False
+23,UF Surge Area Drive,904,11.3,True
+1186,Lakeside Residential Building,535,6.7,True
+199,Keene Flint Hall,125,1.6,False
+1097,Oaks Mall,438,5.5,True
+1014,Allstate Insurance,1549,19.4,True
+995,Summer Creek Neighborhood,2397,30.0,True
+1180,Southwest Recreation Center,63,0.8,False
+1593,Social Security NB NW 13th St,403,5.0,True
+1468,N Main Post Office,413,5.2,True
+293,Mt Moriah Baptist Church,914,11.4,True
+750,Southbound NE 15th Street @ NE 31 Avenue,346,4.3,False
+1481,Cancer/Genetics Research Complex,690,8.6,True
+588,Morningside Nature Center,697,8.7,True
+1595,UF Heart Health,479,6.0,True
+1066,KISS 105.3 FM Station,1419,17.7,True
+700,Fire Stone @ N Main Street,801,10.0,True
+362,Social 28 Apartments,176,2.2,False
+1594,AT&T Store @ NW 4th Place,229,2.9,False
+539,Brywood Neighborhood,942,11.8,True
+1117,Tower Square @ SW 75th Street,1884,23.6,True
+1503,Southbound Metcalfe Elementary School,723,9.0,True
+103,Northbound SE 24th Street @ E University Avenue,567,7.1,True
+1094,Clarion Inn,1129,14.1,True
+512,Northwest Baptist Church,2147,26.8,True
+1320,Airport,58,0.7,False
+763,Publix @ N Main Street,371,4.6,False
+637,Aspen Ridge Apartments,1010,12.6,True
+278,NW 6th Street & NW 16th Avenue,921,11.5,True
+297,Eastbound SE 7th Avenue @ SE 15th Street,1440,18.0,True
+520,Santa Fe,3268,40.8,True
+464,Mt Vernon Apartments @ SW 23rd Drive,991,12.4,True
+1093,Park Place Car Wash,998,12.5,True
+570,Eastbound NE 8th Avenue @ NE 22nd Street,674,8.4,True
+1235,NE Walmart Supercenter,133,1.7,False
+554,Salvation Army,337,4.2,False
+677,The Landings Apartments,798,10.0,True
+710,Pointe 23 Apartments,853,10.7,True
+207,Alachua County Office of the State Attorney,419,5.2,True
+501,NW 30th Terrace @ NW 16th Avenue,607,7.6,True
+495,Westbound NW 16th Avenue @ NW 20th Way,683,8.5,True
+361,Norman Hall,244,3.1,False
+365,Theory Apartments,659,8.2,True
+1322,Rocky Point Apartments,949,11.9,True
+448,Westbound SW 40th Place @ NW 26th Terrace,2252,28.2,True
+624,East End Eatery,192,2.4,False
+1304,Seacoast Bank @ Archer Road,610,7.6,True
+505,B'Nai Israel School & Day Care,1380,17.2,True
+745,Highland Court Manor,1060,13.3,True
+370,Gainesville High School,950,11.9,True
+857,Episcopal Children's Services Northbound,350,4.4,False
+1110,Tower Road Library,843,10.5,True
+986,Bank of America @ NW 43rd Street,2398,30.0,True
+926,Leigh Hall,81,1.0,False
+699,Alachua County Property Appraiser,618,7.7,True
+950,Lexington Crossing Apartments,1958,24.5,True
+720,Fearnside Family Services Center Northbound,569,7.1,True
+688,Tanglewood Apartments,754,9.4,True
+601,Fred Cone Park,89,1.1,False
+989,Pinewood Apartments,1463,18.3,True
+1179,Pressly Softball Stadium,332,4.2,False
+806,Southwest Recreation Center,77,1.0,False
+167,SunTrust Bank @ Newberry Road,1388,17.4,True
+422,Uptown Village Apartments,1654,20.7,True
+719,Village Green Apartments,369,4.6,False
+294,Tools for Schools,1062,13.3,True
+404,Pine Ridge Apartments,360,4.5,False
+8,Courtyard Apartments,377,4.7,False
+480,Mt Vernon Apartments,982,12.3,True
+878,Ironwood Golf Course,817,10.2,True
+378,Misty Oaks Apartments,1050,13.1,True
+357,SE 7th Avenue @ SE 10th Terrace,913,11.4,True
+412,Northwood Pines Neighborhood,580,7.2,True
+250,Gainesville High School Tennis Courts,791,9.9,True
+713,NE 23rd Avenue @ NE 11th Terrace,553,6.9,True
+162,Tire Kingdom @ Newberry Road,959,12.0,True
+1154,Graham Hall,257,3.2,False
+1252,Plaza Health and Rehab,1453,18.2,True
+936,Westgate Plaza,1062,13.3,True
+564,MLK Center,311,3.9,False
+376,Cobblestone Apartments,643,8.0,True
+177,Durant Estate,835,10.4,True
+176,Panera Bread @ Newberry Road,471,5.9,True
+148,Smathers Library,105,1.3,False
+557,Northbound NE 9th Street @ NE 3rd Avenue,558,7.0,True
+774,Treehouse Village Apartments,950,11.9,True
+867,16th Avenue Detailing & Window Tinting (Eastbound),543,6.8,True
+35,Silver Creek Apartments,1024,12.8,True
+406,Northbound NW 23rd Terrace @ NW 62nd Avenue,730,9.1,True
+813,Kensington Apartments North,725,9.1,True
+1302,Greenwich Green Apartments,944,11.8,True
+1288,Eastbound Newberry Road @ Fort Clarke Boulevard,2089,26.1,True
+974,Dollar General,1355,16.9,True
+1099,SUBWAY@ Newberry RD,439,5.5,True
+333,Southbound Se 35th Street @ SE 18th Avenue,1806,22.6,True
+1065,Tower Oaks Glenn Apartments,1925,24.1,True
+34,Direct Insurance @ Archer Road,816,10.2,True
+1407,Eastbound SW 24th AVE @ SW 76th ST,1333,16.7,True
+581,Southbound NE 25th Street @ NE 3rd Place,608,7.6,True
+727,Oasis Carwash,1727,21.6,True

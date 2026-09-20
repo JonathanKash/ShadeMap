@@ -50,6 +50,7 @@ jobs:
           python src/lst.py
           python src/lst.py canopy
           python src/nearest_shelter.py
+          python src/water.py
           python src/shade_need.py
           python src/score.py
           python src/route_ranking.py

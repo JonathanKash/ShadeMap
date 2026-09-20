@@ -68,6 +68,7 @@ not ranked; the reason is in the last column. Raw CSVs and method are in the
     { k: "lst_f", t: "Summer temp (F)", num: true },
     { k: "green", t: "Green cover", num: true },
     { k: "shelter", t: "Shelter (OSM)" },
+    { k: "water", t: "Fountain walk (min)", num: true },
     { k: "need_rank", t: "Needs-shade rank", num: true },
     { k: "district", t: "District" },
     { k: "links", t: "" },
@@ -125,6 +126,7 @@ not ranked; the reason is in the last column. Raw CSVs and method are in the
         "<td>" + (s.lst_f != null ? s.lst_f : "") + "</td>" +
         "<td>" + (s.green != null ? s.green + "%" : "") + "</td>" +
         "<td>" + esc(s.shelter) + "</td>" +
+        "<td>" + (s.water != null ? (s.water <= 5 ? s.water : "over 5") : "") + "</td>" +
         "<td>" + (s.need_rank != null && s.need_rank <= 20 ? "#" + s.need_rank : "") + "</td>" +
         "<td>" + (s.district ? esc(s.district) : "") + "</td>" +
         '<td><a href="app.html?stop=' + encodeURIComponent(s.id) + '">map</a> &middot; ' +

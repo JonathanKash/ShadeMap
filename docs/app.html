@@ -709,6 +709,10 @@
       statCell(s.green != null ? s.green + "%" : "no data", "green cover within 100 m") +
       statCell(s.no_veh != null ? s.no_veh + "%" : "no data", "households with no car") +
       statCell(s.rank != null ? "#" + s.rank : "not ranked", "of " + window.APP_N_RANKED + " ranked stops") +
+      statCell(s.water == null ? "unknown" : (s.water <= 5 ? s.water + " min" : "over 5 min"),
+        "walk to a drinking fountain (per OSM, partial)") +
+      statCell(s.district ? "District " + esc(s.district) : "outside city",
+        "city commission district") +
       "</div>" +
       (wins[s.id] ? '<div class="card" style="background:#e6f4ea;border-color:#b7dfc0"><h3>Shade win</h3>' +
         "A shelter was added at this stop" + (wins[s.id].date ? " on " + esc(wins[s.id].date) : "") + "." +
@@ -1017,6 +1021,25 @@
       var note = document.querySelector(".legend .note");
       if (n && note) note.innerHTML += "<br><b style='color:#188038'>" + n +
         (n === 1 ? " stop has" : " stops have") + " gotten a shelter since this map launched.</b>";
+    }).catch(function () {});
+
+  // drinking fountains (OSM, partial coverage): small blue drops at close zoom
+  var fountainLayer = L.layerGroup();
+  fetch("fountains.json").then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (d) {
+      if (!d || !d.fountains) return;
+      d.fountains.forEach(function (f) {
+        L.circleMarker([f[0], f[1]], { radius: 4, color: "#0e7490", weight: 1.5,
+          fillColor: "#67e8f9", fillOpacity: 0.9 })
+          .bindPopup("Drinking fountain (per OpenStreetMap, coverage is partial)")
+          .addTo(fountainLayer);
+      });
+      function syncFountains() {
+        if (map.getZoom() >= 15) { if (!map.hasLayer(fountainLayer)) fountainLayer.addTo(map); }
+        else if (map.hasLayer(fountainLayer)) map.removeLayer(fountainLayer);
+      }
+      map.on("zoomend", syncFountains);
+      syncFountains();
     }).catch(function () {});
 
   // heat advisory banner (National Weather Service, keyless, fails silent)
