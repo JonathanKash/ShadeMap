@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Make the case for shade</title>
+<style>
+  :root { --ink: #0f172a; --muted: #475569; --line: #e2e8f0; --accent: #2563eb; --hot: #c5221f; }
+  * { box-sizing: border-box; }
+  body { font-family: "Public Sans", system-ui, "Segoe UI", Roboto, Arial, sans-serif; color: var(--ink);
+    max-width: 760px; margin: 0 auto; padding: 24px 20px 60px; line-height: 1.5; }
+  a { color: var(--accent); text-decoration: none; }
+  .toolbar { display: flex; gap: 10px; align-items: center; margin-bottom: 18px; }
+  .toolbar a, .toolbar button { font-size: 14px; }
+  .print-btn { background: var(--accent); color: #fff; border: 0; border-radius: 18px;
+    padding: 9px 20px; font-size: 14px; font-weight: 600; cursor: pointer; }
+  h1 { font-size: 24px; margin: 4px 0 2px; }
+  .sub { color: var(--muted); font-size: 14px; margin-bottom: 14px; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line);
+    border: 1px solid var(--line); border-radius: 10px; overflow: hidden; margin: 14px 0; }
+  .cell { background: #fff; padding: 10px 12px; }
+  .cell .v { font-size: 20px; font-weight: 700; }
+  .cell .l { font-size: 11.5px; color: var(--muted); }
+  .badge { display: inline-block; font-size: 12px; border-radius: 6px; padding: 3px 9px;
+    font-weight: 600; margin-right: 6px; }
+  .b-need { background: #111; color: #fff; }
+  .b-rank { background: #fce8e6; color: var(--hot); }
+  .photo { margin: 14px 0; }
+  .photo img { max-width: 100%; max-height: 340px; border-radius: 10px; display: block; }
+  .photo figcaption { font-size: 11.5px; color: var(--muted); margin-top: 4px; }
+  .box { border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; margin: 14px 0;
+    font-size: 14px; }
+  .box h2 { font-size: 15px; margin: 0 0 8px; }
+  blockquote { margin: 10px 0; padding: 8px 14px; border-left: 3px solid var(--accent);
+    color: var(--muted); font-size: 13.5px; }
+  .fine { font-size: 11.5px; color: var(--muted); margin-top: 22px; border-top: 1px solid var(--line);
+    padding-top: 10px; }
+  @media (max-width: 560px) { .grid { grid-template-columns: 1fr 1fr; } }
+  @media print {
+    .toolbar { display: none; }
+    body { padding: 0; max-width: none; }
+    a { color: var(--ink); }
+    .photo img { max-height: 300px; }
+  }
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <a href="app.html">&larr; Back to the map</a>
+  <span style="flex:1"></span>
+  <button class="print-btn" onclick="window.print()">Print or save as PDF</button>
+</div>
+<div id="doc"><p>Loading stop data...</p></div>
+
+<script src="config.js"></script>
+<script>
+(function () {
+  "use strict";
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+  var cfg = window.SHADEMAP_CONFIG || {};
+  var BASE = (cfg.supabaseUrl || "").replace(/\/+$/, "");
+  var KEY = cfg.supabaseAnonKey || "";
+  var id = new URLSearchParams(location.search).get("stop");
+  var doc = document.getElementById("doc");
+
+  Promise.all([
+    fetch("app_data.json").then(function (r) { return r.json(); }),
+    fetch("commissioners.json").then(function (r) { return r.json(); }).catch(function () { return null; })
+  ]).then(function (res) {
+    var data = res[0], com = res[1];
+    var s = data.stops.find(function (x) { return x.id === id; });
+    if (!s) { doc.innerHTML = "<p>Stop not found. Open this page from a stop on <a href='app.html'>the map</a>.</p>"; return; }
+    document.title = "Make the case for shade at " + s.name;
+
+    var badges = "";
+    if (s.need_rank != null && s.need_rank <= 20) badges += '<span class="badge b-need">#' + s.need_rank + " of the 20 stops that need shade most</span>";
+    if (s.rank != null && s.rank <= 20) badges += '<span class="badge b-rank">Priority #' + s.rank + " citywide</span>";
+
+    var who = "";
+    if (com) {
+      var lines = [];
+      if (s.district && com.districts[s.district]) {
+        var d = com.districts[s.district];
+        lines.push("<b>" + esc(d.name) + "</b>, " + esc(d.title) + " (this stop is in District " + esc(s.district) + ")");
+      } else {
+        lines.push("This stop sits outside the four city commission districts, so start with the at-large members and RTS.");
+      }
+      com.at_large.forEach(function (a) { lines.push(esc(a.name) + ", " + esc(a.title)); });
+      lines.push(esc(com.mayor.name) + ", " + esc(com.mayor.title));
+      who =
+        '<div class="box"><h2>Who represents this stop</h2>' + lines.join("<br>") +
+        "<br><br>City Commission: <a href=\"mailto:" + esc(com.shared_email) + "\">" + esc(com.shared_email) +
+        "</a> or " + esc(com.shared_phone) +
+        "<br>RTS Customer Service: 352-334-2600 &middot; Service requests: <a href='https://www.mygnv.org'>myGNV.org</a>" +
+        '<br><span style="font-size:11.5px;color:var(--muted)">Names checked ' + esc(com.as_of) +
+        ". Seats change at elections, verify at gainesvillefl.gov before sending.</span></div>";
+    }
+
+    var ask =
+      '<div class="box"><h2>The ask</h2>' +
+      "Add " + esc(s.name) + " to the shortlist for a shade structure. " +
+      "RTS states that stop improvements weigh safety and accessibility first, then how many people use the stop." +
+      "<blockquote>“RTS strives to continually improve all bus stops” and decisions prioritize " +
+      "“safety and accessibility concerns first and then how many people use the stop.” " +
+      "(go-rts.com, Frequently Asked Questions)</blockquote>" +
+      "The numbers above are exactly that evidence: measured summer heat, daily service, no confirmed shelter, " +
+      "and the share of nearby households with no car alternative.</div>";
+
+    var photoBox = "";
+    doc.innerHTML =
+      "<h1>Make the case for shade at " + esc(s.name) + "</h1>" +
+      '<div class="sub">RTS stop ' + esc(s.id) + (s.routes.length ? " &middot; Route" + (s.routes.length > 1 ? "s" : "") + " " + esc(s.routes.join(", ")) : "") +
+      (s.district ? " &middot; City Commission District " + esc(s.district) : "") + "</div>" +
+      badges +
+      '<div class="grid">' +
+      '<div class="cell"><div class="v">' + (s.lst_f != null ? s.lst_f + "&deg;F" : "n/a") + '</div><div class="l">average summer surface temperature within 100 m (NASA Landsat, 2026)</div></div>' +
+      '<div class="cell"><div class="v">' + s.trips + '</div><div class="l">bus visits on a typical weekday</div></div>' +
+      '<div class="cell"><div class="v">' + (s.green != null ? s.green + "%" : "n/a") + '</div><div class="l">green cover within 100 m (satellite, 10 m)</div></div>' +
+      '<div class="cell"><div class="v">' + (s.no_veh != null ? s.no_veh + "%" : "n/a") + '</div><div class="l">households with no vehicle in this census tract</div></div>' +
+      "</div>" +
+      '<p>Shelter at this stop according to OpenStreetMap: <b>' +
+      (s.shelter === "none" ? "none" : s.shelter === "sheltered" ? "sheltered" : "unknown") + "</b>." +
+      (s.shelter === "unknown" ? " Unknown means no one has confirmed either way, which is itself part of the problem." : "") + "</p>" +
+      '<figure class="photo" id="photo" hidden><img id="photo-img" alt="Photo of this bus stop"><figcaption id="photo-cap"></figcaption></figure>' +
+      ask + who +
+      '<div class="fine">Generated from <a href="https://jonathankash.github.io/ShadeMap/">ShadeMap Gainesville</a>, an independent volunteer analysis of public data (CityCamp Gainesville, September 2026). ' +
+      'Method, data sources and limitations: <a href="https://github.com/JonathanKash/ShadeMap">github.com/JonathanKash/ShadeMap</a>. ' +
+      'Not affiliated with the City of Gainesville or RTS. See <a href="disclosures.html">disclosures</a>.</div>';
+
+    // newest approved rider photo, if the photo backend is on
+    if (BASE && KEY) {
+      fetch(BASE + "/rest/v1/stop_reports?approved=eq.true&stop_id=eq." + encodeURIComponent(s.id) +
+        "&select=photo_path,taken_date,taken_time&order=taken_date.desc&limit=1",
+        { headers: { apikey: KEY, Authorization: "Bearer " + KEY } })
+        .then(function (r) { return r.ok ? r.json() : []; })
+        .then(function (rows) {
+          if (!rows.length || !/^[0-9a-f-]{36}\.jpg$/.test(rows[0].photo_path)) return;
+          var f = document.getElementById("photo");
+          document.getElementById("photo-img").src =
+            BASE + "/storage/v1/object/public/" + (cfg.bucket || "stop-photos") + "/" + rows[0].photo_path;
+          document.getElementById("photo-cap").textContent =
+            "Rider photo of this stop, taken " + rows[0].taken_date + " (reviewed before publication)";
+          f.hidden = false;
+        }).catch(function () {});
+    }
+  }).catch(function () {
+    doc.innerHTML = "<p>Could not load stop data. <a href='app.html'>Back to the map</a>.</p>";
+  });
+})();
+</script>
+</body>
+</html>

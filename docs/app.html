@@ -519,6 +519,103 @@
     });
   }
 
+  // ---- missing-stop suggestions --------------------------------------------
+  var suggestMode = false, suggestMarker = null;
+  function startSuggest() {
+    if (!UPLOADS_ON) { toast("Reporting is not switched on yet."); return; }
+    closePanel();
+    suggestMode = true;
+    document.getElementById("map").style.cursor = "crosshair";
+    toast("Tap the map exactly where the missing stop is.");
+  }
+  function endSuggest() {
+    suggestMode = false;
+    document.getElementById("map").style.cursor = "";
+    if (suggestMarker) { map.removeLayer(suggestMarker); suggestMarker = null; }
+  }
+  map.on("click", function (e) {
+    if (!suggestMode) return;
+    if (suggestMarker) map.removeLayer(suggestMarker);
+    suggestMarker = L.marker(e.latlng, { draggable: true }).addTo(map);
+    openSuggestModal();
+  });
+  function openSuggestModal() {
+    lastFocus = document.activeElement;
+    modalHost.innerHTML =
+      '<div class="up-card" role="dialog" aria-modal="true" aria-labelledby="sg-title">' +
+      '<button class="up-x" aria-label="Close">&times;</button>' +
+      '<h2 id="sg-title">Report a missing bus stop</h2>' +
+      '<p class="u-stop">Drag the marker to fine-tune the spot before sending.</p>' +
+      '<form id="sg-form" novalidate>' +
+      '<label class="l" for="sg-note">What is there? (required)</label>' +
+      '<textarea id="sg-note" name="note" maxlength="280" rows="3" placeholder="A stop sign and pole on the east side of the road, serves the mall entrance"></textarea>' +
+      '<label class="l" for="sg-routes">Routes that stop here, if you know (optional)</label>' +
+      '<input id="sg-routes" name="routes" type="text" maxlength="60" placeholder="For example 20, 75">' +
+      '<input class="u-hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">' +
+      '<p class="u-fine">Do not include personal information in the description. Suggestions are reviewed by a person before they appear, and the location you mark is the bus stop\'s, not yours.</p>' +
+      '<p class="u-status" id="u-status" role="status" aria-live="polite"></p>' +
+      '<div class="u-actions"><button type="button" class="u-cancel">Cancel</button>' +
+      '<button type="submit" class="u-send">Send suggestion</button></div>' +
+      "</form></div>";
+    modalHost.hidden = false;
+    modalHost.querySelector(".up-x").addEventListener("click", closeSuggest);
+    modalHost.querySelector(".u-cancel").addEventListener("click", closeSuggest);
+    modalHost.addEventListener("click", function (e) { if (e.target === modalHost) closeSuggest(); });
+    modalHost.querySelector("#sg-form").addEventListener("submit", submitSuggest);
+    modalHost.querySelector("#sg-note").focus();
+  }
+  function closeSuggest() { closeModal(); endSuggest(); }
+  function submitSuggest(ev) {
+    ev.preventDefault();
+    var f = modalHost.querySelector("#sg-form");
+    var send = modalHost.querySelector(".u-send");
+    if (f.website.value) { setStatus("Thank you. Your suggestion will be reviewed."); return; }
+    var note = f.note.value.trim();
+    if (note.length < 3) return setStatus("Describe what is at the stop first.", true);
+    if (!suggestMarker) return setStatus("Tap the map to place the stop first.", true);
+    var last = 0;
+    try { last = +localStorage.getItem("shademap_last_report") || 0; } catch (e) {}
+    if (Date.now() - last < COOLDOWN_MS) return setStatus("Please wait a few seconds before sending again.", true);
+    send.disabled = true;
+    setStatus("Sending...");
+    var ll = suggestMarker.getLatLng();
+    fetch(BASE + "/rest/v1/stop_suggestions", {
+      method: "POST",
+      headers: authHeaders({ "Content-Type": "application/json", Prefer: "return=minimal" }),
+      body: JSON.stringify({
+        lat: ll.lat, lon: ll.lng, note: note,
+        routes: f.routes.value.trim() || null
+      })
+    }).then(function (r) {
+      if (!r.ok) throw new Error("insert " + r.status);
+      try { localStorage.setItem("shademap_last_report", String(Date.now())); } catch (e) {}
+      setStatus("Thank you. Your suggestion was sent and will appear after review.");
+      send.disabled = false;
+      setTimeout(closeSuggest, 1800);
+    }).catch(function (e) {
+      if (window.console) console.error(e);
+      setStatus("Could not send. The feature may not be switched on yet, or check your connection.", true);
+      send.disabled = false;
+    });
+  }
+  // approved community-reported stops render as dashed blue markers
+  if (UPLOADS_ON) {
+    fetch(BASE + "/rest/v1/stop_suggestions?approved=eq.true&select=lat,lon,note,routes&limit=500",
+      { headers: authHeaders() })
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (rows) {
+        rows.forEach(function (x) {
+          var lat = parseFloat(x.lat), lon = parseFloat(x.lon);
+          if (!isFinite(lat) || !isFinite(lon)) return;
+          L.circleMarker([lat, lon], { radius: 6, color: "#2563eb", dashArray: "3 3",
+            fillColor: "#fff", fillOpacity: 0.9, weight: 2 })
+            .bindPopup("<b>Community-reported stop</b> (not yet in the transit data)<br>" +
+              esc(x.note) + (x.routes ? "<br>Routes: " + esc(x.routes) : ""))
+            .addTo(map);
+        });
+      }).catch(function () {});
+  }
+
   // ---- panel ---------------------------------------------------------------
   var panel = document.getElementById("panel");
 
@@ -574,6 +671,10 @@
       statCell(s.no_veh != null ? s.no_veh + "%" : "no data", "households with no car") +
       statCell(s.rank != null ? "#" + s.rank : "not ranked", "of " + window.APP_N_RANKED + " ranked stops") +
       "</div>" +
+      '<div class="card" style="background:var(--accent-soft);border-color:var(--accent-line)"><h3>Want shade here?</h3>' +
+      "Turn this stop's data into a one page case you can print, email to the city, or bring to a meeting. " +
+      'It names the commissioner for this stop\'s district.<br><br>' +
+      '<a class="add-btn" style="text-align:center;text-decoration:none" href="case.html?stop=' + encodeURIComponent(s.id) + '">Make the case for this stop</a></div>' +
       flagsHtml + reportHtml +
       '<div class="photos"><h3>Photos of this stop</h3><div id="ph-body"><div class="empty">Loading photos...</div></div></div>';
 
@@ -782,7 +883,12 @@
         '<div><div class="r-name">' + esc(s.name) + '</div><div class="r-sub">Routes ' +
         esc(s.routes.join(", ") || "none") + " &middot; " + s.trips + " visits/day</div></div></div>";
     }).join("") : '<div class="result"><div class="r-sub">No matching stops</div></div>';
+    results.innerHTML += '<div class="result" id="suggest-entry"><div class="r-sub">Know a stop we are missing? <b style="color:var(--accent-ink)">Report it on the map</b></div></div>';
     results.style.display = "block";
+    document.getElementById("suggest-entry").addEventListener("click", function () {
+      results.style.display = "none";
+      startSuggest();
+    });
     results.querySelectorAll(".result[data-id]").forEach(function (el) {
       el.addEventListener("click", function () {
         var s = byId[el.getAttribute("data-id")];
