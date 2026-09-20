@@ -179,6 +179,12 @@ assets/          screenshots and photos
 analysis.ipynb   the analysis, runs top to bottom
 ```
 
+## Team
+
+- **Jonathan Kashi** ([@JonathanKash](https://github.com/JonathanKash)): the satellite heat data (Landsat and ECOSTRESS), vegetation and shade-need lists, the app view, and the community and advocacy features.
+- **Lucas Fonte** ([@lucasfonte21](https://github.com/lucasfonte21)): the scoring, the classic map, the README, the analysis notebook, and the rider photo feature.
+- **Francisco Rodriguez** ([@moosiemessi](https://github.com/moosiemessi)): the RTS stops and service data, shelter matching, census equity data, the route ranking, the near and far from campus lists, the Shade planner, the impact and stability checks, and the front-end design.
+
 ## Data sources
 
 - Landsat 8 and 9 Collection 2 Level-2 (NASA / USGS), via Microsoft Planetary Computer
