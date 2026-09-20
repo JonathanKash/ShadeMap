@@ -1,0 +1,17 @@
+# Python 3.11+. Install: python -m venv .venv && .venv/bin/pip install -r requirements.txt
+pandas
+numpy
+geopandas
+pyogrio
+shapely
+pyproj
+requests
+folium
+matplotlib
+rasterstats
+rioxarray
+xarray
+odc-stac
+pystac-client
+planetary-computer
+jupyter
