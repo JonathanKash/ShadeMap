@@ -8,24 +8,25 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
   :root {
-    --bg: #ffffff; --panel: #f8fafc; --ink: #0f172a; --muted: #475569; --line: #e2e8f0;
-    --main: #2563eb; --main-dark: #1d4ed8; --need: #c64600; --none: #b71c1c; --unknown: #e08600; --sheltered: #2e7d32;
+    --bg: #ffffff; --panel: #f4f6f7; --ink: #1b2026; --muted: #4a5560; --line: #cdd3d8;
+    --main: #1b2026; --shade: #0e5a6b; --shade-dark: #0b4653; --sun: #ffb627; --need: #c64600; --none: #b71c1c; --unknown: #e08600; --sheltered: #2e7d32;
     --radius: 12px;
   }
-  /* self-hosted Public Sans, the US government civic typeface, clean numerals (fonts/LICENSE.txt) */
-  @font-face { font-family: "Public Sans"; font-style: normal; font-weight: 400 700; font-display: swap;
-    src: url(fonts/public-sans-var.woff2) format("woff2");
+  /* self-hosted Overpass, an open typeface derived from US highway-sign lettering (fonts/LICENSE.txt) */
+  @font-face { font-family: "Overpass"; font-style: normal; font-weight: 400 800; font-display: swap;
+    src: url(fonts/overpass-var.woff2) format("woff2");
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--ink);
-    font: 16px/1.5 "Public Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
+    font: 16px/1.5 "Overpass", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
   button, select, input, textarea { font-family: inherit; }
+  input[type=range], input[type=radio] { accent-color: var(--shade); }
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; } }
-  a { color: var(--main); }
+  a { color: var(--shade); }
   a:focus-visible, button:focus-visible, input:focus-visible, tr:focus-visible {
-    outline: 3px solid var(--main); outline-offset: 2px; }
+    outline: 3px solid var(--shade); outline-offset: 2px; }
   header { padding: 16px 16px 4px; max-width: 1200px; margin: 0 auto; }
-  h1 { font-size: 26px; line-height: 1.2; margin: 0 0 6px; }
+  h1 { font-size: 30px; font-weight: 800; line-height: 1.15; margin: 0 0 6px; }
   header p { margin: 0 0 8px; color: var(--muted); max-width: 70ch; }
   nav { font-size: 14px; margin-bottom: 6px; }
 
@@ -45,7 +46,7 @@
 
   .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
   .stat { background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 10px; }
-  .stat b { display: block; font-size: 24px; line-height: 1.2; }
+  .stat b { display: block; font-size: 26px; font-weight: 800; line-height: 1.2; font-variant-numeric: tabular-nums; }
   .stat span { color: var(--muted); font-size: 13px; }
   .routes-line { margin: 10px 0 0; color: var(--muted); font-size: 14px; }
 
@@ -59,9 +60,9 @@
   .dot { display: inline-block; width: 11px; height: 11px; border-radius: 50%; margin-right: 5px; vertical-align: -1px; border: 1px solid #fff; box-shadow: 0 0 0 1px #9aa5b1; }
 
   .actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 14px 0 8px; }
-  button.dl { background: var(--main); color: #fff; border: 0; border-radius: 10px; min-height: 44px; padding: 10px 18px;
+  button.dl { background: var(--shade); color: #fff; border: 0; border-radius: 8px; min-height: 44px; padding: 10px 18px;
     font-size: 16px; font-weight: 700; cursor: pointer; transition: background-color .15s ease; }
-  button.dl:hover { background: var(--main-dark); }
+  button.dl:hover { background: var(--shade-dark); }
 
   .tablewrap { max-height: 440px; overflow: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); }
   table { border-collapse: collapse; width: 100%; font-size: 14px; }
@@ -117,7 +118,7 @@
     <div class="card" style="margin-top:12px">
       <strong>How fast does it add up?</strong>
       <svg id="curve" viewBox="0 0 440 208" role="img" aria-label="Share of all weekday bus visits reached as more stops are sheltered, for both lists"></svg>
-      <div class="key"><span><i style="background:var(--main)"></i>Most people helped</span><span><i style="background:var(--need)"></i>Worst wait</span><span><i style="background:#0e7490"></i>Far from campus</span><span><i style="background:#6d28d9"></i>Near campus</span></div>
+      <div class="key"><span><i style="background:var(--main)"></i>Most people helped</span><span><i style="background:var(--need)"></i>Worst wait</span><span><i style="background:#0e7a8f"></i>Far from campus</span><span><i style="background:#6d28d9"></i>Near campus</span></div>
     </div>
   </section>
 
@@ -145,7 +146,7 @@
 <div class="notes">
   <p><b>How to read this.</b> A bus visit is one scheduled bus at a stop on a typical weekday (Wednesday, Feb 11, 2026 in the RTS Spring 2026 schedule). It is a stand-in for how many people wait there, not a rider count.</p>
   <p><b>Limits.</b> Shelter status comes from OpenStreetMap, which is partial, so "unknown" means not mapped, not "none". Heat is summer morning satellite data and understates the afternoon peak. Some campus stops are close together, so the list can include several stops at one place. Nothing here estimates cost or says what the city will do.</p>
-  <p><a href="classic.html">Classic map</a> &middot; <a href="https://github.com/JonathanKash/ShadeMap">Method and data</a></p>
+  <p><a href="classic.html">Classic map</a>&emsp;<a href="https://github.com/JonathanKash/ShadeMap">Method and data</a></p>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -154,9 +155,9 @@
   var COLORS = { none: "#b71c1c", unknown: "#e08600", sheltered: "#2e7d32" };
   var LABEL = { none: "No shelter", unknown: "Unknown", sheltered: "Sheltered" };
   var LISTS = {
-    main: { key: "rank", name: "most people helped", color: "#2563eb" },
+    main: { key: "rank", name: "most people helped", color: "#1b2026" },
     need: { key: "need_rank", name: "worst wait", color: "#c64600" },
-    far: { key: "rank", campus: 0, name: "far from campus (beyond 1 mile)", color: "#0e7490" },
+    far: { key: "rank", campus: 0, name: "far from campus (beyond 1 mile)", color: "#0e7a8f" },
     near: { key: "rank", campus: 1, name: "near campus (within 1 mile)", color: "#6d28d9" }
   };
   var campusMap = {};
