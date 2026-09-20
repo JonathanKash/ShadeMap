@@ -5,7 +5,7 @@ Every number below comes from the repo (`outputs/impact_summary.md`, `README.md`
 
 ## Blanks only the team can fill
 
-- [x] **EMERGE curriculum:** filled in below (Textbook 1, four lessons). Each lesson was checked against its page on geo-di-lab.github.io/emerge-lessons, not just its title. Someone on the team should skim the four lesson pages once and confirm they are happy with the wording, because Dr. Yang leads EMERGE and is a judge.
+- [x] **EMERGE curriculum:** filled in below (Textbook 1, led by Chapter 4 Temperature, Rainfall & Vegetation, plus three supporting lessons). Each lesson was checked against its page on geo-di-lab.github.io/emerge-lessons, not just its title, and the vegetation and temperature numbers were recomputed from the CSVs (see section 7 of `analysis.ipynb`). Someone on the team should skim the four lesson pages once and confirm they are happy with the wording, because Dr. Yang leads EMERGE and is a judge.
 - [x] **Teammates:** Lucas Fonte, Francisco Rodriguez, Jonathan Kashi. **Typing names is not enough.** Each person needs a Devpost account and must be added to the project's team on Devpost (invite them, and they accept). Check the team list on the project page twice before submitting.
 - [x] **Deadline:** the track PDF says **submit by 5 PM**. The repo planning docs say 4:30 PM, which is out of date. Aim to submit by 4:30 PM anyway.
 - [ ] **Track name:** the track PDF is titled "NASA and Environmental Data Track". Pick whichever Devpost option matches that (the planning docs called it "NASA / GeoEmerge").
@@ -40,12 +40,14 @@ Our own: Gainesville riders wait on unshaded asphalt through Florida summers, an
 
 **Built with.** Python, pandas, geopandas, NASA/USGS Landsat 8 and 9, NASA ECOSTRESS, ESA Sentinel-2, Microsoft Planetary Computer, OpenStreetMap and the Overpass API, RTS GTFS, US Census ACS and TIGER/Line, Leaflet, Supabase (rider photo uploads), GitHub Pages.
 
-**EMERGE curriculum used: Textbook 1, Data Analysis** ("EMERGE Lessons", https://geo-di-lab.github.io/emerge-lessons/). We worked from four of its lessons:
+**EMERGE curriculum used: Textbook 1, Data Analysis** ("EMERGE Lessons", https://geo-di-lab.github.io/emerge-lessons/). Our main lesson is **Chapter 4, Temperature, Rainfall & Vegetation**, and we apply its vegetation half at the scale of a single bus stop.
 
-- **Chapter 3, Vegetation & Water Indices.** NDVI from Sentinel-2 as a median composite around a point. We compute it in a 100 m buffer around each of the 971 stops, in Python with Microsoft Planetary Computer in place of Google Earth Engine, and use it as nearby green cover.
-- **Chapter 4, Temperature, Rainfall & Vegetation.** Land surface temperature and vegetation mapped together. We use finer NASA Landsat (30 m) and ECOSTRESS (70 m) temperature in place of the lesson's 1 km MODIS data and leave out rainfall. Greener stops run cooler in our data (r = -0.55).
-- **Chapter 4, Introduction to Risk Mapping.** Combine environmental layers into a simple risk map. We adapt the idea from mosquito habitat pixels to heat exposure at bus stops, and add bus service, shelter, and census layers.
-- **Chapter 5, Communicate the Science.** Accuracy including uncertainty, plain language, and visuals. Our stated limitations, stability tests, and plain-language legend follow it.
+- **What the lesson teaches.** It maps land surface temperature and vegetation for Florida from satellite data and charts them together, measuring vegetation with NDVI = (NIR - Red) / (NIR + Red) from Sentinel-2.
+- **What we did.** We computed NDVI from Sentinel-2 as a median composite of 17 cloud-masked summer scenes and summarized it in a 100 m circle around each of the 971 stops, then set it next to the NASA Landsat temperature in the same circle. Across the 929 stops with both, greener stops are cooler (correlation -0.55). The least green fifth of stops averages 8.2 F hotter than the greenest fifth (104.2 F vs 96.0 F on summer mornings). That is our own finding, a correlation and not a claim about what planting would do.
+- **Vegetation in our rankings.** It feeds the "needs shade most" list as (1 - green cover). That list's top 20 stops average 21 percent green cover, against 57 percent across all 814 eligible stops.
+- **Where we differ.** The lesson uses 1 km MODIS temperature and Google Earth Engine. We use finer Landsat (30 m) and ECOSTRESS (70 m) with Python and Microsoft Planetary Computer. We leave out rainfall and multi-year trend charts because we analyze one summer. The lesson gives no NDVI cutoffs and does not state a link between vegetation and temperature, so our "green" cutoff (NDVI above 0.4) and the relationship above are our own.
+
+Three other lessons shaped the work: **Chapter 3, Vegetation & Water Indices** (the NDVI method), **Chapter 4, Introduction to Risk Mapping** (combining environmental layers into one simple map, which we adapt from mosquito habitat to heat exposure at bus stops), and **Chapter 5, Communicate the Science** (plain language and stated uncertainty).
 
 We did not use the geoemerge Python package, Textbook 2 (Geospatial AI), Google Earth Engine, or GLOBE Observer data.
 
