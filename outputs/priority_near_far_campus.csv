@@ -1,21 +1,21 @@
 area,area_rank,citywide_rank,stop_id,stop_name,routes,daily_trips,mean_lst_f,shelter_status,pct_no_vehicle,pct_65_plus,score
-far from campus,1,51.0,171,Oaks Mall @ NW 62nd Blvd,"20,23,75,76",183,106.80055721507354,none,6.0,8.5,4.2
-far from campus,2,53.0,1064,Treebecka Park Apartments,"52,75,76",47,107.25068000344667,none,15.3,8.2,4.15
-far from campus,3,60.0,1081,Sparrow Apartments,75,27,111.63548583984377,none,15.9,7.1,3.97
-far from campus,4,63.0,1089,Harbor Cove Apartments,75,27,110.57110491071428,none,15.9,7.1,3.92
-far from campus,5,67.0,724,Westbound NE 39th Ave at Main St - Gsville Nissan,15,23,110.59722541360294,none,16.8,25.6,3.83
-far from campus,6,68.0,1072,Sparrow Apartments,75,26,110.2310498046875,none,15.3,8.2,3.79
-far from campus,7,72.0,254,Big Lot on NW 13th Street,"6,15",37,109.02601928710938,none,11.6,26.8,3.71
-far from campus,8,74.0,1065,Tower Oaks Glenn Apartments,"52,75",38,105.79931640625,none,15.3,8.2,3.69
-far from campus,9,76.0,1094,Clarion Inn,75,27,107.57139892578124,none,15.9,7.1,3.68
-far from campus,10,77.0,1054,Tower Oaks Glenn Apartments,"52,75",39,105.16664115287162,none,16.5,14.4,3.67
-near campus,1,1.0,807,University Village South Apartments,"20,21,33,52",163,107.85834350585938,none,49.8,0.0,10.48
-near campus,2,2.0,966,Weimer Hall,"9,12,33,38,118",248,110.68325334821428,none,30.5,0.0,8.88
-near campus,3,3.0,842,Southwest Recreation Center,20,61,109.30809674944196,none,49.8,0.0,8.74
-near campus,4,4.0,1254,Gator Corner Dining Facility @ Gale Lemerand,"9,12,33,38,118",248,109.6195068359375,none,30.5,0.0,8.71
-near campus,5,5.0,806,Southwest Recreation Center,20,61,108.19435388901654,none,49.8,0.0,8.56
-near campus,6,6.0,1192,Turlington Hall,"9,12,33,38",210,109.81488141741072,none,30.5,0.0,8.49
-near campus,7,7.0,478,IFAS Lab,"9,12,21,33,52",194,105.77591409122245,unknown,49.8,0.0,8.24
-near campus,8,8.0,1180,Southwest Recreation Center,"21,33,52",102,109.50015411376953,unknown,49.8,0.0,8.22
-near campus,9,9.0,44,Frazier Rogers Hall (Eastbound),"1,8,20,21,37,43,52",229,106.47446637834824,none,30.5,0.0,7.83
-near campus,10,10.0,1193,Rawlings Hall,"1,9,12,33,38",252,107.50114188058036,unknown,30.5,0.0,6.93
+far from campus,1,51.0,171,Oaks Mall @ NW 62nd Blvd,"20,23,75,76",183,106.80055721507354,none,6.0,8.5,4.24
+far from campus,2,53.0,1064,Treebecka Park Apartments,"52,75,76",47,107.25068000344667,none,15.3,8.2,4.19
+far from campus,3,61.0,1081,Sparrow Apartments,75,27,111.63548583984377,none,15.9,7.1,3.99
+far from campus,4,65.0,1089,Harbor Cove Apartments,75,27,110.57110491071428,none,15.9,7.1,3.94
+far from campus,5,67.0,724,Westbound NE 39th Ave at Main St - Gsville Nissan,15,23,110.59722541360294,none,16.8,25.6,3.85
+far from campus,6,68.0,1072,Sparrow Apartments,75,26,110.2310498046875,none,15.3,8.2,3.81
+far from campus,7,71.0,1065,Tower Oaks Glenn Apartments,"52,75",38,105.79931640625,none,15.3,8.2,3.74
+far from campus,8,73.0,254,Big Lot on NW 13th Street,"6,15",37,109.02601928710938,none,11.6,26.8,3.73
+far from campus,9,74.0,1054,Tower Oaks Glenn Apartments,"52,75",39,105.16664115287162,none,16.5,14.4,3.72
+far from campus,10,76.0,1094,Clarion Inn,75,27,107.57139892578124,none,15.9,7.1,3.72
+near campus,1,1.0,807,University Village South Apartments,"20,21,33,52",163,107.85834350585938,none,49.8,0.0,10.58
+near campus,2,2.0,966,Weimer Hall,"9,12,33,38,118",248,110.68325334821428,none,30.5,0.0,8.92
+near campus,3,3.0,842,Southwest Recreation Center,20,61,109.30809674944196,none,49.8,0.0,8.78
+near campus,4,4.0,1254,Gator Corner Dining Facility @ Gale Lemerand,"9,12,33,38,118",248,109.6195068359375,none,30.5,0.0,8.75
+near campus,5,5.0,806,Southwest Recreation Center,20,61,108.19435388901654,none,49.8,0.0,8.63
+near campus,6,6.0,1192,Turlington Hall,"9,12,33,38",210,109.81488141741072,none,30.5,0.0,8.53
+near campus,7,7.0,478,IFAS Lab,"9,12,21,33,52",194,105.77591409122245,unknown,49.8,0.0,8.36
+near campus,8,8.0,1180,Southwest Recreation Center,"21,33,52",102,109.50015411376953,unknown,49.8,0.0,8.26
+near campus,9,9.0,44,Frazier Rogers Hall (Eastbound),"1,8,20,21,37,43,52",229,106.47446637834824,none,30.5,0.0,7.92
+near campus,10,10.0,1193,Rawlings Hall,"1,9,12,33,38",252,107.50114188058036,unknown,30.5,0.0,6.99

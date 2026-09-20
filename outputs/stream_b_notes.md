@@ -43,7 +43,7 @@ Regenerate after score.py: `.venv/bin/python src/route_ranking.py`.
 - One sentence: a route ranks higher when its stops are, on average, hotter, busier, less
   likely to have a shelter, and in tracts with more car-free households.
 - route_rank orders the 26 routes by avg_score, the mean stop score over the route's ranked
-  stops (915 ranked stops; unranked stops are left out). Ties go to more top-50 stops.
+  stops (850 ranked stops; unranked stops are left out). Ties go to more top-50 stops.
 - stops_in_top50 counts the route's stops in the citywide top 50 stops.
 - pct_unsheltered is OSM "none" only. pct_unknown is shown beside it, so read unsheltered as
   a floor, not a total.
@@ -93,7 +93,7 @@ University of Florida relations (main and East Campus), cached in data/, area 7.
   visits at stops with no known shelter. The map draws the campus outline and the mile line
   (docs/campus_zone.geojson) while a zone chip is active. The two top 10 lists carry 6 percent of visits together.
 - Each zone is ranked with the same score, nothing re-weighted. The far top 10 is citywide ranks 51
-  to 77, 1.5 to 3 miles from campus: Oaks Mall and apartment stops on routes 75, 52, 15 (NW Gainesville).
+to 76, 1.5 to 3 miles from campus: Oaks Mall and apartment stops on routes 75, 52, 15 (NW Gainesville).
   The near top 10 is identical to the old citywide top 10.
 - The app no longer has a "top 20" chip or top-20 emphasis; the biggest dots are the top 10 of each zone.
   A's separate "needs shade most" list (black dots) is unchanged and is still 20 stops.

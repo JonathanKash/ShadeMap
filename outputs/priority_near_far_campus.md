@@ -13,14 +13,14 @@ Near campus means within 1 mile of the University of Florida campus edge (OpenSt
 |---|---|---|---|---|---|---|
 | 1 | Oaks Mall @ NW 62nd Blvd | 20,23,75,76 | 183 | none | 6% | 51 |
 | 2 | Treebecka Park Apartments | 52,75,76 | 47 | none | 15% | 53 |
-| 3 | Sparrow Apartments | 75 | 27 | none | 16% | 60 |
-| 4 | Harbor Cove Apartments | 75 | 27 | none | 16% | 63 |
+| 3 | Sparrow Apartments | 75 | 27 | none | 16% | 61 |
+| 4 | Harbor Cove Apartments | 75 | 27 | none | 16% | 65 |
 | 5 | Westbound NE 39th Ave at Main St - Gsville Nissan | 15 | 23 | none | 17% | 67 |
 | 6 | Sparrow Apartments | 75 | 26 | none | 15% | 68 |
-| 7 | Big Lot on NW 13th Street | 6,15 | 37 | none | 12% | 72 |
-| 8 | Tower Oaks Glenn Apartments | 52,75 | 38 | none | 15% | 74 |
-| 9 | Clarion Inn | 75 | 27 | none | 16% | 76 |
-| 10 | Tower Oaks Glenn Apartments | 52,75 | 39 | none | 16% | 77 |
+| 7 | Tower Oaks Glenn Apartments | 52,75 | 38 | none | 15% | 71 |
+| 8 | Big Lot on NW 13th Street | 6,15 | 37 | none | 12% | 73 |
+| 9 | Tower Oaks Glenn Apartments | 52,75 | 39 | none | 16% | 74 |
+| 10 | Clarion Inn | 75 | 27 | none | 16% | 76 |
 
 ## Top 10 near campus
 
