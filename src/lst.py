@@ -442,11 +442,117 @@ def rank_stability(items):
     return rho
 
 
+def build_ndvi_composite(bbox, date_range=DATE_RANGE, max_cloud=40,
+                         crs="EPSG:32617", resolution=10):
+    """Median NDVI composite from Sentinel-2 L2A at 10 m, SCL cloud-masked.
+
+    MPC serves unharmonized DNs: processing baseline >= 04.00 carries a
+    +1000 offset that must be removed before the ratio, or NDVI skews low
+    over dark surfaces. Verified against s2:processing_baseline per item.
+    """
+    import hashlib
+
+    catalog = pystac_client.Client.open(
+        STAC_URL, modifier=planetary_computer.sign_inplace
+    )
+    items = list(catalog.search(
+        collections=["sentinel-2-l2a"], bbox=bbox, datetime=date_range,
+        query={"eo:cloud_cover": {"lt": max_cloud}},
+    ).items())
+    print(f"  {len(items)} Sentinel-2 scenes with <{max_cloud}% cloud")
+    baselines = {it.properties.get("s2:processing_baseline", "0") for it in items}
+    if any(float(b) < 4.0 for b in baselines):
+        raise ValueError(f"Mixed processing baselines {baselines}: "
+                         "per-item offsets needed, refusing to guess")
+    dn_offset = 1000.0
+
+    DATA_DIR.mkdir(exist_ok=True)
+    key = hashlib.md5(("ndvi:" + ",".join(sorted(it.id for it in items))).encode()).hexdigest()[:10]
+    comp_path = DATA_DIR / f"ndvi_composite_{key}.tif"
+    if comp_path.exists():
+        print(f"  cache hit: {comp_path.name}")
+        return rioxarray.open_rasterio(comp_path).squeeze("band", drop=True), items
+
+    import odc.stac
+
+    t0 = time.perf_counter()
+    ds = odc.stac.load(
+        items, bands=["B04", "B08", "SCL"], bbox=bbox, crs=crs,
+        resolution=resolution, groupby="solar_day", chunks=None,
+    )
+    print(f"  fetched {ds.sizes['time']} solar days in "
+          f"{time.perf_counter() - t0:.1f}s, grid {ds.sizes['y']}x{ds.sizes['x']}")
+
+    # SCL classes: 0 nodata, 1 saturated, 3 cloud shadow, 8/9 cloud, 10 cirrus
+    bad = ds["SCL"].isin([0, 1, 3, 8, 9, 10])
+    red = (ds["B04"].astype("float32") - dn_offset).clip(0)
+    nir = (ds["B08"].astype("float32") - dn_offset).clip(0)
+    valid = (~bad) & (ds["B04"] > 0) & (ds["B08"] > 0) & ((nir + red) > 0)
+    ndvi = ((nir - red) / (nir + red)).where(valid)
+
+    median = ndvi.median(dim="time", skipna=True).astype("float32")
+    median.rio.write_crs(crs, inplace=True)
+    print(f"  NDVI composite shape={median.shape} "
+          f"min={float(median.min()):.2f} max={float(median.max()):.2f} "
+          f"coverage={float(median.notnull().mean()):.1%}")
+    median.rio.to_raster(comp_path)
+    return median, items
+
+
+def canopy():
+    """Per-stop greenness in the 100 m buffer -> outputs/stop_canopy.csv.
+
+    mean_ndvi is the buffer average; pct_green is the share of valid 10 m
+    pixels with NDVI > 0.4, a rough canopy-or-dense-vegetation fraction.
+    Opt-in context for the map popups, not part of the frozen score formula.
+    """
+    import geopandas as gpd
+    import pandas as pd
+
+    root = Path(__file__).resolve().parent.parent
+    stops = gpd.read_file(root / "outputs" / "stops.geojson")
+    b = stops.total_bounds
+    bbox = (b[0] - 0.01, b[1] - 0.01, b[2] + 0.01, b[3] + 0.01)
+
+    median, items = build_ndvi_composite(bbox)
+    scene_dates = sorted({it.properties["datetime"][:10] for it in items})
+
+    from rasterstats import zonal_stats
+
+    buffers = stops.to_crs("EPSG:6440").geometry.buffer(100).to_crs(median.rio.crs)
+    arr = np.ma.masked_invalid(median.values)
+    zs = zonal_stats(buffers, arr, affine=median.rio.transform(),
+                     stats=["mean", "count"],
+                     add_stats={"green": lambda x: float((x > 0.4).sum())})
+
+    df = pd.DataFrame({
+        "stop_id": stops["stop_id"].astype(str),
+        "mean_ndvi": [round(z["mean"], 3) if z["count"] else None for z in zs],
+        "pct_green": [round(100.0 * z["green"] / z["count"], 1) if z["count"] else None
+                      for z in zs],
+        "pixel_count": [int(z["count"]) for z in zs],
+        "scene_dates": ";".join(scene_dates),
+    })
+    n_zero = int((df.pixel_count == 0).sum())
+    print(f"  stop_canopy: {df.shape}, pixel_count==0 for {n_zero} stops, "
+          f"mean_ndvi range=[{df.mean_ndvi.min():.2f}, {df.mean_ndvi.max():.2f}], "
+          f"pct_green median={df.pct_green.median():.0f}")
+    out_path = root / "outputs" / "stop_canopy.csv"
+    df.to_csv(out_path, index=False)
+    print(f"  wrote {out_path}")
+    return df
+
+
 if __name__ == "__main__":
     import sys
 
     MAX_CLOUD = 90  # per-pixel qa_pixel masking does the real cloud work
     mode = sys.argv[1] if len(sys.argv) > 1 else "main"
+
+    if mode == "canopy":
+        print("Sentinel-2 canopy proxy per stop...")
+        canopy()
+        raise SystemExit(0)
 
     print("Searching Planetary Computer...")
     items = search_items(max_cloud=MAX_CLOUD)
