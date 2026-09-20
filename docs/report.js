@@ -94,6 +94,7 @@
       '<form id="rm-form" novalidate>' +
       '<label class="rm-l" for="rm-photo">Photo</label>' +
       '<input id="rm-photo" name="photo" type="file" accept="image/*">' +
+      '<p class="rm-fine">Please do not include faces or license plates. Photos showing them will not be approved.</p>' +
       '<label class="rm-l" for="rm-date">When did you take it?</label>' +
       '<div class="rm-row"><input id="rm-date" name="date" type="date" required>' +
       '<input id="rm-time" name="time" type="time" required></div>' +
