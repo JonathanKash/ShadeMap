@@ -82,15 +82,17 @@ Regenerate after score.py: `cd src && ../.venv/bin/python stability.py` (fixed s
 - Several top-20 stops are the same place: Southwest Recreation Center appears 3 times
   (different stop ids, ranks 3, 5, 8). Say so in the README rather than hiding it.
 
-## On campus and off campus (outputs/priority_on_off_campus.csv and .md, outputs/stop_campus.csv, docs/campus.json)
+## Near and far from campus (outputs/priority_near_far_campus.csv and .md, outputs/stop_campus.csv, docs/campus.json)
 Regenerate after score.py: `cd src && ../.venv/bin/python campus.py`. Boundary is the OpenStreetMap
 University of Florida relations (main and East Campus), cached in data/, area 7.6 km2.
-- On campus = inside the boundary or within 5 m of it. The 5 m absorbs boundary-drawing error:
-  stops named for UF buildings (Keene Flint Hall, Ben Hill Griffin Stadium, Norman Hall) are 1 to 5 m
-  outside the line on the road edge that forms it, private apartments start near 8 m.
-- 103 stops on campus, 868 off. Off campus carries 74 percent of weekday bus visits and 79 percent
-  of the visits at stops with no known shelter. 19 of the main top 20 are on campus.
-- Each group is ranked with the same score, nothing re-weighted. The off-campus top 10 is citywide
-  ranks 14 to 35: mostly commercial and corridor stops (34th St Plaza, Butler Plaza, NW 13th St).
-- Limits: the boundary is drawn by OpenStreetMap contributors, off campus includes student
-  apartment complexes, and shelter status is partial.
+- Near campus = within 1 mile of the campus EDGE (campus included), far = beyond. Distance is from the
+  boundary, not a center point: UF is about 3 km across, a mile around its center would not cover it.
+- 423 stops near, 548 far. Far stops carry 33 percent of weekday bus visits and 37 percent of the
+  visits at stops with no known shelter. The two top 10 lists carry 6 percent of visits together.
+- Each zone is ranked with the same score, nothing re-weighted. The far top 10 is citywide ranks 51
+  to 77, 1.5 to 3 miles from campus: Oaks Mall and apartment stops on routes 75, 52, 15 (NW Gainesville).
+  The near top 10 is identical to the old citywide top 10.
+- The app no longer has a "top 20" chip or top-20 emphasis; the biggest dots are the top 10 of each zone.
+  A's separate "needs shade most" list (black dots) is unchanged and is still 20 stops.
+- Limits: the boundary is drawn by OpenStreetMap contributors, near campus includes student apartments
+  and much of downtown, shelter status is partial.
