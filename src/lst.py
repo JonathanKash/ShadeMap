@@ -228,8 +228,55 @@ def build_composite(items, bbox=ALACHUA_BBOX, crs="EPSG:32617", resolution=30):
     return median, n_obs, scene_dates
 
 
+def compute_stop_lst(median, scene_dates,
+                     stops_path=None, out_path=None, buffer_m=100):
+    """Zonal stats per stop -> outputs/stop_lst.csv per CONTRACTS.md.
+
+    Buffers are built in EPSG:6440 (Florida North, meters) per CLAUDE.md,
+    then reprojected to the raster CRS for the stats.
+    """
+    import geopandas as gpd
+    import pandas as pd
+    from rasterstats import zonal_stats
+
+    root = Path(__file__).resolve().parent.parent
+    stops_path = stops_path or root / "outputs" / "stops.geojson"
+    out_path = out_path or root / "outputs" / "stop_lst.csv"
+
+    stops = gpd.read_file(stops_path)
+    print(f"  stops: {stops.shape} crs={stops.crs}")
+
+    buffers = (
+        stops.to_crs("EPSG:6440").geometry.buffer(buffer_m).to_crs(median.rio.crs)
+    )
+
+    arr = np.ma.masked_invalid(median.values)
+    zs = zonal_stats(
+        buffers, arr, affine=median.rio.transform(),
+        stats=["mean", "max", "count"],
+    )
+
+    df = pd.DataFrame({
+        "stop_id": stops["stop_id"].astype(str),
+        "mean_lst_c": [z["mean"] for z in zs],
+        "max_lst_c": [z["max"] for z in zs],
+        "pixel_count": [int(z["count"]) for z in zs],
+        "scene_dates": ";".join(scene_dates),
+    })
+
+    n_zero = int((df["pixel_count"] == 0).sum())
+    print(f"  stop_lst: {df.shape}, pixel_count==0 for {n_zero} stops, "
+          f"pixel_count median={df['pixel_count'].median():.0f}, "
+          f"mean_lst_c range=[{df['mean_lst_c'].min():.1f}, "
+          f"{df['mean_lst_c'].max():.1f}]")
+
+    df.to_csv(out_path, index=False)
+    print(f"  wrote {out_path}")
+    return df
+
+
 if __name__ == "__main__":
-    MAX_CLOUD = 70  # per-pixel qa_pixel masking does the real cloud work
+    MAX_CLOUD = 90  # per-pixel qa_pixel masking does the real cloud work
 
     print("Searching Planetary Computer...")
     items = search_items(max_cloud=MAX_CLOUD)
@@ -258,3 +305,6 @@ if __name__ == "__main__":
         f"{len(scene_dates)} days, {scene_dates[0]} to {scene_dates[-1]}",
         out_path=DATA_DIR / "lst_composite_preview.png",
     )
+
+    print("\nZonal stats per stop...")
+    compute_stop_lst(median, scene_dates)
