@@ -1,4 +1,4 @@
-﻿"""Stream C: build docs/index.html (static Folium map) from outputs/scored_stops.csv.
+"""Stream C: build docs/index.html (static Folium map) from outputs/scored_stops.csv.
 
 Run from the repo root after score.py: python src/make_map.py
 """
@@ -135,7 +135,7 @@ def popup_html(r, ranked):
                 else f'{r["mean_lst_c"]:.1f} C / {r["mean_lst_f"]:.1f} F')
     img = PHOTO_FILE.get(str(r["stop_id"]))
     photo = (f'<img src="photos/{escape(img)}" alt="Photo of {name}" loading="lazy" '
-             f'style="width:100%;margin-top:6px;border-radius:4px">'
+             f'style="width:100%;max-height:170px;object-fit:cover;margin-top:6px;border-radius:4px">'
              f'<div style="font-size:11px;color:#52606d">Photo: ShadeMap team</div>'
              if img else "")
     return (
@@ -146,6 +146,11 @@ def popup_html(r, ranked):
         f'<div>{SHELTER_TEXT.get(r["shelter_status"], "Shelter status unknown")}</div>'
         f'<div>{green}</div>'
         f'{photo}'
+        # community photos: docs/report.js fills the gallery and wires the button, and both
+        # stay hidden until docs/config.js has a Supabase project
+        f'<button type="button" class="report-btn" data-stop="{escape(str(r["stop_id"]))}" '
+        f'data-name="{name}">Add a photo of this stop</button>'
+        f'<div class="ugc" data-stop="{escape(str(r["stop_id"]))}"></div>'
         f'{action_html(r)}'
         f'</div>'
     )
@@ -195,7 +200,8 @@ def build(df):
         folium.CircleMarker(
             (r["stop_lat"], r["stop_lon"]), radius=3, color=NO_DATA, weight=1,
             fill=True, fill_color=NO_DATA, fill_opacity=0.6,
-            popup=folium.Popup(popup_html(r, False), max_width=280),
+            popup=folium.Popup(popup_html(r, False), max_width=280, max_height=340,
+                                auto_pan_padding_top_left=[10, 100]),
         ).add_to(m)
 
     # low scores first so the high ones draw on top
@@ -204,7 +210,8 @@ def build(df):
             (r["stop_lat"], r["stop_lon"]), radius=float(r["radius"]),
             color="#333333", weight=0.6, fill=True,
             fill_color=RAMP[int(r["cls"])], fill_opacity=0.85,
-            popup=folium.Popup(popup_html(r, True), max_width=280),
+            popup=folium.Popup(popup_html(r, True), max_width=280, max_height=340,
+                                auto_pan_padding_top_left=[10, 100]),
         ).add_to(m)
 
     for _, r in ranked[ranked["rank"] <= 20].iterrows():
@@ -212,7 +219,8 @@ def build(df):
             (r["stop_lat"], r["stop_lon"]),
             icon=DivIcon(icon_size=(22, 22), icon_anchor=(11, 11),
                          html=f'<div class="rank-pin">{int(r["rank"])}</div>'),
-            popup=folium.Popup(popup_html(r, True), max_width=280),
+            popup=folium.Popup(popup_html(r, True), max_width=280, max_height=340,
+                                auto_pan_padding_top_left=[10, 100]),
             z_index_offset=1000,
         ).add_to(m)
 
@@ -222,6 +230,12 @@ def build(df):
     root.html.add_child(folium.Element(
         f'<div id="title-bar"><b>ShadeMap Gainesville</b>{TITLE}</div>'))
     root.html.add_child(folium.Element(legend_html(N_RANKED, len(unranked))))
+    # community photo feature (static files in docs/), a no-op without a Supabase config
+    root.header.add_child(folium.Element('<link rel="stylesheet" href="report.css">'))
+    root.html.add_child(folium.Element(
+        '<script src="config.js"></script><script src="report.js"></script>'
+        f'<script>window.addEventListener("load", function () {{ '
+        f'if (window.shademapInit) shademapInit({m.get_name()}); }});</script>'))
     return m
 
 
