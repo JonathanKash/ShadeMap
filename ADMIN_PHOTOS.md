@@ -1,14 +1,18 @@
 # Adding stop photos (admin guide)
 
-The map can show a real photo of a stop in its popup. Photos are added by dropping a file
-into a folder. There is no server and no login system, so nothing here costs money.
+**Most people should use the rider photo button in the app.** Open a stop, tap the add photo
+button, and a maintainer approves it before it appears (setup and review steps are in
+`SUPABASE_SETUP.md`). This guide is for the other route: photos the team adds by hand, which
+show up in the popups of the **classic map** (`classic.html`), not in the app view. There is no
+server and no login system, so nothing here costs money.
 
-## Add or replace a photo (no code needed)
+## Add or replace a photo by hand
 
 1. **Take the photo.** Daylight, the whole stop in frame (pole, bench, shelter or bare
    pavement), phone held sideways if you can. Do not include people's faces.
-2. **Find the stop's id.** Open `outputs/top_20_stops.csv` on GitHub and read the `stop_id`
-   column. Example: rank 1 is stop `807`.
+2. **Find the stop's id.** Open `outputs/priority_near_far_campus.csv` (the two top 10 lists)
+   or `outputs/scored_stops.csv` on GitHub and read the `stop_id` column. Example: stop `807`
+   is University Village South Apartments.
 3. **Name the file after the id:** `807.jpg`. Also accepted: `.jpeg`, `.png`, `.webp`. One
    photo per stop.
 4. **Upload it.** On the repo page on GitHub go to `docs/photos/`, click **Add file**, then
@@ -16,23 +20,20 @@ into a folder. There is no server and no login system, so nothing here costs mon
    - **First upload ever:** the `docs/photos/` folder does not exist yet. Click **Add file**,
      then **Create new file**, type `docs/photos/README.txt` as the name, write anything in
      it, and commit. That creates the folder. Then upload photos into it as above.
-5. **Wait about a minute.** A GitHub Action (`.github/workflows/photos.yml`) shrinks the
-   photo, removes the GPS location your phone stored inside it, and updates
-   `outputs/stop_photos.csv`. GitHub Pages then republishes the map.
+5. **Finish the upload (required).** Uploading the file is not enough: someone with the project
+   on their computer runs the command below. It shrinks the photo, removes the GPS location
+   your phone stored inside it, and updates `outputs/stop_photos.csv`, the list the classic map
+   reads. There is no automatic step for this yet, so until the command runs the photo sits in
+   the folder and the map does not show it.
 
-To remove a photo, delete the file from `docs/photos/`. The Action updates the list.
+To remove a photo, delete the file from `docs/photos/` and run the command again.
 
-## One-time setup for the repo owner
-
-The Action needs permission to save its results: **Settings, Actions, General, Workflow
-permissions, choose "Read and write permissions", Save.** Without this the Action fails at
-its last step. The photo is still uploaded, so use the manual route below instead.
-
-## Manual route (if the Action is off or fails)
+## Finish the upload
 
 ```
 .venv/bin/python src/photos.py --resize
-git add docs/photos outputs/stop_photos.csv && git commit -m "Update stop photos" && git push
+.venv/bin/python src/make_map.py          # rebuilds docs/classic.html so the popups pick up the photo
+git add docs/photos outputs/stop_photos.csv docs/classic.html && git commit -m "Update stop photos" && git push
 ```
 
 `src/photos.py` also prints which of the top 20 stops still have no photo, and flags files
