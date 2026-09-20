@@ -1,0 +1,4 @@
+Public Sans (variable, weights 400 to 700, Latin subset)
+Copyright 2015 The Public Sans Project Authors (https://github.com/uswds/public-sans)
+Licensed under the SIL Open Font License, Version 1.1: https://openfontlicense.org
+Self-hosted here so the site makes no request to a font service. File: public-sans-var.woff2.
