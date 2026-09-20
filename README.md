@@ -91,9 +91,21 @@ In the app view, every stop panel links to a prefilled GitHub issue for reportin
 
 ### Methods and curriculum
 
-This project follows the NASA GeoEmerge (EMERGE) Data Analysis workflow: acquire public environmental data, clean it (per-pixel cloud masking), analyze it (zonal statistics and ranking), and communicate it to a non-expert audience through a map.
+This project uses **EMERGE Textbook 1, Data Analysis** ("EMERGE Lessons", https://geo-di-lab.github.io/emerge-lessons/). Its main lesson for us is **Chapter 4, Temperature, Rainfall & Vegetation** (https://geo-di-lab.github.io/emerge-lessons/docs/ch4/lesson1.html), and we apply its vegetation half at the scale of a single bus stop.
 
-**TODO before submitting:** name the specific EMERGE curriculum textbook and lesson this follows, with a link. The lesson name is not in the repo yet.
+**What the lesson teaches.** It maps land surface temperature and vegetation for Florida from satellite data and charts them together. Vegetation is measured with NDVI, computed as `(NIR - Red) / (NIR + Red)` from Sentinel-2 imagery.
+
+**What we did with it.**
+- We computed NDVI from Sentinel-2 as a median composite of 17 cloud-masked summer 2026 scenes, the lesson's method, and summarized it inside a 100 m circle around each of the 971 stops (`outputs/stop_canopy.csv`).
+- We placed it next to the Landsat land surface temperature in the same circle and analyzed the two together, in section 7 of [`analysis.ipynb`](analysis.ipynb).
+- **Our result, not the lesson's:** across the 929 stops with both measurements, greener stops are cooler (correlation -0.55). Each 0.1 increase in NDVI goes with about 2.2 F lower morning surface temperature, and the least green fifth of stops averages 8.2 F hotter than the greenest fifth (104.2 F vs 96.0 F). This is a correlation, not an estimate of what planting would do.
+- Vegetation also feeds the "needs shade most" list as `(1 - green cover)`. The 20 stops on that list average 21 percent green cover, against 57 percent across the 814 eligible stops.
+
+**Where we differ from the lesson.** The lesson uses 1 km MODIS temperature and Google Earth Engine. We use NASA Landsat (30 m) and ECOSTRESS (70 m) with Python and Microsoft Planetary Computer. We leave out rainfall and the multi-year monthly trend charts, since we analyze one summer. The lesson gives no NDVI cutoffs and does not state a link between vegetation and temperature, so our "green" cutoff (NDVI above 0.4) and the relationship above are our own.
+
+**Other lessons that shaped the work.** Chapter 3, *Vegetation & Water Indices* (the NDVI method). Chapter 4, *Introduction to Risk Mapping* (combining environmental layers into one simple map, which we adapt from mosquito habitat to heat exposure at bus stops and extend with bus service, shelter, and census layers). Chapter 5, *Communicate the Science* (plain language and stated uncertainty).
+
+**Not used:** the `geoemerge` Python package, Textbook 2 (Geospatial AI), Google Earth Engine, and GLOBE Observer data.
 
 ## Rider photos
 
