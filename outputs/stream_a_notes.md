@@ -56,11 +56,24 @@ only modestly. If not used, keep showing them as no data. C's call; the main
 
 Regenerate: `.venv/Scripts/python src/lst.py gapfill`.
 
-## Ranking robustness (for the README)
+## Ranking robustness (for the README, and for judge questions)
 
-- A single clear day ranks stops differently than the summer median (Spearman
-  0.65 against the clearest scene, 329 comparable stops). Day-to-day noise is
-  exactly why the composite exists; do not build the ranking on one scene.
+Tested by splitting the summer into two independent halves (odd vs even solar
+days), rebuilding the composite from each, and re-ranking.
+
+- The LST layer alone is noisy at single-stop precision: Spearman 0.38 between
+  halves, top-decile overlap 24 percent. Temperature differences between
+  Gainesville stops are a few degrees, close to what one summer of 30 m Landsat
+  can resolve. A single clear day is worse (Spearman 0.65 against the full
+  composite). This is why the composite exists and why the score uses LST
+  percentile rather than raw degrees.
+- The final ranking is much steadier because trips, shelter, and equity are
+  deterministic: rebuilding the full score with each half-composite keeps 13 to
+  15 of the official top 20 in the top 20, and each noisy half still correlates
+  0.71 to 0.75 with the full composite.
+- Suggested framing: present the top 20 as a set of priority stops, not as a
+  precise ordinal ranking. Say plainly that positions within the list can swap
+  under measurement noise, but membership in the list is stable.
 
 ## EMERGE curriculum requirement (flag for C, from the track PDF in repo root)
 
