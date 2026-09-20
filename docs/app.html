@@ -48,6 +48,13 @@
     color: var(--ink); white-space: nowrap;
   }
   .chip.on { background: #e8f0fe; border-color: #d2e3fc; color: #1967d2; font-weight: 500; }
+  /* route selector: picks one route, everything else greys out */
+  .route-select { background: var(--bg); border: 1px solid var(--line); border-radius: 16px; padding: 6px 10px;
+    font-size: 13px; box-shadow: var(--shadow); color: var(--ink); max-width: min(240px, calc(100vw - 24px)); cursor: pointer; }
+  .route-select.on { background: #e8f0fe; border-color: #d2e3fc; color: #1967d2; font-weight: 500; }
+  .route-info { background: var(--bg); border-radius: 12px; padding: 5px 10px; font-size: 12px;
+    color: var(--muted); box-shadow: var(--shadow); max-width: calc(100vw - 24px); }
+  .route-info[hidden] { display: none; }
 
   /* side panel */
   .panel {
@@ -186,6 +193,8 @@
   <button class="chip" data-f="top20">Priority top 20</button>
   <button class="chip" data-f="need">Needs shade most</button>
   <button class="chip" data-f="unsheltered">No shelter</button>
+  <select id="route-sel" class="route-select" aria-label="Highlight one bus route"><option value="">All routes</option></select>
+  <span id="route-info" class="route-info" role="status" hidden></span>
 </div>
 
 <aside class="panel" id="panel" aria-label="Stop details"></aside>
@@ -201,7 +210,7 @@
     <div class="row"><span class="sw" style="background:#fee5d9"></span>Lowest 40 percent</div>
     <div class="row"><span class="sw" style="background:#9aa0a6"></span>Not ranked (no satellite data or no weekday service)</div>
     <div class="row"><span class="sw need"></span>Black: the 20 stops that "need shade most"</div>
-    <div class="note">Bigger dots have more weekday buses. The largest dots are the top 20 stops. Tap a dot for details.</div>
+    <div class="note">Bigger dots have more weekday buses. The largest dots are the top 20 stops. Tap a dot for details. Pick a route from the menu to grey out every other stop.</div>
   </div>
 </details>
 <script>if (window.innerWidth <= 640) document.getElementById("legend").open = false;</script>
@@ -230,7 +239,7 @@
   var MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
   var COOLDOWN_MS = 30000;
 
-  var stops = [], byId = {}, markers = {}, filter = "all", activeStop = null;
+  var stops = [], byId = {}, markers = {}, filter = "all", activeStop = null, routeSel = "", routeMeta = {};
   var approved = null, activeTab = "morning";
 
   function esc(s) {
@@ -282,6 +291,10 @@
     return 4 + Math.min(4, Math.sqrt(s.trips || 0) / 4);
   }
   function styleFor(s) {
+    // a route is selected and this stop is not on it: small, pale grey
+    if (routeSel && s.routes.indexOf(routeSel) < 0) {
+      return { renderer: canvas, radius: 3.5, fillColor: "#7d858d", fillOpacity: 0.55, color: "#fff", weight: 0.5 };
+    }
     var isNeed = needTop(s);
     // "needs shade most" stops are solid black so they stand out from the red priority scale
     return {
@@ -302,6 +315,47 @@
       if (visible(s)) { if (!map.hasLayer(m)) m.addTo(map); if (needTop(s)) m.bringToFront(); }
       else if (map.hasLayer(m)) map.removeLayer(m);
     });
+    if (routeSel) applyRoute(false);  // keep the selected route's stops on top after a filter change
+  }
+
+  // ---- route selector -----------------------------------------------------------
+  function applyRoute(fit) {
+    var on = [], count = 0;
+    stops.forEach(function (s) {
+      var m = markers[s.id];
+      m.setStyle(styleFor(s));
+      if (routeSel && s.routes.indexOf(routeSel) >= 0) {
+        count++;
+        if (visible(s)) { on.push(s); if (map.hasLayer(m)) m.bringToFront(); }
+      }
+    });
+    var sel = document.getElementById("route-sel"), info = document.getElementById("route-info");
+    sel.classList.toggle("on", !!routeSel);
+    if (routeSel) {
+      var meta = routeMeta[routeSel];
+      info.textContent = "Route " + routeSel + ": " + count + " stops" +
+        (meta ? ", " + meta.name + ". #" + meta.rank + " of " + meta.n_routes + " routes by priority" : "");
+      info.hidden = false;
+    } else { info.hidden = true; }
+    if (fit && on.length) {
+      map.fitBounds(L.latLngBounds(on.map(function (s) { return [s.lat, s.lon]; })), { padding: [70, 70], maxZoom: 15 });
+    }
+    try { history.replaceState(null, "", routeSel ? "?route=" + encodeURIComponent(routeSel) : location.pathname); } catch (e) {}
+  }
+  function initRoutes() {
+    var sel = document.getElementById("route-sel"), routes = {};
+    stops.forEach(function (s) { s.routes.forEach(function (r) { routes[r] = 1; }); });
+    fetch("routes.json").then(function (r) { return r.ok ? r.json() : {}; }).catch(function () { return {}; })
+      .then(function (meta) {
+        routeMeta = meta || {};
+        Object.keys(routes).sort(function (a, b) { return (a - b) || (a < b ? -1 : 1); }).forEach(function (r) {
+          var o = document.createElement("option"); o.value = r;
+          o.textContent = r + (routeMeta[r] ? " \u00b7 " + routeMeta[r].name : ""); sel.appendChild(o);
+        });
+        var q = new URLSearchParams(location.search).get("route");
+        if (q && routes[q]) { sel.value = q; routeSel = q; applyRoute(true); }  // shareable link: ?route=33
+      });
+    sel.addEventListener("change", function () { routeSel = sel.value; applyRoute(true); });
   }
 
   // ---- panel ---------------------------------------------------------------
@@ -606,6 +660,7 @@
     // draw coolest first so the hottest stops sit on top
     stops.slice().sort(function (a, b) { return (needTop(a) - needTop(b)) || ((b.rank || 1e9) - (a.rank || 1e9)); })
       .forEach(function (s) { if (visible(s)) markers[s.id].addTo(map); });
+    initRoutes();
   });
 })();
 </script>

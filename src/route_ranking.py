@@ -17,6 +17,8 @@ Choices:
 * pct_unsheltered is "OSM says no shelter" over the route's ranked stops. pct_unknown is
   shown next to it because unknown stops are not counted as unsheltered.
 """
+import json
+
 import pandas as pd
 
 from gtfs import ROOT, read_table
@@ -58,5 +60,9 @@ if __name__ == "__main__":
     out = build()
     assert out.route.is_unique and (out.route_name != "").all(), "route without a name or duplicate route"
     out.to_csv(ROOT / "outputs" / "route_ranking.csv", index=False)
+    # small file for the app's route selector (names and rank), keyed by route short name
+    (ROOT / "docs" / "routes.json").write_text(json.dumps(
+        {r.route: {"name": r.route_name, "rank": int(r.route_rank), "n_routes": len(out),
+                   "ranked_stops": int(r.ranked_stops)} for r in out.itertuples()}, indent=1))
     print(f"wrote outputs/route_ranking.csv: {len(out)} routes")
     print(out.head(10).to_string(index=False))
