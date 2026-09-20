@@ -14,7 +14,7 @@ Representative weekday: Wednesday 2026-02-11 (RTS Spring 2026 GTFS). A bus visit
 | Measure | Value |
 |---|---|
 | Stops in the data | 971 |
-| Ranked stops | 915 |
+| Ranked stops | 850 |
 | Weekday bus visits, all stops | 39,703 |
 | Of which 11 am to 5 pm | 17,453 (44.0 percent) |
 | Visits at stops with OSM shelter = none | 19,573 (49.3 percent) |
