@@ -40,7 +40,8 @@
 
   /* floating search card, Google Maps style */
   .search-card {
-    position: absolute; top: 12px; left: 12px; z-index: 1000;
+    /* above the stop panel, so search keeps working while a panel is open */
+    position: absolute; top: 12px; left: 12px; z-index: 1200;
     width: min(392px, calc(100vw - 24px));
     background: var(--bg); border-radius: 12px; box-shadow: var(--shadow);
   }
@@ -90,6 +91,10 @@
     width: min(408px, 100vw); background: var(--bg); box-shadow: var(--shadow);
     transform: translateX(-105%); transition: transform .25s ease; overflow-y: auto;
     overscroll-behavior: contain;
+  }
+  /* desktop: the panel starts below the search card instead of under it */
+  @media (min-width: 641px) {
+    .panel { top: 68px; border-radius: var(--radius) var(--radius) 0 0; }
   }
   .panel.open { transform: translateX(0); }
   /* the stop panel header is the one bold moment: a dark bus-stop sign with route bullets */
