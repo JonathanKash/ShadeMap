@@ -41,13 +41,41 @@ score = heat_percentile * log(1 + daily_trips) * shelter_multiplier * transit_de
 
 There is no model, and the weights were not adjusted to change the ranking.
 
+## Other lists in the data
+
+The map shows the stop ranking above. Three more views are in `outputs/` as CSV files. They are not drawn on the map.
+
+**Where the wait itself is worst** ([`outputs/shade_need.csv`](outputs/shade_need.csv)). The main score multiplies by bus visits, so it answers "where would a shelter help the most riders," and busy campus stops lead. This second list asks a different question, "where is standing at the stop hardest," and does not reward busy stops:
+
+```
+shade_need = heat_percentile * (1 - green_cover) * shelter_factor * social_vulnerability
+```
+
+Any stop with weekday service, satellite data and a shelter status of none or unknown qualifies (814 stops; confirmed sheltered stops are left out). `green_cover` is the share of vegetation within 100 m from Sentinel-2, used as a rough stand-in for bare surroundings. `social_vulnerability` blends the census share of households with no vehicle and of residents 65 and older. Only 4 of its top 20 are also in the main top 20, and the median top-20 stop has 27 bus visits a day versus 158 for the main list.
+
+| Rank | Stop | Bus visits per weekday | Nearby summer morning heat | Green cover within 100 m | Shelter (OpenStreetMap) |
+|---|---|---|---|---|---|
+| 1 | Westbound NE 39th Ave at Main St | 23 | 110.6 F | 7% | none |
+| 2 | Big Lot on NW 13th Street | 37 | 109.0 F | 5% | none |
+| 3 | SUBWAY at Newberry Rd | 51 | 111.8 F | 16% | none |
+| 4 | GRACE Marketplace | 13 | 107.2 F | 23% | none |
+| 5 | NW 16th Ave NW 13th St | 20 | 112.8 F | 21% | none |
+
+**Routes** ([`outputs/route_ranking.csv`](outputs/route_ranking.csv)). A route ranks higher when its stops are, on average, hotter, busier, less likely to have a shelter, and in tracts with more car-free households. Across 26 routes, the top three are Route 33 (Butler Plaza to The Hub), Route 38 and Route 21. Routes through busy hubs get a boost because a stop's bus visits count every route serving it, and the top routes are mostly University of Florida corridor routes.
+
+**Distance to a shelter** ([`outputs/nearest_shelter.csv`](outputs/nearest_shelter.csv)). For every stop and route pair, the nearest stop on the same route that OpenStreetMap lists as sheltered, by straight-line distance and a walking time at 80 m per minute. On 816 of 1,434 stop and route pairs (57 percent) there is no sheltered stop within a 5 minute walk. OpenStreetMap shelter coverage is partial, so read that as "none that OpenStreetMap knows of," an upper bound.
+
+## What a resident can do
+
+Every stop popup links to the City of Gainesville's myGNV request portal and the RTS phone line for asking about a shelter, and to a prefilled GitHub issue for reporting wrong shelter information, which needs a GitHub account and a person to check it. Nothing here promises what the city or RTS will do. Verified corrections go into `outputs/shelter_overrides.csv` with a source.
+
 ## Method
 
 1. **Heat (NASA Landsat).** Land surface temperature comes from Landsat 8 and 9 Collection 2 Level-2 (`lwir11` band, 30 m resolution), fetched from the [Microsoft Planetary Computer](https://planetarycomputer.microsoft.com/dataset/landsat-c2-l2) STAC API with no manual downloads. We used 37 scenes from June 2 to September 15, 2026 over Alachua County. Each pixel is cloud-masked individually using the `qa_pixel` band, then the median across all scenes is taken. The USGS scale factor (0.00341802) and offset (149.0) convert to Kelvin, then to Celsius. Each stop gets a 100 m buffer (built in EPSG:6440, Florida North, meters), and we take the mean of the pixels inside it. The county-wide median of the composite is 33.2 C.
 2. **Stops and service.** Stop locations and weekday bus visits come from the RTS GTFS feed (Spring 2026, 971 stops), using Wednesday, February 11, 2026 as the representative weekday.
 3. **Shelters.** OpenStreetMap via the Overpass API. Each stop takes the nearest OSM bus stop or platform within 25 m. `shelter=yes` is sheltered, `shelter=no` is none, and everything else is unknown.
 4. **Transit dependence.** ACS 2024 5-year estimates at census tract level: households with no vehicle (table B08201) and residents 65 and older (table B01001, shown in the data but not used in the score). Numbers come from Census Reporter, a keyless mirror of the same ACS tables. Tract shapes are Census TIGER/Line 2024.
-5. **Vegetation context (popups only).** Sentinel-2 L2A at 10 m, 17 summer scenes, cloud-masked, median NDVI composite. For each stop we report the share of pixels within 100 m with NDVI above 0.4 (`pct_green`) in `outputs/stop_canopy.csv`. It is shown in the map popups and is not part of the score. Greener stops run cooler in our data (r = -0.55 against land surface temperature).
+5. **Vegetation context.** Sentinel-2 L2A at 10 m, 17 summer scenes, cloud-masked, median NDVI composite. For each stop we report the share of pixels within 100 m with NDVI above 0.4 (`pct_green`) in `outputs/stop_canopy.csv`. It is shown in the map popups and is not part of the main score. It is used in the separate "where the wait itself is worst" list described above. Greener stops run cooler in our data (r = -0.55 against land surface temperature).
 6. **Afternoon check (NASA ECOSTRESS, not scored).** ECOSTRESS ECO_L2T_LSTE v2 from NASA Earthdata / LP DAAC, summer 2026 afternoon overpasses (12:00 to 5:00 PM). Used only to size the gap between morning Landsat values and afternoon heat, described under Limitations.
 7. **Scoring and map.** `src/score.py` joins the tables and computes the score. `src/make_map.py` builds the static map in `docs/index.html`.
 
@@ -78,6 +106,12 @@ cd src && python context.py && cd ..   # shelters and census
 python src/lst.py             # Landsat composite and per-stop temperatures
 python src/score.py           # scored_stops.csv and top_20_stops.csv
 python src/make_map.py        # docs/index.html
+
+# optional extra lists (outputs/shade_need.csv, route_ranking.csv, nearest_shelter.csv)
+python src/lst.py canopy      # Sentinel-2 green cover per stop
+python src/shade_need.py
+python src/route_ranking.py
+python src/nearest_shelter.py
 ```
 
 Every download is cached in `data/`, so a rerun is fast. The handoff files each step produces are committed in `outputs/`, so you can also run `score.py` and `make_map.py` directly without the earlier steps.
@@ -92,7 +126,7 @@ Every download is cached in `data/`, so a rerun is fast. The handoff files each 
 - **30 m pixels blur the stop with its surroundings.** The 100 m buffer is a neighborhood average, not the temperature of the pad the rider stands on.
 - **42 of 971 stops (4.3 percent) have no temperature data.** This is not cloud cover. The Landsat surface temperature product has a known gap in its emissivity input over part of west-central Gainesville. We chose not to estimate these values: every temperature in the ranking is a measured satellite value. We show these stops as gray and do not rank them, rather than scoring them as cool.
 - **Census data is tract level.** A tract is a coarse proxy for who actually waits at a given stop.
-- **Shade itself is not measured.** The analysis does not include tree canopy, building shadows, or sun angle. The only protection input is whether OpenStreetMap lists a shelter at the stop. The ranking shows where heat exposure and need look highest and where no shelter is known, not how shaded each stop is. The popups show nearby green cover from satellite vegetation data as context, but that is a vegetation measure, not shade, and it does not affect the ranking. Tree canopy and shadow analysis would be a natural next step.
+- **Shade itself is not measured.** The analysis does not include tree canopy, building shadows, or sun angle. The only protection input is whether OpenStreetMap lists a shelter at the stop. The ranking shows where heat exposure and need look highest and where no shelter is known, not how shaded each stop is. The popups show nearby green cover from satellite vegetation data as context, but that is a vegetation measure, not shade. It does not affect the main ranking, and the separate "where the wait itself is worst" list uses it only as a rough stand-in for bare surroundings. Tree canopy and shadow analysis would be a natural next step.
 - **Descriptive only.** The list shows where the data says heat exposure is highest. It is not a recommendation for what any agency should build.
 
 ## Repository layout
@@ -103,9 +137,12 @@ src/gtfs.py      stop parsing and weekday trip counts
 src/context.py   OpenStreetMap shelters and census tracts
 src/score.py     join, score, rank
 src/make_map.py  builds the map
-outputs/         handoff CSVs and the final ranked CSVs
-docs/            the map (index.html), served by GitHub Pages
+src/shade_need.py, route_ranking.py, nearest_shelter.py   the extra lists
+outputs/         handoff CSVs, the final ranked CSVs, and the extra lists
+docs/            the map (index.html), photo upload code, served by GitHub Pages
+supabase/        one-time storage setup for rider photos (see SUPABASE_SETUP.md)
 assets/          screenshots and photos
+analysis.ipynb   the analysis, runs top to bottom
 ```
 
 ## Data sources
