@@ -191,6 +191,26 @@
     .chips { top: 64px; }
   }
   .leaflet-control-zoom { box-shadow: var(--shadow); border: 0 !important; border-radius: 8px; }
+
+  /* locate-me button, sits above the zoom control */
+  .fab { position: absolute; right: 12px; bottom: 148px; z-index: 950; width: 44px; height: 44px;
+    border-radius: 50%; background: var(--bg); border: 0; box-shadow: var(--shadow);
+    cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .fab svg { fill: #5f6368; }
+  .fab.on svg { fill: var(--accent); }
+  @media (max-width: 640px) { .fab { bottom: 206px; } }
+  .user-dot { width: 16px; height: 16px; border-radius: 50%; background: var(--accent);
+    border: 3px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,.4); }
+  .toast { position: absolute; left: 50%; transform: translateX(-50%); bottom: 70px; z-index: 1300;
+    background: #202124; color: #fff; font-size: 13px; padding: 9px 16px; border-radius: 8px;
+    box-shadow: var(--shadow); max-width: calc(100vw - 40px); }
+  .toast[hidden] { display: none; }
+
+  /* live buses */
+  .bus-tag { background: var(--accent); color: #fff; border-radius: 10px; font-size: 11px;
+    font-weight: 700; padding: 1px 0; border: 2px solid #fff; box-shadow: 0 1px 3px rgba(0,0,0,.35);
+    text-align: center; line-height: 16px; }
+  .bus-tag.dly { background: var(--warm); }
 </style>
 </head>
 <body>
@@ -215,6 +235,11 @@
 </div>
 
 <aside class="panel" id="panel" aria-label="Stop details"></aside>
+
+<button class="fab" id="locate" aria-label="Show my location" title="Show my location">
+  <svg width="22" height="22" viewBox="0 0 24 24"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm8.94 3A8.99 8.99 0 0 0 13 3.06V1h-2v2.06A8.99 8.99 0 0 0 3.06 11H1v2h2.06A8.99 8.99 0 0 0 11 20.94V23h2v-2.06A8.99 8.99 0 0 0 20.94 13H23v-2h-2.06zM12 19a7 7 0 1 1 0-14 7 7 0 0 1 0 14z"/></svg>
+</button>
+<div class="toast" id="toast" hidden role="status"></div>
 
 <details class="legend" id="legend" open>
   <summary>What the dots mean</summary>
@@ -382,6 +407,99 @@
         if (q && routes[q]) { sel.value = q; routeSel = q; applyRoute(true); }  // shareable link: ?route=33
       });
     sel.addEventListener("change", function () { routeSel = sel.value; applyRoute(true); });
+  }
+
+  // ---- my location (device only: the position never leaves the browser) ----
+  var locBtn = document.getElementById("locate"), toastEl = document.getElementById("toast");
+  var watchId = null, userDot = null, userRing = null, firstFix = true;
+  function toast(msg) {
+    toastEl.textContent = msg;
+    toastEl.hidden = false;
+    clearTimeout(toastEl._t);
+    toastEl._t = setTimeout(function () { toastEl.hidden = true; }, 4000);
+  }
+  function stopLocate() {
+    if (watchId != null) navigator.geolocation.clearWatch(watchId);
+    watchId = null; firstFix = true;
+    if (userDot) { map.removeLayer(userDot); userDot = null; }
+    if (userRing) { map.removeLayer(userRing); userRing = null; }
+    locBtn.classList.remove("on");
+  }
+  locBtn.addEventListener("click", function () {
+    if (watchId != null) { stopLocate(); return; }
+    if (!navigator.geolocation) { toast("Your browser does not support location."); return; }
+    locBtn.classList.add("on");
+    watchId = navigator.geolocation.watchPosition(function (pos) {
+      var ll = [pos.coords.latitude, pos.coords.longitude];
+      if (!userDot) {
+        userDot = L.marker(ll, { icon: L.divIcon({ className: "", html: '<div class="user-dot"></div>', iconSize: [16, 16], iconAnchor: [8, 8] }), interactive: false }).addTo(map);
+        userRing = L.circle(ll, { radius: pos.coords.accuracy || 30, weight: 1, color: "#1a73e8", fillColor: "#1a73e8", fillOpacity: 0.12, interactive: false }).addTo(map);
+      } else {
+        userDot.setLatLng(ll);
+        userRing.setLatLng(ll).setRadius(pos.coords.accuracy || 30);
+      }
+      if (firstFix) { firstFix = false; map.setView(ll, Math.max(map.getZoom(), 16)); }
+    }, function (err) {
+      stopLocate();
+      toast(err.code === 1 ? "Location permission was denied. It is only used on your device, never sent anywhere."
+                           : "Could not get your location.");
+    }, { enableHighAccuracy: true, maximumAge: 10000, timeout: 15000 });
+  });
+
+  // ---- live buses (hidden until config.js sets busFeedUrl to a proxy) -------
+  var BUS_URL = (cfg.busFeedUrl || "").replace(/\/+$/, "");
+  var BUSES_ON = !!BUS_URL;
+  var busLayer = L.layerGroup(), busMarkers = {}, busTimer = null;
+  function busIcon(v) {
+    var w = Math.max(26, 10 + 8 * String(v.rt || "?").length);
+    return L.divIcon({
+      className: "",
+      html: '<div class="bus-tag' + (v.dly ? " dly" : "") + '" style="width:' + w + 'px">' + esc(v.rt || "?") + "</div>",
+      iconSize: [w, 20], iconAnchor: [w / 2, 10]
+    });
+  }
+  function renderBuses(vehicles) {
+    var seen = {};
+    vehicles.forEach(function (v) {
+      var lat = parseFloat(v.lat), lon = parseFloat(v.lon);
+      if (!isFinite(lat) || !isFinite(lon)) return;
+      if (routeSel && String(v.rt) !== routeSel) return;
+      var id = String(v.vid || (v.rt + ":" + lat + "," + lon));
+      seen[id] = 1;
+      var html = "<b>Route " + esc(v.rt) + "</b>" +
+        (v.des ? " to " + esc(v.des) : "") +
+        (v.dly ? "<br>Reported delayed" : "") +
+        '<br><span style="color:#5f6368;font-size:11px">Position from the RTS bus tracker, may lag</span>';
+      if (busMarkers[id]) {
+        busMarkers[id].setLatLng([lat, lon]).setIcon(busIcon(v)).setPopupContent(html);
+      } else {
+        busMarkers[id] = L.marker([lat, lon], { icon: busIcon(v), zIndexOffset: 500 })
+          .bindPopup(html).addTo(busLayer);
+      }
+    });
+    Object.keys(busMarkers).forEach(function (id) {
+      if (!seen[id]) { busLayer.removeLayer(busMarkers[id]); delete busMarkers[id]; }
+    });
+  }
+  function pollBuses() {
+    if (!BUSES_ON || document.visibilityState !== "visible") return;
+    fetch(BUS_URL + "/vehicles" + (routeSel ? "?rt=" + encodeURIComponent(routeSel) : ""))
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (d) { renderBuses((d && d.vehicles) || []); })
+      .catch(function () { /* feed hiccup: keep last known positions */ });
+  }
+  if (BUSES_ON) {
+    busLayer.addTo(map);
+    pollBuses();
+    busTimer = setInterval(pollBuses, 10000);
+    document.addEventListener("visibilitychange", function () {
+      if (document.visibilityState === "visible") pollBuses();
+    });
+    // refresh immediately when the route selector changes (second listener, C's handler untouched)
+    document.getElementById("route-sel").addEventListener("change", function () {
+      Object.keys(busMarkers).forEach(function (id) { busLayer.removeLayer(busMarkers[id]); delete busMarkers[id]; });
+      pollBuses();
+    });
   }
 
   // ---- panel ---------------------------------------------------------------
