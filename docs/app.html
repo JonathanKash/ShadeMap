@@ -66,11 +66,13 @@
   .chip.on { background: var(--accent-soft); border-color: var(--accent-line); color: var(--accent-ink); font-weight: 500; }
   /* route selector: picks one route, everything else greys out */
   .route-select { background: var(--bg); border: 1px solid var(--line); border-radius: 20px; min-height: 40px; padding: 8px 12px;
-    font-size: 14px; box-shadow: var(--shadow); color: var(--ink); max-width: min(260px, calc(100vw - 24px)); cursor: pointer; }
+    font-size: 14px; box-shadow: var(--shadow); color: var(--ink); width: min(260px, calc(100vw - 24px)); cursor: pointer; }
   .route-select.on { background: var(--accent-soft); border-color: var(--accent-line); color: var(--accent-ink); font-weight: 500; }
   .route-info { background: var(--bg); border-radius: 12px; padding: 8px 12px; font-size: 13px;
     color: var(--muted); box-shadow: var(--shadow); max-width: calc(100vw - 24px); }
   .route-info[hidden] { display: none; }
+  /* the route menu sits on its own row under the chips instead of sticking out to the right */
+  .route-row { flex-basis: 100%; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 
   /* side panel */
   .panel {
@@ -233,8 +235,10 @@
   <button class="chip" data-f="on10">Top 10 on campus</button>
   <button class="chip" data-f="need">Needs shade most</button>
   <button class="chip" data-f="unsheltered">No shelter</button>
-  <select id="route-sel" class="route-select" aria-label="Highlight one bus route"><option value="">All routes</option></select>
-  <span id="route-info" class="route-info" role="status" hidden></span>
+  <div class="route-row">
+    <select id="route-sel" class="route-select" aria-label="Highlight one bus route"><option value="">All routes</option></select>
+    <span id="route-info" class="route-info" role="status" hidden></span>
+  </div>
 </div>
 
 <aside class="panel" id="panel" aria-label="Stop details"></aside>
