@@ -93,6 +93,10 @@
         <legend>Which list of stops?</legend>
         <label class="opt"><input type="radio" name="list" value="main" checked>
           <span>Most people helped<small>The main ranking: hot, busy, unsheltered, car-free area.</small></span></label>
+        <label class="opt"><input type="radio" name="list" value="off">
+          <span>Outside the UF campus<small>The same score, but only stops off campus, so the rest of Gainesville is not crowded out.</small></span></label>
+        <label class="opt"><input type="radio" name="list" value="on">
+          <span>On the UF campus<small>The same score, only stops inside the campus boundary.</small></span></label>
         <label class="opt"><input type="radio" name="list" value="need">
           <span>Where the wait itself is worst<small>Ignores how busy a stop is, so quiet stops in hot, car-free or senior neighborhoods count.</small></span></label>
       </fieldset>
@@ -113,7 +117,7 @@
     <div class="card" style="margin-top:12px">
       <strong>How fast does it add up?</strong>
       <svg id="curve" viewBox="0 0 440 208" role="img" aria-label="Share of all weekday bus visits reached as more stops are sheltered, for both lists"></svg>
-      <div class="key"><span><i style="background:var(--main)"></i>Most people helped</span><span><i style="background:var(--need)"></i>Worst wait</span></div>
+      <div class="key"><span><i style="background:var(--main)"></i>Most people helped</span><span><i style="background:var(--need)"></i>Worst wait</span><span><i style="background:#0e7490"></i>Off campus</span><span><i style="background:#6d28d9"></i>On campus</span></div>
     </div>
   </section>
 
@@ -151,8 +155,11 @@
   var LABEL = { none: "No shelter", unknown: "Unknown", sheltered: "Sheltered" };
   var LISTS = {
     main: { key: "rank", name: "most people helped", color: "#2563eb" },
-    need: { key: "need_rank", name: "worst wait", color: "#c64600" }
+    need: { key: "need_rank", name: "worst wait", color: "#c64600" },
+    off: { key: "rank", campus: 0, name: "outside the UF campus", color: "#0e7490" },
+    on: { key: "rank", campus: 1, name: "on the UF campus", color: "#6d28d9" }
   };
+  var campusMap = {};
   var stops = [], total = 0, totalUnsheltered = 0, sorted = {}, cum = {};
   var listName = "main", n = 20, markers = {}, sel = [];
 
@@ -172,7 +179,8 @@
     stops.forEach(function (s) { total += s.trips; if (s.shelter !== "sheltered") totalUnsheltered += s.trips; });
     Object.keys(LISTS).forEach(function (k) {
       var key = LISTS[k].key;
-      sorted[k] = stops.filter(function (s) { return s[key] != null; })
+      var L = LISTS[k];
+      sorted[k] = stops.filter(function (s) { return s[key] != null && (L.campus === undefined || (campusMap[s.id] && campusMap[s.id][0] === L.campus)); })
                        .sort(function (a, b) { return a[key] - b[key]; });
       var c = 0; cum[k] = sorted[k].map(function (s) { c += s.trips; return c; });
     });
@@ -275,8 +283,9 @@
   document.getElementById("rows").addEventListener("keydown", function (e) {
     if (e.key === "Enter" && e.target.tagName === "TR") focusRow(e.target); });
 
+  var campusReq = fetch("campus.json").then(function (r) { return r.ok ? r.json() : {}; }).catch(function () { return {}; });
   fetch("app_data.json").then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-    .then(function (d) { prepare(d); render(true); })
+    .then(function (d) { return campusReq.then(function (c) { campusMap = c || {}; prepare(d); render(true); }); })
     .catch(function () {
       document.querySelector(".layout").innerHTML = '<p class="err">Could not load the stop data. Try reloading the page.</p>';
     });

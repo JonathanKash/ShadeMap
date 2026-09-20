@@ -81,3 +81,16 @@ Regenerate after score.py: `cd src && ../.venv/bin/python stability.py` (fixed s
   whole ranking has an error bar. The published ranking is unchanged and nothing was tuned.
 - Several top-20 stops are the same place: Southwest Recreation Center appears 3 times
   (different stop ids, ranks 3, 5, 8). Say so in the README rather than hiding it.
+
+## On campus and off campus (outputs/priority_on_off_campus.csv and .md, outputs/stop_campus.csv, docs/campus.json)
+Regenerate after score.py: `cd src && ../.venv/bin/python campus.py`. Boundary is the OpenStreetMap
+University of Florida relations (main and East Campus), cached in data/, area 7.6 km2.
+- On campus = inside the boundary or within 5 m of it. The 5 m absorbs boundary-drawing error:
+  stops named for UF buildings (Keene Flint Hall, Ben Hill Griffin Stadium, Norman Hall) are 1 to 5 m
+  outside the line on the road edge that forms it, private apartments start near 8 m.
+- 103 stops on campus, 868 off. Off campus carries 74 percent of weekday bus visits and 79 percent
+  of the visits at stops with no known shelter. 19 of the main top 20 are on campus.
+- Each group is ranked with the same score, nothing re-weighted. The off-campus top 10 is citywide
+  ranks 14 to 35: mostly commercial and corridor stops (34th St Plaza, Butler Plaza, NW 13th St).
+- Limits: the boundary is drawn by OpenStreetMap contributors, off campus includes student
+  apartment complexes, and shelter status is partial.
