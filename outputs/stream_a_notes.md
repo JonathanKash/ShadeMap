@@ -112,6 +112,34 @@ Source: NASA ECOSTRESS ECO_L2T_LSTE v2 via NASA Earthdata / LP DAAC.
 Regenerate: `.venv/Scripts/python src/lst.py eco` (needs an Earthdata login;
 tiles are cached in data/ecostress/).
 
+## Nearest sheltered stop per route (opt-in, `outputs/nearest_shelter.csv`)
+
+For every stop-route pair: the closest OSM-sheltered stop on the same route,
+straight-line distance, walk minutes at 80 m per minute, and a
+`no_shelter_within_5min` flag. Regenerate: `.venv/Scripts/python
+src/nearest_shelter.py` (new Stream A file, reads B's outputs only).
+
+Headline numbers: 57 percent of the 1434 stop-route pairs have no sheltered
+stop within a 5 minute walk on their route. Route 7 is 99 percent flagged,
+Route 6 is 98 percent. Caveat to state wherever this is shown: OSM shelter
+coverage is partial (370 stops unknown), so "no sheltered stop nearby" means
+"none that OSM knows of" and the flag is an upper bound.
+
+Suggested popup or panel text for a flagged stop:
+
+  No sheltered stop within a 5 minute walk on this route (per OpenStreetMap).
+  To ask for a shelter here: report it in the myGNV portal (myGNV.org or the
+  myGNV app), or contact RTS Customer Service at 352-334-2600 (Rosa Parks
+  Downtown Station, Mon-Fri 8 am to 4 pm) or via the contact form at
+  go-rts.com. RTS says stop improvements weigh "safety and accessibility
+  concerns first and then how many people use the stop", which is what this
+  map measures. Public input also goes to the RTS Citizens Advisory Board.
+
+Sources: go-rts.com FAQ and contact pages, gainesvillefl.gov RTS pages,
+myGNV portal. Wiring this into the map is C's surface; if it does not make
+the freeze it is a clean post-hackathon "how it could be extended" item,
+which the track judging asks about anyway.
+
 ## EMERGE curriculum requirement (flag for C, from the track PDF in repo root)
 
 The track requires naming at least one EMERGE curriculum and the lesson or method
