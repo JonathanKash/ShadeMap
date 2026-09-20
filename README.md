@@ -8,7 +8,7 @@ Riders of Gainesville's RTS buses wait for the bus on unshaded asphalt through F
 
 ## What the map shows
 
-Every RTS bus stop is a dot. Color shows priority for shade, from pale for the lowest 40 percent of stops to dark red for the top 5 percent. Bigger dots have more weekday buses. A brown ring marks the 20 stops on the "needs shade most" list described below. Stops with no satellite data or no weekday service are gray and are not ranked.
+Every RTS bus stop is a dot. Color shows priority for shade, from pale for the lowest 40 percent of stops to dark red for the top 5 percent. Bigger dots have more weekday buses. The 20 stops on the "needs shade most" list described below are solid black. Stops with no satellite data or no weekday service are gray and are not ranked.
 
 Use the search box to find a stop or route, and the chips to filter to all stops, the priority top 20, the "needs shade most" list, or stops with no shelter. Tapping a stop opens a panel with its rank, heat, shelter status, a warning when no sheltered stop is within a 5 minute walk on its route, and rider photos when there are any. The classic map shows the same ranking with numbered pins for the top 20 ([screenshot](assets/classic_map.png)).
 
@@ -47,7 +47,7 @@ There is no model, and the weights were not adjusted to change the ranking.
 
 ## Other lists in the data
 
-The map shows the stop ranking above. Three more views are in `outputs/` as CSV files. The first is also on the map as the "needs shade most" chip and the brown rings; the route ranking and shelter-distance files are CSV only, and the shelter-distance warning shows in each stop's panel.
+The map shows the stop ranking above. Three more views are in `outputs/` as CSV files. The first is also on the map as the "needs shade most" chip and the black dots; the route ranking and shelter-distance files are CSV only, and the shelter-distance warning shows in each stop's panel.
 
 **Where the wait itself is worst** ([`outputs/shade_need.csv`](outputs/shade_need.csv)). The main score multiplies by bus visits, so it answers "where would a shelter help the most riders," and busy campus stops lead. This second list asks a different question, "where is standing at the stop hardest," and does not reward busy stops:
 
