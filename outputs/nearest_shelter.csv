@@ -1,0 +1,1435 @@
+stop_id,stop_name,route,nearest_sheltered_stop_id,nearest_sheltered_stop_name,distance_m,walk_min,no_shelter_within_5min
+1290,Alachua County Courthouse,1,1216,Arlington Square Apartments,264,3.3,False
+442,Southbound SW 13th Street @ Inner Road,1,362,Social 28 Apartments,169,2.1,False
+1547,Sam's Club,1,1492,Butler Plaza,231,2.9,False
+1323,College Manor Apartments,1,1159,Phi Kappa Tau,86,1.1,False
+39,The Bartram Apartments,1,39,The Bartram Apartments,0,0.0,False
+37,Brandywine Apartments,1,37,Brandywine Apartments,0,0.0,False
+22,Country Village,1,38,University Commons,53,0.7,False
+42,Shands Hospital @ Center Drive,1,42,Shands Hospital @ Center Drive,0,0.0,False
+1549,Hilton Garden Inn,1,1493,Butler Plaza Transfer Station,252,3.2,False
+1306,Publix at Butler Plaza,1,1306,Publix at Butler Plaza,0,0.0,False
+2,Hampton Inn Hotel,1,1216,Arlington Square Apartments,145,1.8,False
+7,Infinity Hall,1,1159,Phi Kappa Tau,394,4.9,False
+1206,Arlington Square Apartments,1,1216,Arlington Square Apartments,30,0.4,False
+1216,Arlington Square Apartments,1,1216,Arlington Square Apartments,0,0.0,False
+1349,Hilton Garden Inn,1,1493,Butler Plaza Transfer Station,317,4.0,False
+26,Whole Foods @ Butler Town Center,1,1306,Publix at Butler Plaza,428,5.4,True
+1159,Phi Kappa Tau,1,1159,Phi Kappa Tau,0,0.0,False
+14,Frazier Rogers Hall,1,14,Frazier Rogers Hall,0,0.0,False
+1,Rosa Parks RTS Downtown Station,1,1,Rosa Parks RTS Downtown Station,0,0.0,False
+53,Innovation Square East,1,1159,Phi Kappa Tau,574,7.2,True
+1492,Butler Plaza,1,1492,Butler Plaza,0,0.0,False
+52,Eastbound SW 2nd Avenue @ SW 10th Street,1,1159,Phi Kappa Tau,316,3.9,False
+441,Tigert Hall,1,441,Tigert Hall,0,0.0,False
+27,Chili's Grill and Bar @ Butler Plaza,1,1306,Publix at Butler Plaza,311,3.9,False
+40,Shands Care Helicopter Pad,1,16,Shands Hospital @ Center Drive,617,7.7,True
+24,Take 5 Car Wash,1,35,Silver Creek Apartments,64,0.8,False
+15,Center Dr @ Museum Rd,1,43,Center Dr @ Museum Rd,46,0.6,False
+472,Rawlings Hall,1,472,Rawlings Hall,0,0.0,False
+1632,Inner Road Eastbound,1,472,Rawlings Hall,250,3.1,False
+43,Center Dr @ Museum Rd,1,43,Center Dr @ Museum Rd,0,0.0,False
+1491,Lowe's @ Butler Plaza Eastbound,1,1491,Lowe's @ Butler Plaza Eastbound,0,0.0,False
+57,Hippodrome Theatre,1,1216,Arlington Square Apartments,169,2.1,False
+38,University Commons,1,38,University Commons,0,0.0,False
+20,Mt Vernon Apartments,1,39,The Bartram Apartments,48,0.6,False
+55,Second Avenue Center Apartments,1,1216,Arlington Square Apartments,720,9.0,True
+4,The Continuum,1,1216,Arlington Square Apartments,700,8.7,True
+1193,Rawlings Hall,1,472,Rawlings Hall,40,0.5,False
+1631,Inner Road Westbound,1,362,Social 28 Apartments,250,3.1,False
+1592,Pizza Hut Archer Rd Eastbound,1,1306,Publix at Butler Plaza,360,4.5,False
+28,Bonefish Grill Seafood Restaurant @ Butler Plaza,1,1306,Publix at Butler Plaza,126,1.6,False
+44,Frazier Rogers Hall (Eastbound),1,14,Frazier Rogers Hall,69,0.9,False
+1548,Sam's Club,1,1492,Butler Plaza,228,2.9,False
+36,Capstone Quarters Apartments,1,36,Capstone Quarters Apartments,0,0.0,False
+6,720 SW 2nd Ave,1,1159,Phi Kappa Tau,570,7.1,True
+16,Shands Hospital @ Center Drive,1,16,Shands Hospital @ Center Drive,0,0.0,False
+3,Westbound SW 2nd Avenue @ SW 2nd Street,1,1216,Arlington Square Apartments,392,4.9,False
+56,Eastbound SW 2nd Ave @ SW 2nd St,1,1216,Arlington Square Apartments,410,5.1,True
+1493,Butler Plaza Transfer Station,1,1493,Butler Plaza Transfer Station,0,0.0,False
+25,Westbound Archer Road @ SW 34th Street,1,35,Silver Creek Apartments,357,4.5,False
+18,Shands Hospital @ Davis Cancer Pavilion,1,16,Shands Hospital @ Center Drive,498,6.2,True
+23,UF Surge Area Drive,1,37,Brandywine Apartments,43,0.5,False
+362,Social 28 Apartments,1,362,Social 28 Apartments,0,0.0,False
+35,Silver Creek Apartments,1,35,Silver Creek Apartments,0,0.0,False
+34,Direct Insurance @ Archer Road,1,35,Silver Creek Apartments,337,4.2,False
+436,Applebee's @ NW 13th Street,10,146,Holiday Inn @ W University Avenue,1014,12.7,True
+518,Santa Fe College @ NW 83rd Street,10,520,Santa Fe,515,6.4,True
+528,Northwest Baptist Church,10,508,NW 23rd Ave NW 43rd St,1374,17.2,True
+535,B'Nai Israel School & Day Care,10,533,NW 23rd Ave NW 43rd St,544,6.8,True
+206,AT&T Building,10,1216,Arlington Square Apartments,591,7.4,True
+521,Santa Fe College,10,520,Santa Fe,243,3.0,False
+537,Willowcroft Neighborhood,10,533,NW 23rd Ave NW 43rd St,1344,16.8,True
+508,NW 23rd Ave NW 43rd St,10,508,NW 23rd Ave NW 43rd St,0,0.0,False
+545,NW 16th Ave @ NW 17th St,10,146,Holiday Inn @ W University Avenue,1685,21.1,True
+517,Shenandoah Neighborhood,10,520,Santa Fe,893,11.2,True
+367,Xerographic Copy Center,10,146,Holiday Inn @ W University Avenue,982,12.3,True
+531,Eastbound NW 23rd Avenue @ NW 46th Street,10,508,NW 23rd Ave NW 43rd St,465,5.8,True
+514,Westbound NW 23rd Avenue @ NW 63rd Terrace,10,520,Santa Fe,2145,26.8,True
+438,The Gate Food Store @ NW 13th Street,10,146,Holiday Inn @ W University Avenue,417,5.2,True
+201,West University Avenue & SW 12th St,10,146,Holiday Inn @ W University Avenue,159,2.0,False
+203,University of Florida Human Resources,10,146,Holiday Inn @ W University Avenue,506,6.3,True
+1206,Arlington Square Apartments,10,1216,Arlington Square Apartments,30,0.4,False
+1216,Arlington Square Apartments,10,1216,Arlington Square Apartments,0,0.0,False
+533,NW 23rd Ave NW 43rd St,10,533,NW 23rd Ave NW 43rd St,0,0.0,False
+507,Capital City Bank @ NW 16th Boulevard,10,533,NW 23rd Ave NW 43rd St,59,0.7,False
+525,Hickory Woods Neighborhood,10,520,Santa Fe,1709,21.4,True
+140,Alachua County Office of the State Attorney,10,1216,Arlington Square Apartments,459,5.7,True
+1,Rosa Parks RTS Downtown Station,10,1,Rosa Parks RTS Downtown Station,0,0.0,False
+144,Leonardo's 706,10,146,Holiday Inn @ W University Avenue,640,8.0,True
+145,Westbound W University Ave @ NW 10th St,10,146,Holiday Inn @ W University Avenue,395,4.9,False
+541,Raintree Neighborhood,10,146,Holiday Inn @ W University Avenue,2437,30.5,True
+526,Eastbound NW 23rd Avenue @ NW 63rd Terrace,10,520,Santa Fe,2162,27.0,True
+498,NW 24th St @ NW 16th Avenue,10,146,Holiday Inn @ W University Avenue,2458,30.7,True
+500,NW 27th Terrace @ NW 16th Avenue,10,533,NW 23rd Ave NW 43rd St,2403,30.0,True
+524,Quail Ridge Neighborhood,10,520,Santa Fe,1449,18.1,True
+496,Forest Ridge Neighborhood,10,146,Holiday Inn @ W University Avenue,2089,26.1,True
+544,NW 16th Avenue @ NW 20th Way,10,146,Holiday Inn @ W University Avenue,1812,22.6,True
+366,University House Apartments,10,146,Holiday Inn @ W University Avenue,725,9.1,True
+523,Shenandoah Neighborhood,10,520,Santa Fe,894,11.2,True
+502,Zion Evangelical Lutheran Church,10,533,NW 23rd Ave NW 43rd St,1448,18.1,True
+510,Suburban Apartments,10,508,NW 23rd Ave NW 43rd St,413,5.2,True
+208,Bo Diddley Community Plaza,10,1216,Arlington Square Apartments,237,3.0,False
+439,NW 13th St @ Nearside NW 3rd Pl Southbound,10,146,Holiday Inn @ W University Avenue,257,3.2,False
+146,Holiday Inn @ W University Avenue,10,146,Holiday Inn @ W University Avenue,0,0.0,False
+142,Seagle Building,10,1216,Arlington Square Apartments,631,7.9,True
+249,NW 16th Ave NW 13th St,10,146,Holiday Inn @ W University Avenue,1627,20.3,True
+515,Hickory Woods Neighborhood,10,520,Santa Fe,1723,21.5,True
+543,Forest Ridge Neighborhood,10,146,Holiday Inn @ W University Avenue,2105,26.3,True
+434,Direct Auto Insurance,10,146,Holiday Inn @ W University Avenue,1370,17.1,True
+532,NW 23rd Ave @ NW 43rd St,10,508,NW 23rd Ave NW 43rd St,249,3.1,False
+522,The Pentecostals of Gainesville,10,520,Santa Fe,687,8.6,True
+364,Publix @ NW 13th St and W Univ Ave,10,146,Holiday Inn @ W University Avenue,174,2.2,False
+368,LifeSouth Community Blood Center @ NW 13th Street,10,146,Holiday Inn @ W University Avenue,1310,16.4,True
+437,All Star Automotive,10,146,Holiday Inn @ W University Avenue,620,7.8,True
+538,Covenant Church,10,533,NW 23rd Ave NW 43rd St,1860,23.3,True
+143,Santa Fe College Charles L. Blount Center,10,1216,Arlington Square Apartments,776,9.7,True
+529,First Church of the Nazarene,10,508,NW 23rd Ave NW 43rd St,898,11.2,True
+516,Quail Ridge Neighborhood,10,520,Santa Fe,1469,18.4,True
+204,Innovation Square North,10,146,Holiday Inn @ W University Avenue,680,8.5,True
+511,First Church of the Nazarene,10,508,NW 23rd Ave NW 43rd St,898,11.2,True
+205,The Continuum,10,1216,Arlington Square Apartments,716,8.9,True
+139,City Hall,10,1216,Arlington Square Apartments,278,3.5,False
+546,NW 16th Ave @ NW 13th St,10,146,Holiday Inn @ W University Avenue,1598,20.0,True
+435,State Farm Insurance @ NW 13th Street,10,146,Holiday Inn @ W University Avenue,1201,15.0,True
+539,Brywood Neighborhood,10,533,NW 23rd Ave NW 43rd St,2449,30.6,True
+512,Northwest Baptist Church,10,508,NW 23rd Ave NW 43rd St,1417,17.7,True
+520,Santa Fe,10,520,Santa Fe,0,0.0,False
+207,Alachua County Office of the State Attorney,10,1216,Arlington Square Apartments,415,5.2,True
+501,NW 30th Terrace @ NW 16th Avenue,10,533,NW 23rd Ave NW 43rd St,1964,24.6,True
+495,Westbound NW 16th Avenue @ NW 20th Way,10,146,Holiday Inn @ W University Avenue,1905,23.8,True
+365,Theory Apartments,10,146,Holiday Inn @ W University Avenue,451,5.6,True
+505,B'Nai Israel School & Day Care,10,533,NW 23rd Ave NW 43rd St,530,6.6,True
+250,Gainesville High School Tennis Courts,10,146,Holiday Inn @ W University Avenue,1670,20.9,True
+599,Morningside Nature Center,11,568,Mount Zion Church of God,2111,26.4,True
+590,Southbound SE 43rd Street @ E University Avenue,11,568,Mount Zion Church of God,2826,35.3,True
+579,Southbound NE 25th Street @ NE 6th Avenue,11,568,Mount Zion Church of God,795,9.9,True
+561,Eastbound NE 8th Avenue @ NE 11th Street,11,1234,NE Walmart Supercenter,955,11.9,True
+630,Southbound NE 9th Street @ NE 3rd Avenue,11,1216,Arlington Square Apartments,885,11.1,True
+562,Sunny Food Mart,11,1234,NE Walmart Supercenter,847,10.6,True
+595,Lake Forest Trails Neighborhood,11,568,Mount Zion Church of God,3055,38.2,True
+627,Southbound NE 9th Street @ NE 7th Avenue,11,1216,Arlington Square Apartments,1231,15.4,True
+589,Eastside Plaza,11,568,Mount Zion Church of God,2328,29.1,True
+609,Mt Carmel Baptist Church,11,568,Mount Zion Church of God,741,9.3,True
+556,Northbound NE 9th Street @ E University Avenue,11,1216,Arlington Square Apartments,813,10.2,True
+1206,Arlington Square Apartments,11,1216,Arlington Square Apartments,30,0.4,False
+1216,Arlington Square Apartments,11,1216,Arlington Square Apartments,0,0.0,False
+632,Florida School of Traditional Midwifery,11,1216,Arlington Square Apartments,629,7.9,True
+1,Rosa Parks RTS Downtown Station,11,1,Rosa Parks RTS Downtown Station,0,0.0,False
+618,Duval Elementary School,11,568,Mount Zion Church of God,272,3.4,False
+578,Southbound NE 25th Street @ NE 8th Avenue,11,568,Mount Zion Church of God,735,9.2,True
+1234,NE Walmart Supercenter,11,1234,NE Walmart Supercenter,0,0.0,False
+634,Alachua County School Board Administration,11,1216,Arlington Square Apartments,373,4.7,False
+596,Lake Forest Elementary School,11,568,Mount Zion Church of God,2941,36.8,True
+1259,Sunco @ E University Avenue,11,568,Mount Zion Church of God,2748,34.3,True
+598,Eastside Plaza,11,568,Mount Zion Church of God,2378,29.7,True
+555,Eastbound E University Avenue @ SE 8th Street,11,1216,Arlington Square Apartments,641,8.0,True
+569,Duval Elementary School,11,568,Mount Zion Church of God,173,2.2,False
+586,Pine Meadows Apartments,11,568,Mount Zion Church of God,1340,16.8,True
+1240,Northbound NE 25th Street @ NE 3rd Place,11,568,Mount Zion Church of God,961,12.0,True
+597,Sunrise Store @ SE 43rd Street,11,568,Mount Zion Church of God,2836,35.5,True
+608,Northbound NE 25th Street @ NE 6th Avenue,11,568,Mount Zion Church of God,791,9.9,True
+617,Westbound NE 8th Avenue @ NE 23nd Street,11,568,Mount Zion Church of God,510,6.4,True
+560,Northbound NE 9th Street @ NE 8th Avenue,11,1234,NE Walmart Supercenter,1255,15.7,True
+585,Eastbound SE 25th Terrace @ E University Avenue,11,568,Mount Zion Church of God,1209,15.1,True
+1560,Eastwood Meadows,11,568,Mount Zion Church of God,3341,41.8,True
+623,Westbound NE 13th Street @ NE 8th Avenue,11,1234,NE Walmart Supercenter,651,8.1,True
+563,MLK Center and Citizens Field,11,1234,NE Walmart Supercenter,673,8.4,True
+619,Bartley Temple United Methodist Church,11,568,Mount Zion Church of God,11,0.1,False
+591,Compassionate Outreach,11,568,Mount Zion Church of God,2936,36.7,True
+587,Fred Cone Park,11,568,Mount Zion Church of God,1472,18.4,True
+553,Downtown Library,11,1216,Arlington Square Apartments,225,2.8,False
+592,Lake Forest Trails Neighborhood,11,568,Mount Zion Church of God,3051,38.1,True
+602,Pine Meadows Apartments,11,568,Mount Zion Church of God,1290,16.1,True
+1239,Caroline Manor Affordable Housing,11,568,Mount Zion Church of God,1148,14.3,True
+571,Northbound NE 24th Street @ NE 8th Avenue,11,568,Mount Zion Church of God,595,7.4,True
+568,Mount Zion Church of God,11,568,Mount Zion Church of God,0,0.0,False
+588,Morningside Nature Center,11,568,Mount Zion Church of God,2106,26.3,True
+570,Eastbound NE 8th Avenue @ NE 22nd Street,11,568,Mount Zion Church of God,381,4.8,False
+1235,NE Walmart Supercenter,11,1235,NE Walmart Supercenter,0,0.0,False
+554,Salvation Army,11,1216,Arlington Square Apartments,471,5.9,True
+624,East End Eatery,11,1234,NE Walmart Supercenter,796,9.9,True
+601,Fred Cone Park,11,568,Mount Zion Church of God,1505,18.8,True
+564,MLK Center,11,1234,NE Walmart Supercenter,399,5.0,False
+557,Northbound NE 9th Street @ NE 3rd Avenue,11,1216,Arlington Square Apartments,902,11.3,True
+581,Southbound NE 25th Street @ NE 3rd Place,11,568,Mount Zion Church of God,931,11.6,True
+1253,Graham Hall,118,1253,Graham Hall,0,0.0,False
+1153,Tolbert Residence Hall,118,1153,Tolbert Residence Hall,0,0.0,False
+1183,Cultural Plaza,118,797,Hume Hall,1776,22.2,True
+1187,Microbiology/Cell Science Building,118,797,Hume Hall,1271,15.9,True
+858,Lakeside Housing Complex,118,797,Hume Hall,1224,15.3,True
+847,Corry Village,118,797,Hume Hall,840,10.5,True
+848,Lake Alice Field,118,797,Hume Hall,437,5.5,True
+798,Sigma Alpha Epsilon,118,797,Hume Hall,299,3.7,False
+800,Corry Village,118,797,Hume Hall,824,10.3,True
+801,UF Bat Houses,118,797,Hume Hall,1122,14.0,True
+1184,Weed Science Building,118,797,Hume Hall,1339,16.7,True
+927,Ben Hill Griffin Stadium North End Zone,118,1153,Tolbert Residence Hall,376,4.7,False
+1254,Gator Corner Dining Facility @ Gale Lemerand,118,1153,Tolbert Residence Hall,61,0.8,False
+966,Weimer Hall,118,925,The HUB,230,2.9,False
+1174,Lacrosse Field,118,797,Hume Hall,1498,18.7,True
+797,Hume Hall,118,797,Hume Hall,0,0.0,False
+849,Hume Hall (Eastbound),118,797,Hume Hall,24,0.3,False
+925,The HUB,118,925,The HUB,0,0.0,False
+1185,Microbiology/Cell Science Building,118,797,Hume Hall,1264,15.8,True
+1186,Lakeside Residential Building,118,797,Hume Hall,1234,15.4,True
+926,Leigh Hall,118,925,The HUB,235,2.9,False
+1179,Pressly Softball Stadium,118,797,Hume Hall,1497,18.7,True
+1154,Graham Hall,118,1253,Graham Hall,29,0.4,False
+461,University Club Apartments,12,460,Towne Parc Apartments,212,2.7,False
+1253,Graham Hall,12,1253,Graham Hall,0,0.0,False
+1139,Casablanca Apartments,12,947,Gainesville Place Apartments @ SW 35th Place,370,4.6,False
+467,Cancer and Genetics Research,12,1194,Commuter Lot/Garage 14,392,4.9,False
+463,University Commons,12,463,University Commons,0,0.0,False
+477,Cancer & Genetics Research Center,12,1194,Commuter Lot/Garage 14,376,4.7,False
+947,Gainesville Place Apartments @ SW 35th Place,12,947,Gainesville Place Apartments @ SW 35th Place,0,0.0,False
+946,Victoria Station Apartments,12,947,Gainesville Place Apartments @ SW 35th Place,349,4.4,False
+1140,Southbound SW 27th Street @ SW 35th Place,12,947,Gainesville Place Apartments @ SW 35th Place,216,2.7,False
+483,University Club Apartments,12,460,Towne Parc Apartments,161,2.0,False
+970,Williston Plaza,12,974,Dollar General,988,12.4,True
+14,Frazier Rogers Hall,12,14,Frazier Rogers Hall,0,0.0,False
+1194,Commuter Lot/Garage 14,12,1194,Commuter Lot/Garage 14,0,0.0,False
+1213,Lexington Crossing Apartments,12,947,Gainesville Place Apartments @ SW 35th Place,734,9.2,True
+1137,Cypress Villas,12,457,Hickory Place Apartments,18,0.2,False
+1482,Lake Alice Conservation Area,12,1194,Commuter Lot/Garage 14,508,6.3,True
+460,Towne Parc Apartments,12,460,Towne Parc Apartments,0,0.0,False
+462,University of Florida Energy Research,12,481,University Commons,327,4.1,False
+967,Hunters Run Apartments,12,457,Hickory Place Apartments,930,11.6,True
+466,Forestry Field Lab/Plant Growth,12,1194,Commuter Lot/Garage 14,741,9.3,True
+971,US Post Office @ SW 34th Street,12,974,Dollar General,649,8.1,True
+969,UF Health Professional Park,12,974,Dollar General,1039,13.0,True
+945,Ridgemar Commons,12,947,Gainesville Place Apartments @ SW 35th Place,557,7.0,True
+968,Hideaway Apartments,12,974,Dollar General,1009,12.6,True
+456,Arbor Park Apartments,12,457,Hickory Place Apartments,195,2.4,False
+642,University Terrace Condominiums,12,974,Dollar General,244,3.0,False
+1254,Gator Corner Dining Facility @ Gale Lemerand,12,1253,Graham Hall,268,3.4,False
+949,Lexington Crossing Apartments,12,947,Gainesville Place Apartments @ SW 35th Place,382,4.8,False
+643,Ridgemar Apartments,12,974,Dollar General,632,7.9,True
+1192,Turlington Hall,12,925,The HUB,137,1.7,False
+1138,Arbor Apartments,12,457,Hickory Place Apartments,166,2.1,False
+966,Weimer Hall,12,925,The HUB,230,2.9,False
+482,University of Florida Energy Research,12,481,University Commons,343,4.3,False
+1193,Rawlings Hall,12,14,Frazier Rogers Hall,231,2.9,False
+469,Commuter Lot Parking Garage @ Gale Lemerand,12,469,Commuter Lot Parking Garage @ Gale Lemerand,0,0.0,False
+485,Southwood Apartments,12,485,Southwood Apartments,0,0.0,False
+455,Casablanca East Apartments,12,947,Gainesville Place Apartments @ SW 35th Place,345,4.3,False
+468,Parking & Transportation Services,12,1194,Commuter Lot/Garage 14,272,3.4,False
+925,The HUB,12,925,The HUB,0,0.0,False
+1542,The Polos Southwest Entrance,12,457,Hickory Place Apartments,787,9.8,True
+479,Campus Edge Condominiums,12,463,University Commons,742,9.3,True
+481,University Commons,12,481,University Commons,0,0.0,False
+459,SW 23rd Terrace @ SW 35th Place,12,485,Southwood Apartments,114,1.4,False
+478,IFAS Lab,12,1194,Commuter Lot/Garage 14,756,9.4,True
+465,Campus Edge Condominiums,12,463,University Commons,751,9.4,True
+484,Towne Parc Apartments,12,460,Towne Parc Apartments,31,0.4,False
+972,Laurels Apartments,12,974,Dollar General,369,4.6,False
+457,Hickory Place Apartments,12,457,Hickory Place Apartments,0,0.0,False
+1481,Cancer/Genetics Research Complex,12,1194,Commuter Lot/Garage 14,517,6.5,True
+637,Aspen Ridge Apartments,12,974,Dollar General,398,5.0,False
+464,Mt Vernon Apartments @ SW 23rd Drive,12,463,University Commons,615,7.7,True
+950,Lexington Crossing Apartments,12,947,Gainesville Place Apartments @ SW 35th Place,542,6.8,True
+480,Mt Vernon Apartments,12,463,University Commons,604,7.6,True
+974,Dollar General,12,974,Dollar General,0,0.0,False
+1506,The Trophy Shop,13,362,Social 28 Apartments,935,11.7,True
+46,Beaty Towers,13,13,Beaty Towers,67,0.8,False
+442,Southbound SW 13th Street @ Inner Road,13,362,Social 28 Apartments,169,2.1,False
+695,Oakbrook Walk Condominiums,13,1581,Brain Institute Northbound,587,7.3,True
+681,US 441 South,13,1581,Brain Institute Northbound,3809,47.6,True
+363,SW 13th Street & W University Avenue,13,362,Social 28 Apartments,257,3.2,False
+687,Bivens Cove Apartments,13,1581,Brain Institute Northbound,2235,27.9,True
+663,UF Health Pediatric ER,13,1581,Brain Institute Northbound,136,1.7,False
+685,The Landings Apartments,13,1581,Brain Institute Northbound,2597,32.5,True
+1568,The Lark Apartments,13,1581,Brain Institute Northbound,482,6.0,True
+684,UF Health Florida Recovery Center,13,1581,Brain Institute Northbound,2918,36.5,True
+438,The Gate Food Store @ NW 13th Street,13,362,Social 28 Apartments,751,9.4,True
+670,Dollar General,13,1581,Brain Institute Northbound,1154,14.4,True
+671,Lakeshore Towers Apartments,13,1581,Brain Institute Northbound,1343,16.8,True
+360,Norman Field,13,13,Beaty Towers,109,1.4,False
+672,City College Gainesville,13,1581,Brain Institute Northbound,1564,19.6,True
+673,Stayable Select Hotel,13,1581,Brain Institute Northbound,1978,24.7,True
+690,Comfort Suites Hotel,13,1581,Brain Institute Northbound,1568,19.6,True
+1420,Southbound SW 13th ST @ SW 14th AVE,13,1581,Brain Institute Northbound,597,7.5,True
+693,home2 Hotel,13,1581,Brain Institute Northbound,1180,14.8,True
+440,North 13th Street @ NW 1st Avenue,13,362,Social 28 Apartments,418,5.2,True
+1264,Cottage Grove Apartments at Gainesville,13,1581,Brain Institute Northbound,3594,44.9,True
+1444,Alight Apts,13,362,Social 28 Apartments,997,12.5,True
+45,University Police Department,13,45,University Police Department,0,0.0,False
+686,CDS Family and Behavioral Services,13,1581,Brain Institute Northbound,2414,30.2,True
+696,University Police Department,13,696,University Police Department,0,0.0,False
+689,Boardwalk Apartments,13,1581,Brain Institute Northbound,1756,22.0,True
+680,Bridge House,13,1581,Brain Institute Northbound,3384,42.3,True
+692,Village Square,13,1581,Brain Institute Northbound,1358,17.0,True
+13,Beaty Towers,13,13,Beaty Towers,0,0.0,False
+682,Budget Inn,13,1581,Brain Institute Northbound,3337,41.7,True
+683,Meridian Behavioral Healthcare (Northbound),13,1581,Brain Institute Northbound,3202,40.0,True
+1373,CVS @ SW 13th St,13,1581,Brain Institute Northbound,796,10.0,True
+1581,Brain Institute Northbound,13,1581,Brain Institute Northbound,0,0.0,False
+439,NW 13th St @ Nearside NW 3rd Pl Southbound,13,362,Social 28 Apartments,589,7.4,True
+678,Residence Inn,13,1581,Brain Institute Northbound,2901,36.3,True
+364,Publix @ NW 13th St and W Univ Ave,13,362,Social 28 Apartments,509,6.4,True
+669,Liv+ Apartments 13th St,13,1581,Brain Institute Northbound,921,11.5,True
+662,McKnight Brain Institute,13,662,McKnight Brain Institute,0,0.0,False
+676,Chop Stix Cafe,13,1581,Brain Institute Northbound,2352,29.4,True
+679,Meridian Behavioral Healthcare,13,1581,Brain Institute Northbound,3167,39.6,True
+1595,UF Heart Health,13,1581,Brain Institute Northbound,461,5.8,True
+362,Social 28 Apartments,13,362,Social 28 Apartments,0,0.0,False
+677,The Landings Apartments,13,1581,Brain Institute Northbound,2605,32.6,True
+361,Norman Hall,13,362,Social 28 Apartments,222,2.8,False
+365,Theory Apartments,13,362,Social 28 Apartments,786,9.8,True
+688,Tanglewood Apartments,13,1581,Brain Institute Northbound,2102,26.3,True
+709,McCoy Court Apartments,15,748,Fearnside Family Services Center,2028,25.3,True
+697,Masonic Temple,15,1216,Arlington Square Apartments,497,6.2,True
+757,Pointe 23 Apartments,15,748,Fearnside Family Services Center,1803,22.5,True
+736,Wesley United Methodist Church,15,1216,Arlington Square Apartments,2945,36.8,True
+769,The Collier Companies,15,1216,Arlington Square Apartments,514,6.4,True
+259,ALDI Food Market,15,748,Fearnside Family Services Center,3197,40.0,True
+725,Southeast Car Agency,15,748,Fearnside Family Services Center,1597,20.0,True
+758,David's BBQ,15,748,Fearnside Family Services Center,2037,25.5,True
+748,Fearnside Family Services Center,15,748,Fearnside Family Services Center,0,0.0,False
+743,Pine Forest Homes,15,748,Fearnside Family Services Center,1647,20.6,True
+706,Wash King,15,1216,Arlington Square Apartments,1935,24.2,True
+711,Chelsea Apartments Eastbound,15,748,Fearnside Family Services Center,1692,21.2,True
+716,NE 28th Avenue @ NE 15th Street,15,748,Fearnside Family Services Center,1067,13.3,True
+1206,Arlington Square Apartments,15,1216,Arlington Square Apartments,30,0.4,False
+1216,Arlington Square Apartments,15,1216,Arlington Square Apartments,0,0.0,False
+759,Pine Grove Apartments,15,1216,Arlington Square Apartments,2259,28.2,True
+764,Gainesville Shopping Center South,15,1216,Arlington Square Apartments,1328,16.6,True
+255,Rural King,15,748,Fearnside Family Services Center,3360,42.0,True
+756,Westbound NE 23rd Avenue @ NE 9th Street,15,748,Fearnside Family Services Center,1638,20.5,True
+1,Rosa Parks RTS Downtown Station,15,1,Rosa Parks RTS Downtown Station,0,0.0,False
+256,Mount Pleasant Cemetary,15,748,Fearnside Family Services Center,3293,41.2,True
+718,Northbound NE 15th Street @ NE 31st Avenue,15,748,Fearnside Family Services Center,533,6.7,True
+766,Fire Stone @ N Main Street,15,1216,Arlington Square Apartments,968,12.1,True
+732,Oak Gate Condominiums,15,748,Fearnside Family Services Center,2559,32.0,True
+714,Boulware Charter School,15,748,Fearnside Family Services Center,1443,18.0,True
+254,Big Lot on NW 13th Street,15,1216,Arlington Square Apartments,3237,40.5,True
+744,Wade Raulerson Honda Dealership,15,748,Fearnside Family Services Center,1241,15.5,True
+741,Gainesville Public Works,15,748,Fearnside Family Services Center,2137,26.7,True
+740,Stephen Foster Elementary School @ 39th Ave,15,748,Fearnside Family Services Center,2519,31.5,True
+737,Wawa @ NW 13th St,15,1216,Arlington Square Apartments,3106,38.8,True
+749,Village Green Apartments,15,748,Fearnside Family Services Center,340,4.2,False
+761,Sandwich Inn @ NE 16th Ave,15,1216,Arlington Square Apartments,1879,23.5,True
+735,Rena's Ballroom,15,1216,Arlington Square Apartments,2850,35.6,True
+707,Pine Grove Apartments,15,1216,Arlington Square Apartments,2273,28.4,True
+730,Southbound NW 6th Street @ NW 32nd Place,15,748,Fearnside Family Services Center,2456,30.7,True
+746,Eden Park Apartments,15,748,Fearnside Family Services Center,264,3.3,False
+258,M&E Auto Specialists,15,748,Fearnside Family Services Center,3228,40.3,True
+752,NE 15th Street @ NE 26th Avenue,15,748,Fearnside Family Services Center,1100,13.8,True
+726,Bella Vista Village,15,748,Fearnside Family Services Center,1907,23.8,True
+721,NE 39th Ave WB Farside NE 15th St,15,748,Fearnside Family Services Center,223,2.8,False
+738,Green Oak Villa,15,748,Fearnside Family Services Center,2998,37.5,True
+755,Highland Court Manor Neighborhood @ NE 23rd Avenue,15,748,Fearnside Family Services Center,1494,18.7,True
+729,Southbound SW 6th Street @ NW 36th Avenue,15,748,Fearnside Family Services Center,2423,30.3,True
+724,Westbound NE 39th Ave at Main St - Gsville Nissan,15,748,Fearnside Family Services Center,1300,16.3,True
+768,Friends of the Library Alachua County,15,1216,Arlington Square Apartments,743,9.3,True
+739,Eastbound NW 39th Avenue @ NW 10th Street,15,748,Fearnside Family Services Center,2777,34.7,True
+733,Bel Air Apartments,15,748,Fearnside Family Services Center,2657,33.2,True
+742,Bella Vista Village Eastbound,15,748,Fearnside Family Services Center,1887,23.6,True
+703,US Post Office @ Main St,15,1216,Arlington Square Apartments,1594,19.9,True
+753,Smokey Bear Park,15,748,Fearnside Family Services Center,1346,16.8,True
+208,Bo Diddley Community Plaza,15,1216,Arlington Square Apartments,237,3.0,False
+704,Kangaroo @ N Main St,15,1216,Arlington Square Apartments,1855,23.2,True
+723,Highland Court,15,748,Fearnside Family Services Center,534,6.7,True
+728,Stephen Foster Elementary School,15,748,Fearnside Family Services Center,2422,30.3,True
+715,Smokey Bear Park,15,748,Fearnside Family Services Center,1339,16.7,True
+762,Brakes 4 Less,15,1216,Arlington Square Apartments,1760,22.0,True
+701,CVS Pharmacy @ N Main Street,15,1216,Arlington Square Apartments,1207,15.1,True
+754,NE 23rd Ave Farside NE 14th St Westbound,15,748,Fearnside Family Services Center,1422,17.8,True
+722,Eden Park at Ironwood,15,748,Fearnside Family Services Center,359,4.5,False
+760,Wash King (Southbound),15,1216,Arlington Square Apartments,1951,24.4,True
+139,City Hall,15,1216,Arlington Square Apartments,278,3.5,False
+750,Southbound NE 15th Street @ NE 31 Avenue,15,748,Fearnside Family Services Center,550,6.9,True
+700,Fire Stone @ N Main Street,15,1216,Arlington Square Apartments,995,12.4,True
+763,Publix @ N Main Street,15,1216,Arlington Square Apartments,1567,19.6,True
+710,Pointe 23 Apartments,15,748,Fearnside Family Services Center,1817,22.7,True
+745,Highland Court Manor,15,748,Fearnside Family Services Center,493,6.2,True
+699,Alachua County Property Appraiser,15,1216,Arlington Square Apartments,768,9.6,True
+720,Fearnside Family Services Center Northbound,15,748,Fearnside Family Services Center,46,0.6,False
+719,Village Green Apartments,15,748,Fearnside Family Services Center,347,4.3,False
+713,NE 23rd Avenue @ NE 11th Terrace,15,748,Fearnside Family Services Center,1510,18.9,True
+727,Oasis Carwash,15,748,Fearnside Family Services Center,2141,26.8,True
+773,Arbor Park Apartments,17,788,Aldi @ SW 16th Avenue,58,0.7,False
+794,Sai Quick Stop,17,790,Parklands Care Center,228,2.9,False
+695,Oakbrook Walk Condominiums,17,790,Parklands Care Center,381,4.8,False
+789,Sun Bay Apartments,17,790,Parklands Care Center,316,4.0,False
+796,Sun Bay Apartments,17,790,Parklands Care Center,311,3.9,False
+663,UF Health Pediatric ER,17,662,McKnight Brain Institute,159,2.0,False
+1568,The Lark Apartments,17,790,Parklands Care Center,497,6.2,True
+775,Sweetwater on 16th Apartments,17,775,Sweetwater on 16th Apartments,0,0.0,False
+666,Health Science Center Administration,17,662,McKnight Brain Institute,523,6.5,True
+784,Southbound Williston Road @ SE 1st Terrace,17,786,Sweetwater on 16th Apartments (Northbound),645,8.1,True
+1,Rosa Parks RTS Downtown Station,17,1,Rosa Parks RTS Downtown Station,0,0.0,False
+668,Ronald McDonald House of Gainesville,17,790,Parklands Care Center,461,5.8,True
+787,Treehouse Village Apartments,17,786,Sweetwater on 16th Apartments (Northbound),311,3.9,False
+63,Norwood Neighborhood,17,786,Sweetwater on 16th Apartments (Northbound),915,11.4,True
+785,Springhill Baptist Church,17,786,Sweetwater on 16th Apartments (Northbound),496,6.2,True
+135,Dignity Project,17,1,Rosa Parks RTS Downtown Station,747,9.3,True
+791,Oakbrook Walk Condominiums @ SW 16th Avenue,17,790,Parklands Care Center,247,3.1,False
+136,SE 4th Street @ SE 10th Ave,17,1,Rosa Parks RTS Downtown Station,515,6.4,True
+60,SE 4th Street @ SE 10th Avenue,17,1,Rosa Parks RTS Downtown Station,507,6.3,True
+696,University Police Department,17,696,University Police Department,0,0.0,False
+61,Dignity Project,17,1,Rosa Parks RTS Downtown Station,741,9.3,True
+667,Summit House Condominiums,17,790,Parklands Care Center,662,8.3,True
+776,Spring Hill Church,17,786,Sweetwater on 16th Apartments (Northbound),441,5.5,True
+783,Chevron Gas Station @ Williston Road,17,786,Sweetwater on 16th Apartments (Northbound),800,10.0,True
+13,Beaty Towers,17,13,Beaty Towers,0,0.0,False
+134,Norwood Neighborhood (North),17,786,Sweetwater on 16th Apartments (Northbound),931,11.6,True
+664,UF Health Shands North Tower,17,662,McKnight Brain Institute,304,3.8,False
+786,Sweetwater on 16th Apartments (Northbound),17,786,Sweetwater on 16th Apartments (Northbound),0,0.0,False
+790,Parklands Care Center,17,790,Parklands Care Center,0,0.0,False
+788,Aldi @ SW 16th Avenue,17,788,Aldi @ SW 16th Avenue,0,0.0,False
+795,The Retreat Apartments,17,790,Parklands Care Center,28,0.3,False
+662,McKnight Brain Institute,17,662,McKnight Brain Institute,0,0.0,False
+774,Treehouse Village Apartments,17,786,Sweetwater on 16th Apartments (Northbound),315,3.9,False
+840,Hilton University of Florida Conference Center,20,810,Campus USA,427,5.3,True
+814,Pinetree Gardens,20,832,Liv Apartments,298,3.7,False
+811,Pinnacle Point Apartments,20,811,Pinnacle Point Apartments,0,0.0,False
+804,Family Housing,20,844,Maguire Field,19,0.2,False
+844,Maguire Field,20,844,Maguire Field,0,0.0,False
+838,34th St Plaza,20,810,Campus USA,32,0.4,False
+833,Addison Lane,20,832,Liv Apartments,339,4.2,False
+802,Lakeside Apartments,20,845,Lakeside,37,0.5,False
+174,Terwilliger Elementary School,20,174,Terwilliger Elementary School,0,0.0,False
+824,Hampton Oaks Apartments,20,172,Oaks Mall SW 62nd Blvd,303,3.8,False
+859,Cabana Beach Apartments (Exit),20,830,Cabana Beach Apartments (SW 20th Ave),308,3.8,False
+847,Corry Village,20,846,Lakeside Residential Complex,464,5.8,True
+842,Southwest Recreation Center,20,844,Maguire Field,310,3.9,False
+848,Lake Alice Field,20,797,Hume Hall,437,5.5,True
+798,Sigma Alpha Epsilon,20,797,Hume Hall,299,3.7,False
+839,Florida Department Of Agriculture,20,810,Campus USA,280,3.5,False
+800,Corry Village,20,846,Lakeside Residential Complex,488,6.1,True
+807,University Village South Apartments,20,844,Maguire Field,373,4.7,False
+846,Lakeside Residential Complex,20,846,Lakeside Residential Complex,0,0.0,False
+828,Rockwood Villas Apartments,20,830,Cabana Beach Apartments (SW 20th Ave),630,7.9,True
+835,Kensington Apartments South,20,837,The Park Apartments,404,5.1,True
+472,Rawlings Hall,20,472,Rawlings Hall,0,0.0,False
+801,UF Bat Houses,20,846,Lakeside Residential Complex,152,1.9,False
+845,Lakeside,20,845,Lakeside,0,0.0,False
+822,Palm Garden of Gainesville,20,172,Oaks Mall SW 62nd Blvd,521,6.5,True
+832,Liv Apartments,20,832,Liv Apartments,0,0.0,False
+172,Oaks Mall SW 62nd Blvd,20,172,Oaks Mall SW 62nd Blvd,0,0.0,False
+803,UF Counseling and Wellness Center,20,803,UF Counseling and Wellness Center,0,0.0,False
+808,Hilton University of Florida Conference Center,20,810,Campus USA,284,3.6,False
+815,Daily Mart,20,832,Liv Apartments,34,0.4,False
+797,Hume Hall,20,797,Hume Hall,0,0.0,False
+473,Reitz Union,20,473,Reitz Union,0,0.0,False
+849,Hume Hall (Eastbound),20,797,Hume Hall,24,0.3,False
+171,Oaks Mall @ NW 62nd Blvd,20,174,Terwilliger Elementary School,104,1.3,False
+827,Lakewood Villas Apartments,20,830,Cabana Beach Apartments (SW 20th Ave),917,11.5,True
+44,Frazier Rogers Hall (Eastbound),20,473,Reitz Union,133,1.7,False
+837,The Park Apartments,20,837,The Park Apartments,0,0.0,False
+825,The Earl Apartments,20,172,Oaks Mall SW 62nd Blvd,494,6.2,True
+820,Spyglass Apartments,20,830,Cabana Beach Apartments (SW 20th Ave),971,12.1,True
+810,Campus USA,20,810,Campus USA,0,0.0,False
+816,Canopy Apartments,20,816,Canopy Apartments,0,0.0,False
+818,Redpoint Apartments,20,830,Cabana Beach Apartments (SW 20th Ave),333,4.2,False
+819,Rockwood Villas Apartments,20,830,Cabana Beach Apartments (SW 20th Ave),703,8.8,True
+823,Hampton Oaks Apartments,20,172,Oaks Mall SW 62nd Blvd,219,2.7,False
+1326,UF Counseling and Wellness Center,20,1326,UF Counseling and Wellness Center,0,0.0,False
+829,Forest View Apartments,20,830,Cabana Beach Apartments (SW 20th Ave),376,4.7,False
+830,Cabana Beach Apartments (SW 20th Ave),20,830,Cabana Beach Apartments (SW 20th Ave),0,0.0,False
+806,Southwest Recreation Center,20,844,Maguire Field,317,4.0,False
+813,Kensington Apartments North,20,837,The Park Apartments,492,6.2,True
+1141,Wilmot Gardens,21,16,Shands Hospital @ Center Drive,347,4.3,False
+1352,Colonial Oaks,21,832,Liv Apartments,284,3.5,False
+467,Cancer and Genetics Research,21,16,Shands Hospital @ Center Drive,524,6.5,True
+477,Cancer & Genetics Research Center,21,16,Shands Hospital @ Center Drive,519,6.5,True
+840,Hilton University of Florida Conference Center,21,1173,Cultural Plaza,366,4.6,False
+42,Shands Hospital @ Center Drive,21,42,Shands Hospital @ Center Drive,0,0.0,False
+1177,Fifield Hall,21,1177,Fifield Hall,0,0.0,False
+1351,Hailey Gardens,21,832,Liv Apartments,461,5.8,True
+811,Pinnacle Point Apartments,21,811,Pinnacle Point Apartments,0,0.0,False
+1173,Cultural Plaza,21,1173,Cultural Plaza,0,0.0,False
+838,34th St Plaza,21,810,Campus USA,32,0.4,False
+833,Addison Lane,21,832,Liv Apartments,339,4.2,False
+1136,Wilmot Gardens,21,16,Shands Hospital @ Center Drive,315,3.9,False
+1482,Lake Alice Conservation Area,21,16,Shands Hospital @ Center Drive,736,9.2,True
+839,Florida Department Of Agriculture,21,810,Campus USA,280,3.5,False
+466,Forestry Field Lab/Plant Growth,21,1176,Fifield Hall,535,6.7,True
+807,University Village South Apartments,21,1173,Cultural Plaza,174,2.2,False
+15,Center Dr @ Museum Rd,21,43,Center Dr @ Museum Rd,46,0.6,False
+835,Kensington Apartments South,21,837,The Park Apartments,404,5.1,True
+472,Rawlings Hall,21,472,Rawlings Hall,0,0.0,False
+1363,Shands Parking Garage,21,16,Shands Hospital @ Center Drive,106,1.3,False
+832,Liv Apartments,21,832,Liv Apartments,0,0.0,False
+43,Center Dr @ Museum Rd,21,43,Center Dr @ Museum Rd,0,0.0,False
+1135,Shands Visitor Parking,21,16,Shands Hospital @ Center Drive,118,1.5,False
+808,Hilton University of Florida Conference Center,21,810,Campus USA,284,3.6,False
+1459,Kensington South @ 38th Terrace,21,837,The Park Apartments,320,4.0,False
+1174,Lacrosse Field,21,1177,Fifield Hall,277,3.5,False
+473,Reitz Union,21,473,Reitz Union,0,0.0,False
+44,Frazier Rogers Hall (Eastbound),21,43,Center Dr @ Museum Rd,120,1.5,False
+837,The Park Apartments,21,837,The Park Apartments,0,0.0,False
+1556,The Ridge @ SW 38th TER southbound,21,837,The Park Apartments,414,5.2,True
+16,Shands Hospital @ Center Drive,21,16,Shands Hospital @ Center Drive,0,0.0,False
+810,Campus USA,21,810,Campus USA,0,0.0,False
+1176,Fifield Hall,21,1176,Fifield Hall,0,0.0,False
+478,IFAS Lab,21,1176,Fifield Hall,511,6.4,True
+1180,Southwest Recreation Center,21,1173,Cultural Plaza,33,0.4,False
+1481,Cancer/Genetics Research Complex,21,16,Shands Hospital @ Center Drive,737,9.2,True
+1179,Pressly Softball Stadium,21,1177,Fifield Hall,283,3.5,False
+518,Santa Fe College @ NW 83rd Street,23,520,Santa Fe,515,6.4,True
+521,Santa Fe College,23,520,Santa Fe,243,3.0,False
+1278,Northbound Fort Clarke Boulevard @ Eagle Point,23,520,Santa Fe,1289,16.1,True
+1372,Newberry Rd @ NW 75th,23,1096,Oaks Square Complex,504,6.3,True
+1289,Pepboys Auto @ Newberry RD,23,1096,Oaks Square Complex,866,10.8,True
+1096,Oaks Square Complex,23,1096,Oaks Square Complex,0,0.0,False
+1098,North Florida Regional Medical Center,23,1098,North Florida Regional Medical Center,0,0.0,False
+1100,West Newberry Rd Nearside NW 69th Ter,23,1096,Oaks Square Complex,34,0.4,False
+174,Terwilliger Elementary School,23,174,Terwilliger Elementary School,0,0.0,False
+824,Hampton Oaks Apartments,23,172,Oaks Mall SW 62nd Blvd,303,3.8,False
+1559,Butler Plaza North,23,1493,Butler Plaza Transfer Station,341,4.3,False
+1552,Circle K @ Newberry/Tower Road,23,1096,Oaks Square Complex,634,7.9,True
+828,Rockwood Villas Apartments,23,172,Oaks Mall SW 62nd Blvd,1489,18.6,True
+822,Palm Garden of Gainesville,23,172,Oaks Mall SW 62nd Blvd,521,6.5,True
+1276,Paddock Club Apartments,23,1096,Oaks Square Complex,1750,21.9,True
+172,Oaks Mall SW 62nd Blvd,23,172,Oaks Mall SW 62nd Blvd,0,0.0,False
+1279,Hidden Oak Elementary School,23,520,Santa Fe,1189,14.9,True
+1275,Westbound Newberry Road @ Fort Clarke Boulevard,23,1096,Oaks Square Complex,1611,20.1,True
+1283,Ft Clarke Middle School,23,520,Santa Fe,927,11.6,True
+1284,Ft Clarke Middle School,23,520,Santa Fe,991,12.4,True
+171,Oaks Mall @ NW 62nd Blvd,23,174,Terwilliger Elementary School,104,1.3,False
+827,Lakewood Villas Apartments,23,172,Oaks Mall SW 62nd Blvd,1203,15.0,True
+1277,Legacy @ Fort Clarke Apartments,23,520,Santa Fe,1384,17.3,True
+825,The Earl Apartments,23,172,Oaks Mall SW 62nd Blvd,494,6.2,True
+1285,Southbound Fort Clarke Boulevard @ Eagle Point,23,520,Santa Fe,1292,16.2,True
+820,Spyglass Apartments,23,172,Oaks Mall SW 62nd Blvd,1152,14.4,True
+1286,Legacy @ Fort Clarke Apartments,23,520,Santa Fe,1412,17.7,True
+1236,Cabana Beach Apartments (SW 52nd St),23,1493,Butler Plaza Transfer Station,1536,19.2,True
+818,Redpoint Apartments,23,172,Oaks Mall SW 62nd Blvd,1802,22.5,True
+1274,Krystal @ Newberry Road,23,1096,Oaks Square Complex,841,10.5,True
+819,Rockwood Villas Apartments,23,172,Oaks Mall SW 62nd Blvd,1418,17.7,True
+823,Hampton Oaks Apartments,23,172,Oaks Mall SW 62nd Blvd,219,2.7,False
+1280,Hidden Oak Elementary School,23,520,Santa Fe,1202,15.0,True
+829,Forest View Apartments,23,172,Oaks Mall SW 62nd Blvd,1754,21.9,True
+1493,Butler Plaza Transfer Station,23,1493,Butler Plaza Transfer Station,0,0.0,False
+175,Oaks Mall SW 62nd Blvd,23,175,Oaks Mall SW 62nd Blvd,0,0.0,False
+1287,Paddock Club Apartments,23,1096,Oaks Square Complex,1761,22.0,True
+1628,SW 52nd St @ Cabana Beach,23,1493,Butler Plaza Transfer Station,1546,19.3,True
+1097,Oaks Mall,23,1098,North Florida Regional Medical Center,182,2.3,False
+520,Santa Fe,23,520,Santa Fe,0,0.0,False
+1288,Eastbound Newberry Road @ Fort Clarke Boulevard,23,1096,Oaks Square Complex,1568,19.6,True
+1099,SUBWAY@ Newberry RD,23,1098,North Florida Regional Medical Center,142,1.8,False
+1494,NE 15th St @ NE 20th Pl,26,1235,NE Walmart Supercenter,1050,13.1,True
+1261,Gardenia Garden Apartments,26,568,Mount Zion Church of God,266,3.3,False
+853,Northbound SE 11th Street @ SE 2nd Avenue,26,1,Rosa Parks RTS Downtown Station,1202,15.0,True
+748,Fearnside Family Services Center,26,748,Fearnside Family Services Center,0,0.0,False
+1430,NE 39th Ave @ Waldo Rd,26,1317,GRACE Marketplace,409,5.1,True
+856,UF Health Family Medicine Eastside Northbound,26,568,Mount Zion Church of God,1041,13.0,True
+1317,GRACE Marketplace,26,1317,GRACE Marketplace,0,0.0,False
+716,NE 28th Avenue @ NE 15th Street,26,748,Fearnside Family Services Center,1067,13.3,True
+1319,Gainesville Regional Airport Outbound,26,1320,Airport,789,9.9,True
+1166,Ironwood Golf Course,26,748,Fearnside Family Services Center,875,10.9,True
+1,Rosa Parks RTS Downtown Station,26,1,Rosa Parks RTS Downtown Station,0,0.0,False
+899,NE 16th Avenue @ NE 15th Street,26,1235,NE Walmart Supercenter,535,6.7,True
+718,Northbound NE 15th Street @ NE 31st Avenue,26,748,Fearnside Family Services Center,533,6.7,True
+852,Triangle Club,26,1,Rosa Parks RTS Downtown Station,1012,12.7,True
+1329,Alachua County Jail,26,1317,GRACE Marketplace,676,8.5,True
+1234,NE Walmart Supercenter,26,1234,NE Walmart Supercenter,0,0.0,False
+1318,GRACE Marketplace,26,1317,GRACE Marketplace,30,0.4,False
+920,GRU Administration Building,26,1,Rosa Parks RTS Downtown Station,338,4.2,False
+855,Walgreens @ NE 3rd Avenue,26,568,Mount Zion Church of God,1227,15.3,True
+910,UF Health Family Medicine Eastside,26,568,Mount Zion Church of God,1058,13.2,True
+1502,Northbound Metcalfe Elementary School,26,1235,NE Walmart Supercenter,694,8.7,True
+749,Village Green Apartments,26,748,Fearnside Family Services Center,340,4.2,False
+869,Fair View Apartments,26,1235,NE Walmart Supercenter,438,5.5,True
+1330,Alachua County Jail (Westbound),26,1317,GRACE Marketplace,723,9.0,True
+877,Quick Mart @ NE 15th Street,26,748,Fearnside Family Services Center,176,2.2,False
+752,NE 15th Street @ NE 26th Avenue,26,748,Fearnside Family Services Center,1100,13.8,True
+917,Westbound SE 4th Avenue @ SE 8th Street,26,1,Rosa Parks RTS Downtown Station,683,8.5,True
+898,Rose Food Store,26,1235,NE Walmart Supercenter,424,5.3,True
+850,GRU Administration Building,26,1,Rosa Parks RTS Downtown Station,331,4.1,False
+1447,Gardenia Gardens,26,568,Mount Zion Church of God,272,3.4,False
+913,Southbound SE 11th Street @ SE 2nd Avenue,26,1,Rosa Parks RTS Downtown Station,1195,14.9,True
+909,Episcopal Children's Services,26,1234,NE Walmart Supercenter,893,11.2,True
+1495,Passage Family Church,26,1235,NE Walmart Supercenter,1038,13.0,True
+619,Bartley Temple United Methodist Church,26,568,Mount Zion Church of God,11,0.1,False
+753,Smokey Bear Park,26,1235,NE Walmart Supercenter,1334,16.7,True
+851,Eastbound SE 4th Avenue @ SE 8th Street,26,1,Rosa Parks RTS Downtown Station,659,8.2,True
+715,Smokey Bear Park,26,1235,NE Walmart Supercenter,1338,16.7,True
+915,Triangle Club,26,1,Rosa Parks RTS Downtown Station,1023,12.8,True
+1165,Hills Mini Storage,26,1317,GRACE Marketplace,485,6.1,True
+1428,FDOT Operations Center,26,1320,Airport,1842,23.0,True
+912,Waldo Road @ NE 1st Avenue,26,568,Mount Zion Church of God,1326,16.6,True
+568,Mount Zion Church of God,26,568,Mount Zion Church of God,0,0.0,False
+750,Southbound NE 15th Street @ NE 31 Avenue,26,748,Fearnside Family Services Center,550,6.9,True
+1503,Southbound Metcalfe Elementary School,26,1235,NE Walmart Supercenter,717,9.0,True
+1320,Airport,26,1320,Airport,0,0.0,False
+1235,NE Walmart Supercenter,26,1235,NE Walmart Supercenter,0,0.0,False
+857,Episcopal Children's Services Northbound,26,568,Mount Zion Church of God,877,11.0,True
+720,Fearnside Family Services Center Northbound,26,748,Fearnside Family Services Center,46,0.6,False
+719,Village Green Apartments,26,748,Fearnside Family Services Center,347,4.3,False
+878,Ironwood Golf Course,26,748,Fearnside Family Services Center,904,11.3,True
+1543,NW 2nd St @ NW 16th Ave Northbound,3,1,Rosa Parks RTS Downtown Station,2330,29.1,True
+300,Fast Eddie's Restaurant,3,110,Veteran's Honor Center,225,2.8,False
+1261,Gardenia Garden Apartments,3,568,Mount Zion Church of God,266,3.3,False
+1498,NE 15th St @ NE 3rd Ave Farside,3,110,Veteran's Honor Center,490,6.1,True
+1501,NE 15th St @ NE 8th Ave,3,1234,NE Walmart Supercenter,504,6.3,True
+92,Lincoln Estates,3,110,Veteran's Honor Center,712,8.9,True
+1454,Northeast Park,3,1234,NE Walmart Supercenter,1704,21.3,True
+865,Department of Children and Families,3,1234,NE Walmart Supercenter,1157,14.5,True
+1453,St. Patrick Catholic Church,3,1234,NE Walmart Supercenter,1700,21.3,True
+1440,Mt. Olive Primitive Baptist Church,3,568,Mount Zion Church of God,705,8.8,True
+98,SE Hawthorne Rd @ SE 18th St Eastbound,3,110,Veteran's Honor Center,289,3.6,False
+124,Lincoln Estates Neighborhood,3,110,Veteran's Honor Center,940,11.7,True
+87,Lincoln Estate Neighborhood,3,110,Veteran's Honor Center,1010,12.6,True
+110,Veteran's Honor Center,3,110,Veteran's Honor Center,0,0.0,False
+97,Veteran's Honor Center,3,110,Veteran's Honor Center,87,1.1,False
+125,SE 12th Avenue @ SE 17th Drive,3,110,Veteran's Honor Center,1003,12.5,True
+1,Rosa Parks RTS Downtown Station,3,1,Rosa Parks RTS Downtown Station,0,0.0,False
+899,NE 16th Avenue @ NE 15th Street,3,1235,NE Walmart Supercenter,535,6.7,True
+99,SE Hawthorne Rd @ SE 21st St Eastbound,3,110,Veteran's Honor Center,673,8.4,True
+1234,NE Walmart Supercenter,3,1234,NE Walmart Supercenter,0,0.0,False
+1496,Family Dollar Shopping Center,3,110,Veteran's Honor Center,952,11.9,True
+350,Fast Eddie's Restaurant,3,110,Veteran's Honor Center,216,2.7,False
+295,Williams Elementary School,3,110,Veteran's Honor Center,540,6.8,True
+90,Lincoln Estate Neighborhood,3,110,Veteran's Honor Center,957,12.0,True
+358,The Cotton Club,3,1,Rosa Parks RTS Downtown Station,742,9.3,True
+761,Sandwich Inn @ NE 16th Ave,3,1234,NE Walmart Supercenter,2053,25.7,True
+869,Fair View Apartments,3,1235,NE Walmart Supercenter,438,5.5,True
+1497,Alachua School Bus Parking Lot,3,110,Veteran's Honor Center,389,4.9,False
+900,16th Avenue Detailing & Window Tinting,3,1234,NE Walmart Supercenter,868,10.8,True
+902,Department of Children and Families,3,1234,NE Walmart Supercenter,1183,14.8,True
+1364,Southbound SE 19th TER @ SE 12th AVE,3,110,Veteran's Honor Center,1088,13.6,True
+898,Rose Food Store,3,1235,NE Walmart Supercenter,424,5.3,True
+89,Lincoln Estate Neighborhood,3,110,Veteran's Honor Center,1101,13.8,True
+100,GTEC,3,110,Veteran's Honor Center,846,10.6,True
+1447,Gardenia Gardens,3,568,Mount Zion Church of God,272,3.4,False
+868,Gainesville Christian Center,3,1235,NE Walmart Supercenter,539,6.7,True
+1499,NE 15th St @ NE 3rd Ave Nearside,3,110,Veteran's Honor Center,510,6.4,True
+619,Bartley Temple United Methodist Church,3,568,Mount Zion Church of God,11,0.1,False
+1439,Cohens Temple,3,568,Mount Zion Church of God,698,8.7,True
+127,Lincoln Estates Neighborhood,3,110,Veteran's Honor Center,1000,12.5,True
+109,Phase III Supply,3,110,Veteran's Honor Center,722,9.0,True
+85,Lincoln Estate Neighborhood,3,110,Veteran's Honor Center,1005,12.6,True
+116,Waldo Rd @ SE 7th Avenue,3,110,Veteran's Honor Center,757,9.5,True
+762,Brakes 4 Less,3,1234,NE Walmart Supercenter,2170,27.1,True
+1500,NE 15th St @ NE 7th Ave,3,568,Mount Zion Church of God,612,7.7,True
+122,Lincoln Estates,3,110,Veteran's Honor Center,726,9.1,True
+115,Williams Elementary School,3,110,Veteran's Honor Center,634,7.9,True
+292,The Cotton Club,3,1,Rosa Parks RTS Downtown Station,725,9.1,True
+568,Mount Zion Church of God,3,568,Mount Zion Church of God,0,0.0,False
+1468,N Main Post Office,3,1,Rosa Parks RTS Downtown Station,2156,27.0,True
+293,Mt Moriah Baptist Church,3,110,Veteran's Honor Center,882,11.0,True
+297,Eastbound SE 7th Avenue @ SE 15th Street,3,110,Veteran's Honor Center,427,5.3,True
+1235,NE Walmart Supercenter,3,1235,NE Walmart Supercenter,0,0.0,False
+294,Tools for Schools,3,110,Veteran's Honor Center,752,9.4,True
+357,SE 7th Avenue @ SE 10th Terrace,3,110,Veteran's Honor Center,880,11.0,True
+867,16th Avenue Detailing & Window Tinting (Eastbound),3,1234,NE Walmart Supercenter,900,11.2,True
+1557,The Ridge @ SW 38th TER northbound,33,1486,Campus Circle Apartments,573,7.2,True
+1483,aloft Hotel @ Hull Rd Eastbound,33,1486,Campus Circle Apartments,302,3.8,False
+1253,Graham Hall,33,1253,Graham Hall,0,0.0,False
+1486,Campus Circle Apartments,33,1486,Campus Circle Apartments,0,0.0,False
+467,Cancer and Genetics Research,33,1194,Commuter Lot/Garage 14,392,4.9,False
+477,Cancer & Genetics Research Center,33,1194,Commuter Lot/Garage 14,376,4.7,False
+1489,Village Point 4,33,1486,Campus Circle Apartments,222,2.8,False
+1177,Fifield Hall,33,1177,Fifield Hall,0,0.0,False
+1173,Cultural Plaza,33,1173,Cultural Plaza,0,0.0,False
+14,Frazier Rogers Hall,33,14,Frazier Rogers Hall,0,0.0,False
+1194,Commuter Lot/Garage 14,33,1194,Commuter Lot/Garage 14,0,0.0,False
+1554,Marshall's @ Plaza Blvd (Westbound),33,1493,Butler Plaza Transfer Station,562,7.0,True
+1482,Lake Alice Conservation Area,33,1194,Commuter Lot/Garage 14,508,6.3,True
+466,Forestry Field Lab/Plant Growth,33,1176,Fifield Hall,535,6.7,True
+807,University Village South Apartments,33,1173,Cultural Plaza,174,2.2,False
+1484,Varsity House Apartments @ SW 38th Ter,33,1486,Campus Circle Apartments,41,0.5,False
+1237,Museum Walk Apartments,33,1486,Campus Circle Apartments,589,7.4,True
+1181,UF Orthopaedics Institute,33,1173,Cultural Plaza,526,6.6,True
+1254,Gator Corner Dining Facility @ Gale Lemerand,33,1253,Graham Hall,268,3.4,False
+1192,Turlington Hall,33,925,The HUB,137,1.7,False
+1459,Kensington South @ 38th Terrace,33,1486,Campus Circle Apartments,371,4.6,False
+966,Weimer Hall,33,925,The HUB,230,2.9,False
+1193,Rawlings Hall,33,14,Frazier Rogers Hall,231,2.9,False
+1174,Lacrosse Field,33,1177,Fifield Hall,277,3.5,False
+1555,Marshall's @ Plaza Blvd,33,1493,Butler Plaza Transfer Station,532,6.6,True
+469,Commuter Lot Parking Garage @ Gale Lemerand,33,469,Commuter Lot Parking Garage @ Gale Lemerand,0,0.0,False
+1273,SW 38th Terr nearside SW 20th Ave,33,1486,Campus Circle Apartments,331,4.1,False
+1556,The Ridge @ SW 38th TER southbound,33,1486,Campus Circle Apartments,581,7.3,True
+468,Parking & Transportation Services,33,1194,Commuter Lot/Garage 14,272,3.4,False
+925,The HUB,33,925,The HUB,0,0.0,False
+1493,Butler Plaza Transfer Station,33,1493,Butler Plaza Transfer Station,0,0.0,False
+1176,Fifield Hall,33,1176,Fifield Hall,0,0.0,False
+478,IFAS Lab,33,1176,Fifield Hall,511,6.4,True
+1180,Southwest Recreation Center,33,1173,Cultural Plaza,33,0.4,False
+1481,Cancer/Genetics Research Complex,33,1194,Commuter Lot/Garage 14,517,6.5,True
+1179,Pressly Softball Stadium,33,1177,Fifield Hall,283,3.5,False
+461,University Club Apartments,37,460,Towne Parc Apartments,212,2.7,False
+1547,Sam's Club,37,1493,Butler Plaza Transfer Station,473,5.9,True
+1139,Casablanca Apartments,37,452,Gainesville Place Apartments @ SW 35th Place,337,4.2,False
+39,The Bartram Apartments,37,39,The Bartram Apartments,0,0.0,False
+463,University Commons,37,463,University Commons,0,0.0,False
+42,Shands Hospital @ Center Drive,37,42,Shands Hospital @ Center Drive,0,0.0,False
+1549,Hilton Garden Inn,37,1493,Butler Plaza Transfer Station,252,3.2,False
+947,Gainesville Place Apartments @ SW 35th Place,37,947,Gainesville Place Apartments @ SW 35th Place,0,0.0,False
+1349,Hilton Garden Inn,37,1493,Butler Plaza Transfer Station,317,4.0,False
+946,Victoria Station Apartments,37,947,Gainesville Place Apartments @ SW 35th Place,349,4.4,False
+1301,Stoneridge Apartments,37,636,Greenwich Green Apartments,215,2.7,False
+483,University Club Apartments,37,460,Towne Parc Apartments,161,2.0,False
+1303,O2B Kids @ SW 37th BLVD,37,636,Greenwich Green Apartments,305,3.8,False
+1137,Cypress Villas,37,457,Hickory Place Apartments,18,0.2,False
+460,Towne Parc Apartments,37,460,Towne Parc Apartments,0,0.0,False
+40,Shands Care Helicopter Pad,37,16,Shands Hospital @ Center Drive,617,7.7,True
+462,University of Florida Energy Research,37,481,University Commons,327,4.1,False
+15,Center Dr @ Museum Rd,37,43,Center Dr @ Museum Rd,46,0.6,False
+1321,The Enclave Apartments,37,947,Gainesville Place Apartments @ SW 35th Place,398,5.0,False
+472,Rawlings Hall,37,472,Rawlings Hall,0,0.0,False
+945,Ridgemar Commons,37,947,Gainesville Place Apartments @ SW 35th Place,557,7.0,True
+456,Arbor Park Apartments,37,457,Hickory Place Apartments,195,2.4,False
+635,BLVD Gainesville,37,636,Greenwich Green Apartments,301,3.8,False
+1300,Gainesville Jrs. Volleyball Club,37,636,Greenwich Green Apartments,367,4.6,False
+43,Center Dr @ Museum Rd,37,43,Center Dr @ Museum Rd,0,0.0,False
+636,Greenwich Green Apartments,37,636,Greenwich Green Apartments,0,0.0,False
+643,Ridgemar Apartments,37,636,Greenwich Green Apartments,383,4.8,False
+1138,Arbor Apartments,37,457,Hickory Place Apartments,166,2.1,False
+482,University of Florida Energy Research,37,481,University Commons,343,4.3,False
+452,Gainesville Place Apartments @ SW 35th Place,37,452,Gainesville Place Apartments @ SW 35th Place,0,0.0,False
+473,Reitz Union,37,473,Reitz Union,0,0.0,False
+661,Seacoast Bank @ SW 37th Boulevard,37,636,Greenwich Green Apartments,485,6.1,True
+44,Frazier Rogers Hall (Eastbound),37,43,Center Dr @ Museum Rd,120,1.5,False
+485,Southwood Apartments,37,485,Southwood Apartments,0,0.0,False
+1548,Sam's Club,37,1493,Butler Plaza Transfer Station,492,6.1,True
+455,Casablanca East Apartments,37,452,Gainesville Place Apartments @ SW 35th Place,313,3.9,False
+16,Shands Hospital @ Center Drive,37,16,Shands Hospital @ Center Drive,0,0.0,False
+1027,Best Buy @ Butler Plaza,37,636,Greenwich Green Apartments,738,9.2,True
+481,University Commons,37,481,University Commons,0,0.0,False
+1493,Butler Plaza Transfer Station,37,1493,Butler Plaza Transfer Station,0,0.0,False
+459,SW 23rd Terrace @ SW 35th Place,37,485,Southwood Apartments,114,1.4,False
+484,Towne Parc Apartments,37,460,Towne Parc Apartments,31,0.4,False
+1305,Best Buy @ Butler Plaza,37,636,Greenwich Green Apartments,737,9.2,True
+457,Hickory Place Apartments,37,457,Hickory Place Apartments,0,0.0,False
+18,Shands Hospital @ Davis Cancer Pavilion,37,16,Shands Hospital @ Center Drive,498,6.2,True
+637,Aspen Ridge Apartments,37,636,Greenwich Green Apartments,240,3.0,False
+1322,Rocky Point Apartments,37,947,Gainesville Place Apartments @ SW 35th Place,551,6.9,True
+1304,Seacoast Bank @ Archer Road,37,636,Greenwich Green Apartments,526,6.6,True
+1302,Greenwich Green Apartments,37,636,Greenwich Green Apartments,16,0.2,False
+1341,Enclave 4,38,953,Gainesville Place Apartments,145,1.8,False
+1253,Graham Hall,38,1253,Graham Hall,0,0.0,False
+39,The Bartram Apartments,38,39,The Bartram Apartments,0,0.0,False
+37,Brandywine Apartments,38,37,Brandywine Apartments,0,0.0,False
+955,Gainesville Place Apartments,38,35,Silver Creek Apartments,315,3.9,False
+42,Shands Hospital @ Center Drive,38,42,Shands Hospital @ Center Drive,0,0.0,False
+1267,University Commons Apartments,38,38,University Commons,148,1.8,False
+1333,Enclave 1,38,954,Enclave Apartments,140,1.8,False
+1337,Gainesville Place,38,953,Gainesville Place Apartments,182,2.3,False
+1270,Gainesville Place Apartments,38,35,Silver Creek Apartments,328,4.1,False
+40,Shands Care Helicopter Pad,38,16,Shands Hospital @ Center Drive,617,7.7,True
+15,Center Dr @ Museum Rd,38,43,Center Dr @ Museum Rd,46,0.6,False
+1269,Archer Court Apartments,38,36,Capstone Quarters Apartments,59,0.7,False
+954,Enclave Apartments,38,954,Enclave Apartments,0,0.0,False
+43,Center Dr @ Museum Rd,38,43,Center Dr @ Museum Rd,0,0.0,False
+1254,Gator Corner Dining Facility @ Gale Lemerand,38,1253,Graham Hall,268,3.4,False
+1460,Enclave 3,38,953,Gainesville Place Apartments,26,0.3,False
+38,University Commons,38,38,University Commons,0,0.0,False
+1192,Turlington Hall,38,925,The HUB,137,1.7,False
+966,Weimer Hall,38,925,The HUB,230,2.9,False
+1193,Rawlings Hall,38,925,The HUB,252,3.1,False
+473,Reitz Union,38,473,Reitz Union,0,0.0,False
+956,Old Archer Road @ SW 34th Street,38,35,Silver Creek Apartments,509,6.4,True
+36,Capstone Quarters Apartments,38,36,Capstone Quarters Apartments,0,0.0,False
+925,The HUB,38,925,The HUB,0,0.0,False
+16,Shands Hospital @ Center Drive,38,16,Shands Hospital @ Center Drive,0,0.0,False
+953,Gainesville Place Apartments,38,953,Gainesville Place Apartments,0,0.0,False
+1268,Brandywine Apartments,38,37,Brandywine Apartments,19,0.2,False
+18,Shands Hospital @ Davis Cancer Pavilion,38,16,Shands Hospital @ Center Drive,498,6.2,True
+35,Silver Creek Apartments,38,35,Silver Creek Apartments,0,0.0,False
+34,Direct Insurance @ Archer Road,38,35,Silver Creek Apartments,337,4.2,False
+187,Community Foundation of North Central Florida,43,187,Community Foundation of North Central Florida,0,0.0,False
+157,Westgate Shopping Center,43,187,Community Foundation of North Central Florida,1387,17.3,True
+150,University Lutheran Church,43,441,Tigert Hall,840,10.5,True
+1427,Holy Faith Catholic Church,43,164,Millennium Center,311,3.9,False
+46,Beaty Towers,43,13,Beaty Towers,67,0.8,False
+979,Landmark Woods Neighborhood,43,164,Millennium Center,851,10.6,True
+442,Southbound SW 13th Street @ Inner Road,43,441,Tigert Hall,218,2.7,False
+987,Millhopper Branch Library,43,1017,Radiant Credit Union,619,7.7,True
+1471,Westgate Plaza,43,187,Community Foundation of North Central Florida,1414,17.7,True
+1472,Mavis Tires,43,187,Community Foundation of North Central Florida,768,9.6,True
+997,Robin Lane Neighborhood,43,1003,The Arc,959,12.0,True
+988,Monterey Apartments,43,1017,Radiant Credit Union,961,12.0,True
+663,UF Health Pediatric ER,43,662,McKnight Brain Institute,159,2.0,False
+1003,The Arc,43,1003,The Arc,0,0.0,False
+977,Millennium Center,43,164,Millennium Center,105,1.3,False
+1011,NW Grille Seafood,43,1017,Radiant Credit Union,1577,19.7,True
+42,Shands Hospital @ Center Drive,43,42,Shands Hospital @ Center Drive,0,0.0,False
+1470,Gainesville Women's Club,43,187,Community Foundation of North Central Florida,1863,23.3,True
+980,NW 14th Place @ NW 43rd Street,43,1019,Millhopper Plaza,761,9.5,True
+1015,Southbound NW 43rd Street @ NW 33rd Court,43,1017,Radiant Credit Union,841,10.5,True
+993,Huntington Lakes Apartments,43,1017,Radiant Credit Union,1722,21.5,True
+360,Norman Field,43,13,Beaty Towers,109,1.4,False
+996,Emerald Woods Neighborhood,43,1003,The Arc,1490,18.6,True
+998,Springhill Professional Center,43,1003,The Arc,450,5.6,True
+152,Hillel at the University of Florida,43,43,Center Dr @ Museum Rd,921,11.5,True
+1016,Millhopper Branch Library,43,1017,Radiant Credit Union,571,7.1,True
+1325,Division of Blind Services,43,1017,Radiant Credit Union,1115,13.9,True
+154,Westbound University Avenue @ NW 23rd Drive,43,43,Center Dr @ Museum Rd,1448,18.1,True
+1025,Landmark Woods Neighborhood,43,164,Millennium Center,642,8.0,True
+441,Tigert Hall,43,441,Tigert Hall,0,0.0,False
+1013,Pine Woods Apartments,43,1017,Radiant Credit Union,1357,17.0,True
+983,Millhopper Pines Apartments,43,1019,Millhopper Plaza,182,2.3,False
+1002,Santa Fe College @ NW 83rd Street (Northbound),43,520,Santa Fe,190,2.4,False
+1005,Springhill Professional Center,43,1003,The Arc,449,5.6,True
+1010,Huntington Lakes Apartments,43,1017,Radiant Credit Union,1739,21.7,True
+1023,Suburban Heights Neighborhood,43,1019,Millhopper Plaza,817,10.2,True
+994,Faith Presbyterian Church,43,1017,Radiant Credit Union,2130,26.6,True
+1024,Landmark Woods Neighborhood,43,164,Millennium Center,844,10.6,True
+45,University Police Department,43,45,University Police Department,0,0.0,False
+696,University Police Department,43,696,University Police Department,0,0.0,False
+149,West Univ Avenue @ NW 17th Street,43,441,Tigert Hall,564,7.0,True
+164,Millennium Center,43,164,Millennium Center,0,0.0,False
+1017,Radiant Credit Union,43,1017,Radiant Credit Union,0,0.0,False
+200,Anderson Hall,43,441,Tigert Hall,356,4.5,False
+43,Center Dr @ Museum Rd,43,43,Center Dr @ Museum Rd,0,0.0,False
+1000,The Arc,43,1003,The Arc,17,0.2,False
+147,Target Copy @ W University Avenue,43,441,Tigert Hall,312,3.9,False
+1009,Faith Presbyterian Church,43,1017,Radiant Credit Union,2105,26.3,True
+197,Ben Hill Griffin Stadium,43,43,Center Dr @ Museum Rd,866,10.8,True
+990,Magnolia Park Neighborhood,43,1017,Radiant Credit Union,1416,17.7,True
+1018,CVS @ Millhopper,43,1017,Radiant Credit Union,170,2.1,False
+999,Northridge Neighborhood,43,1003,The Arc,241,3.0,False
+156,West University Ave @ NW 28th St,43,187,Community Foundation of North Central Florida,1893,23.7,True
+1006,Robin Lane Neighborhood,43,1003,The Arc,961,12.0,True
+1469,Eastbound University Avenue @ SW 23rd DR,43,43,Center Dr @ Museum Rd,1427,17.8,True
+1026,Holy Faith Catholic Church,43,164,Millennium Center,307,3.8,False
+992,Tire Plus @ NW 39th Avenue,43,1017,Radiant Credit Union,1572,19.6,True
+185,SIMED Health,43,185,SIMED Health,0,0.0,False
+159,Fire Station @ W University Ave,43,187,Community Foundation of North Central Florida,749,9.4,True
+1001,Santa Fe College @ NW 83rd Street,43,520,Santa Fe,187,2.3,False
+13,Beaty Towers,43,13,Beaty Towers,0,0.0,False
+1007,Unicorn Hill Farm,43,1003,The Arc,1460,18.3,True
+664,UF Health Shands North Tower,43,662,McKnight Brain Institute,304,3.8,False
+985,Thorn Brook Shops,43,1017,Radiant Credit Union,155,1.9,False
+44,Frazier Rogers Hall (Eastbound),43,43,Center Dr @ Museum Rd,120,1.5,False
+161,Plaza Royale,43,187,Community Foundation of North Central Florida,250,3.1,False
+188,Regal Royal Park Stadium 16,43,187,Community Foundation of North Central Florida,385,4.8,False
+186,Life South Blood Center,43,185,SIMED Health,171,2.1,False
+1008,Greystone Community,43,1003,The Arc,1925,24.1,True
+1012,Autumn Woods Neighborhood,43,1017,Radiant Credit Union,1456,18.2,True
+978,Lenox Place Apartments,43,164,Millennium Center,590,7.4,True
+1022,Southbound NW 43rd Street @ NW 15th Place,43,1019,Millhopper Plaza,605,7.6,True
+984,Millhopper Plaza,43,1019,Millhopper Plaza,34,0.4,False
+1019,Millhopper Plaza,43,1019,Millhopper Plaza,0,0.0,False
+662,McKnight Brain Institute,43,662,McKnight Brain Institute,0,0.0,False
+153,Westbound University Avenue @ NW 22nd Street,43,43,Center Dr @ Museum Rd,1184,14.8,True
+198,St. Augustine Catholic Church,43,441,Tigert Hall,718,9.0,True
+158,Westgate Plaza,43,187,Community Foundation of North Central Florida,1068,13.4,True
+446,UF Health Archer Road,43,42,Shands Hospital @ Center Drive,276,3.4,False
+981,Northbound NW 43rd Street @ NW 16th Place,43,1019,Millhopper Plaza,587,7.3,True
+1020,Southbound NW 43rd Street @ NW 19th Avenue,43,1019,Millhopper Plaza,243,3.0,False
+163,Allstate Insurance @ Newberry Road,43,185,SIMED Health,151,1.9,False
+1004,Windsor Assisted Living,43,1003,The Arc,210,2.6,False
+199,Keene Flint Hall,43,441,Tigert Hall,527,6.6,True
+1014,Allstate Insurance,43,1017,Radiant Credit Union,1251,15.6,True
+995,Summer Creek Neighborhood,43,1003,The Arc,1962,24.5,True
+520,Santa Fe,43,520,Santa Fe,0,0.0,False
+361,Norman Hall,43,13,Beaty Towers,264,3.3,False
+986,Bank of America @ NW 43rd Street,43,1017,Radiant Credit Union,145,1.8,False
+989,Pinewood Apartments,43,1017,Radiant Credit Union,1373,17.2,True
+162,Tire Kingdom @ Newberry Road,43,187,Community Foundation of North Central Florida,79,1.0,False
+148,Smathers Library,43,441,Tigert Hall,447,5.6,True
+194,Eastbound SW 2nd Avenue @ SW 26th Street,5,195,University of Florida Law School,235,2.9,False
+187,Community Foundation of North Central Florida,5,187,Community Foundation of North Central Florida,0,0.0,False
+150,University Lutheran Church,5,146,Holiday Inn @ W University Avenue,844,10.6,True
+1475,President's Park,5,195,University of Florida Law School,331,4.1,False
+932,UF Law School,5,195,University of Florida Law School,28,0.3,False
+206,AT&T Building,5,1216,Arlington Square Apartments,591,7.4,True
+181,Millpond Apartments,5,181,Millpond Apartments,0,0.0,False
+195,University of Florida Law School,5,195,University of Florida Law School,0,0.0,False
+192,UF Golf Course,5,195,University of Florida Law School,830,10.4,True
+934,Campus Church of Christ,5,195,University of Florida Law School,379,4.7,False
+182,Gainesville Health & Fitness,5,181,Millpond Apartments,128,1.6,False
+184,Alarion Bank,5,164,Millennium Center,130,1.6,False
+201,West University Avenue & SW 12th St,5,146,Holiday Inn @ W University Avenue,159,2.0,False
+203,University of Florida Human Resources,5,146,Holiday Inn @ W University Avenue,506,6.3,True
+1206,Arlington Square Apartments,5,1216,Arlington Square Apartments,30,0.4,False
+1216,Arlington Square Apartments,5,1216,Arlington Square Apartments,0,0.0,False
+140,Alachua County Office of the State Attorney,5,1216,Arlington Square Apartments,459,5.7,True
+1,Rosa Parks RTS Downtown Station,5,1,Rosa Parks RTS Downtown Station,0,0.0,False
+144,Leonardo's 706,5,146,Holiday Inn @ W University Avenue,640,8.0,True
+145,Westbound W University Ave @ NW 10th St,5,146,Holiday Inn @ W University Avenue,395,4.9,False
+179,Eastbound W Newberry Rd @ NW 53rd Terrace,5,181,Millpond Apartments,415,5.2,True
+190,The Wynwood Apartments,5,187,Community Foundation of North Central Florida,963,12.0,True
+149,West Univ Avenue @ NW 17th Street,5,146,Holiday Inn @ W University Avenue,542,6.8,True
+164,Millennium Center,5,164,Millennium Center,0,0.0,False
+200,Anderson Hall,5,146,Holiday Inn @ W University Avenue,295,3.7,False
+147,Target Copy @ W University Avenue,5,146,Holiday Inn @ W University Avenue,180,2.3,False
+197,Ben Hill Griffin Stadium,5,195,University of Florida Law School,966,12.1,True
+1474,Renaissance Jewelers,5,187,Community Foundation of North Central Florida,1020,12.7,True
+191,Westgate Plaza,5,195,University of Florida Law School,1156,14.5,True
+185,SIMED Health,5,185,SIMED Health,0,0.0,False
+166,Gainesville Health & Fitness,5,181,Millpond Apartments,182,2.3,False
+196,Pressly Stadium,5,195,University of Florida Law School,331,4.1,False
+165,Orthopedic Institute,5,164,Millennium Center,255,3.2,False
+1473,Fire Station,5,187,Community Foundation of North Central Florida,709,8.9,True
+208,Bo Diddley Community Plaza,5,1216,Arlington Square Apartments,237,3.0,False
+161,Plaza Royale,5,187,Community Foundation of North Central Florida,250,3.1,False
+146,Holiday Inn @ W University Avenue,5,146,Holiday Inn @ W University Avenue,0,0.0,False
+188,Regal Royal Park Stadium 16,5,187,Community Foundation of North Central Florida,385,4.8,False
+142,Seagle Building,5,1216,Arlington Square Apartments,631,7.9,True
+186,Life South Blood Center,5,185,SIMED Health,171,2.1,False
+189,Center for Independent Living,5,187,Community Foundation of North Central Florida,678,8.5,True
+935,Westbound SW 2nd Avenue @ SW 30th Street,5,195,University of Florida Law School,816,10.2,True
+143,Santa Fe College Charles L. Blount Center,5,1216,Arlington Square Apartments,776,9.7,True
+168,Capital City Bank @ Newberry Road,5,181,Millpond Apartments,348,4.3,False
+175,Oaks Mall SW 62nd Blvd,5,175,Oaks Mall SW 62nd Blvd,0,0.0,False
+204,Innovation Square North,5,146,Holiday Inn @ W University Avenue,680,8.5,True
+198,St. Augustine Catholic Church,5,146,Holiday Inn @ W University Avenue,723,9.0,True
+205,The Continuum,5,1216,Arlington Square Apartments,716,8.9,True
+139,City Hall,5,1216,Arlington Square Apartments,278,3.5,False
+163,Allstate Insurance @ Newberry Road,5,185,SIMED Health,151,1.9,False
+199,Keene Flint Hall,5,146,Holiday Inn @ W University Avenue,511,6.4,True
+1594,AT&T Store @ NW 4th Place,5,175,Oaks Mall SW 62nd Blvd,197,2.5,False
+207,Alachua County Office of the State Attorney,5,1216,Arlington Square Apartments,415,5.2,True
+167,SunTrust Bank @ Newberry Road,5,181,Millpond Apartments,115,1.4,False
+162,Tire Kingdom @ Newberry Road,5,187,Community Foundation of North Central Florida,79,1.0,False
+936,Westgate Plaza,5,195,University of Florida Law School,1148,14.4,True
+177,Durant Estate,5,175,Oaks Mall SW 62nd Blvd,565,7.1,True
+176,Panera Bread @ Newberry Road,5,175,Oaks Mall SW 62nd Blvd,190,2.4,False
+148,Smathers Library,5,146,Holiday Inn @ W University Avenue,398,5.0,False
+1141,Wilmot Gardens,52,16,Shands Hospital @ Center Drive,347,4.3,False
+1483,aloft Hotel @ Hull Rd Eastbound,52,1486,Campus Circle Apartments,302,3.8,False
+1397,Westbound SW 24th Ave @ SW 61st St,52,830,Cabana Beach Apartments (SW 20th Ave),1081,13.5,True
+1486,Campus Circle Apartments,52,1486,Campus Circle Apartments,0,0.0,False
+1064,Treebecka Park Apartments,52,830,Cabana Beach Apartments (SW 20th Ave),1618,20.2,True
+467,Cancer and Genetics Research,52,16,Shands Hospital @ Center Drive,524,6.5,True
+477,Cancer & Genetics Research Center,52,16,Shands Hospital @ Center Drive,519,6.5,True
+1611,NW 2nd Lane @ NW 140th Way,52,830,Cabana Beach Apartments (SW 20th Ave),9371,117.1,True
+1489,Village Point 4,52,1486,Campus Circle Apartments,222,2.8,False
+42,Shands Hospital @ Center Drive,52,42,Shands Hospital @ Center Drive,0,0.0,False
+814,Pinetree Gardens,52,832,Liv Apartments,298,3.7,False
+1620,SW 87th Dr @ Nearside SW 27th Ln,52,830,Cabana Beach Apartments (SW 20th Ave),4136,51.7,True
+1177,Fifield Hall,52,1177,Fifield Hall,0,0.0,False
+1173,Cultural Plaza,52,1173,Cultural Plaza,0,0.0,False
+1054,Tower Oaks Glenn Apartments,52,830,Cabana Beach Apartments (SW 20th Ave),1903,23.8,True
+1610,Jonesville Publix,52,830,Cabana Beach Apartments (SW 20th Ave),9564,119.6,True
+833,Addison Lane,52,832,Liv Apartments,339,4.2,False
+1613,Town of Tioga (Eastbound),52,830,Cabana Beach Apartments (SW 20th Ave),8617,107.7,True
+1055,Split Rock Conservation Area,52,830,Cabana Beach Apartments (SW 20th Ave),1477,18.5,True
+1609,Jonesville Arbor Greens,52,830,Cabana Beach Apartments (SW 20th Ave),9070,113.4,True
+1136,Wilmot Gardens,52,16,Shands Hospital @ Center Drive,315,3.9,False
+1051,Walgreens @ SW 24th Avenue,52,830,Cabana Beach Apartments (SW 20th Ave),2717,34.0,True
+1482,Lake Alice Conservation Area,52,16,Shands Hospital @ Center Drive,736,9.2,True
+1063,Linton Oaks @ SW 24th Ave,52,830,Cabana Beach Apartments (SW 20th Ave),1260,15.8,True
+466,Forestry Field Lab/Plant Growth,52,1176,Fifield Hall,535,6.7,True
+807,University Village South Apartments,52,1173,Cultural Plaza,174,2.2,False
+15,Center Dr @ Museum Rd,52,43,Center Dr @ Museum Rd,46,0.6,False
+835,Kensington Apartments South,52,1486,Campus Circle Apartments,327,4.1,False
+472,Rawlings Hall,52,472,Rawlings Hall,0,0.0,False
+1484,Varsity House Apartments @ SW 38th Ter,52,1486,Campus Circle Apartments,41,0.5,False
+1363,Shands Parking Garage,52,16,Shands Hospital @ Center Drive,106,1.3,False
+1616,SW 24th Avenue & School House Road,52,830,Cabana Beach Apartments (SW 20th Ave),4949,61.9,True
+1398,Westbound SW 24th AVE @ SW 75th ST,52,830,Cabana Beach Apartments (SW 20th Ave),2932,36.7,True
+832,Liv Apartments,52,832,Liv Apartments,0,0.0,False
+1618,Queen of Peace Church,52,830,Cabana Beach Apartments (SW 20th Ave),6035,75.4,True
+43,Center Dr @ Museum Rd,52,43,Center Dr @ Museum Rd,0,0.0,False
+1135,Shands Visitor Parking,52,16,Shands Hospital @ Center Drive,118,1.5,False
+1237,Museum Walk Apartments,52,1486,Campus Circle Apartments,589,7.4,True
+1181,UF Orthopaedics Institute,52,1173,Cultural Plaza,526,6.6,True
+1405,Eastbound SW 24th AVE @ SW 84th ST,52,830,Cabana Beach Apartments (SW 20th Ave),3735,46.7,True
+815,Daily Mart,52,832,Liv Apartments,34,0.4,False
+1612,Town of Tioga,52,830,Cabana Beach Apartments (SW 20th Ave),8654,108.2,True
+1174,Lacrosse Field,52,1177,Fifield Hall,277,3.5,False
+473,Reitz Union,52,473,Reitz Union,0,0.0,False
+1067,Carriage House Lane,52,830,Cabana Beach Apartments (SW 20th Ave),2629,32.9,True
+44,Frazier Rogers Hall (Eastbound),52,43,Center Dr @ Museum Rd,120,1.5,False
+16,Shands Hospital @ Center Drive,52,16,Shands Hospital @ Center Drive,0,0.0,False
+1400,Westbound SW 24th AVE @ SW 84th ST,52,830,Cabana Beach Apartments (SW 20th Ave),3678,46.0,True
+1053,Galen College of Nursing,52,830,Cabana Beach Apartments (SW 20th Ave),2403,30.0,True
+816,Canopy Apartments,52,816,Canopy Apartments,0,0.0,False
+1176,Fifield Hall,52,1176,Fifield Hall,0,0.0,False
+478,IFAS Lab,52,1176,Fifield Hall,511,6.4,True
+1402,Westbound SW 87th Dr @ SW 91st St,52,830,Cabana Beach Apartments (SW 20th Ave),4169,52.1,True
+1617,SW 24th Avenue & School House Road (Eastbound),52,830,Cabana Beach Apartments (SW 20th Ave),5000,62.5,True
+1396,Eastbound SW 24th Ave @ Majestic Oaks,52,830,Cabana Beach Apartments (SW 20th Ave),977,12.2,True
+830,Cabana Beach Apartments (SW 20th Ave),52,830,Cabana Beach Apartments (SW 20th Ave),0,0.0,False
+1619,Queen of Peace Church (Eastbound),52,830,Cabana Beach Apartments (SW 20th Ave),6377,79.7,True
+1180,Southwest Recreation Center,52,1173,Cultural Plaza,33,0.4,False
+1481,Cancer/Genetics Research Complex,52,16,Shands Hospital @ Center Drive,737,9.2,True
+1066,KISS 105.3 FM Station,52,830,Cabana Beach Apartments (SW 20th Ave),2400,30.0,True
+1179,Pressly Softball Stadium,52,1177,Fifield Hall,283,3.5,False
+813,Kensington Apartments North,52,1486,Campus Circle Apartments,345,4.3,False
+1065,Tower Oaks Glenn Apartments,52,830,Cabana Beach Apartments (SW 20th Ave),1923,24.0,True
+1407,Eastbound SW 24th AVE @ SW 76th ST,52,830,Cabana Beach Apartments (SW 20th Ave),2926,36.6,True
+226,Oak Gate Apartments,55,422,Uptown Village Apartments,2773,34.7,True
+216,Gainesville Police Department,55,422,Uptown Village Apartments,4119,51.5,True
+275,NW 6th St @ NW 22nd Ave,55,422,Uptown Village Apartments,3076,38.5,True
+997,Robin Lane Neighborhood,55,1003,The Arc,959,12.0,True
+424,Girls Place of Alachua County,55,422,Uptown Village Apartments,536,6.7,True
+1003,The Arc,55,1003,The Arc,0,0.0,False
+282,D.R. Williams Fellowship Hall,55,422,Uptown Village Apartments,4341,54.3,True
+1011,NW Grille Seafood,55,1003,The Arc,3188,39.8,True
+1391,Metrocorp Center,55,421,Walnut Creek Neighborhood,2581,32.3,True
+218,Bailey Village Assisted Living,55,422,Uptown Village Apartments,3731,46.6,True
+419,NW 39th Avenue @ NW 34th Street,55,421,Walnut Creek Neighborhood,1070,13.4,True
+1389,Eastbound NW 39th AVE @ NW 37th ST,55,421,Walnut Creek Neighborhood,1692,21.2,True
+279,Little Warriors Day School,55,422,Uptown Village Apartments,3713,46.4,True
+993,Huntington Lakes Apartments,55,1003,The Arc,2990,37.4,True
+228,Northbound NW 6th Street @ NW 33rd Avenue,55,422,Uptown Village Apartments,2635,32.9,True
+996,Emerald Woods Neighborhood,55,1003,The Arc,1490,18.6,True
+998,Springhill Professional Center,55,1003,The Arc,450,5.6,True
+389,Westbound NW 39th Avenue @ NW 31st Street,55,421,Walnut Creek Neighborhood,812,10.2,True
+388,Springtree Subdivision,55,421,Walnut Creek Neighborhood,610,7.6,True
+277,NW 6th Street @ NW 19th Lane,55,422,Uptown Village Apartments,3255,40.7,True
+1387,Sable Chase Neighborhood,55,421,Walnut Creek Neighborhood,1388,17.3,True
+1013,Pine Woods Apartments,55,421,Walnut Creek Neighborhood,3005,37.6,True
+1386,Breckenridge Neighborhood,55,421,Walnut Creek Neighborhood,1781,22.3,True
+1002,Santa Fe College @ NW 83rd Street (Northbound),55,520,Santa Fe,190,2.4,False
+732,Oak Gate Condominiums,55,422,Uptown Village Apartments,2749,34.4,True
+425,Eastbound NW 39th Ave at NW 19th St Green Tree Pk,55,422,Uptown Village Apartments,897,11.2,True
+1005,Springhill Professional Center,55,1003,The Arc,449,5.6,True
+1010,Huntington Lakes Apartments,55,1003,The Arc,2926,36.6,True
+994,Faith Presbyterian Church,55,1003,The Arc,2422,30.3,True
+386,Forest of the Unicorn Neighborhood,55,422,Uptown Village Apartments,103,1.3,False
+740,Stephen Foster Elementary School @ 39th Ave,55,422,Uptown Village Apartments,2454,30.7,True
+390,NW 39th Avenue @ NW 34th Street,55,421,Walnut Creek Neighborhood,1100,13.8,True
+285,Santa Fe Blount Center,55,422,Uptown Village Apartments,4752,59.4,True
+421,Walnut Creek Neighborhood,55,421,Walnut Creek Neighborhood,0,0.0,False
+221,Family Acupuncture Center,55,422,Uptown Village Apartments,3321,41.5,True
+730,Southbound NW 6th Street @ NW 32nd Place,55,422,Uptown Village Apartments,2624,32.8,True
+1000,The Arc,55,1003,The Arc,17,0.2,False
+423,Palmetto Woods Neighborhood,55,422,Uptown Village Apartments,305,3.8,False
+1009,Faith Presbyterian Church,55,1003,The Arc,2425,30.3,True
+215,Williams Fellowship Hall,55,422,Uptown Village Apartments,4284,53.5,True
+990,Magnolia Park Neighborhood,55,421,Walnut Creek Neighborhood,3163,39.5,True
+999,Northridge Neighborhood,55,1003,The Arc,241,3.0,False
+420,Vida Springs Church,55,421,Walnut Creek Neighborhood,574,7.2,True
+1379,Westbound NW 39th AVE @ NW 10th ST,55,422,Uptown Village Apartments,2135,26.7,True
+1006,Robin Lane Neighborhood,55,1003,The Arc,961,12.0,True
+738,Green Oak Villa,55,422,Uptown Village Apartments,1973,24.7,True
+729,Southbound SW 6th Street @ NW 36th Avenue,55,422,Uptown Village Apartments,2570,32.1,True
+1377,CVS - NW 39th Ave @ NW 13th St,55,422,Uptown Village Apartments,1687,21.1,True
+1001,Santa Fe College @ NW 83rd Street,55,520,Santa Fe,187,2.3,False
+223,NW 6th St NW 21st Ln,55,422,Uptown Village Apartments,3127,39.1,True
+1381,Publix - NW 39th AVE @ NW 13th ST,55,422,Uptown Village Apartments,1618,20.2,True
+1384,Metrocorp Center,55,421,Walnut Creek Neighborhood,2503,31.3,True
+739,Eastbound NW 39th Avenue @ NW 10th Street,55,422,Uptown Village Apartments,2195,27.4,True
+1007,Unicorn Hill Farm,55,1003,The Arc,1460,18.3,True
+733,Bel Air Apartments,55,422,Uptown Village Apartments,2853,35.7,True
+280,American Auto Insurance,55,422,Uptown Village Apartments,3933,49.2,True
+1378,Westbound NW 39th AVE @ NW 12th ST,55,422,Uptown Village Apartments,1934,24.2,True
+1374,Westbound NW 39th AVE @ NW 19th TER,55,422,Uptown Village Apartments,888,11.1,True
+384,Girls Place of Alachua County,55,422,Uptown Village Apartments,563,7.0,True
+387,Walnut Creek Neighborhood,55,421,Walnut Creek Neighborhood,28,0.3,False
+217,Big Ron's Yoga,55,422,Uptown Village Apartments,3967,49.6,True
+220,Medical Marijuana Treatment Center,55,422,Uptown Village Apartments,3536,44.2,True
+728,Stephen Foster Elementary School,55,422,Uptown Village Apartments,2547,31.8,True
+1008,Greystone Community,55,1003,The Arc,1925,24.1,True
+229,Northbound NW 6th Street @ NW 36th Avenue,55,422,Uptown Village Apartments,2585,32.3,True
+1388,Sable Chase Neighborhood,55,421,Walnut Creek Neighborhood,1386,17.3,True
+385,Sonic Drive In,55,422,Uptown Village Apartments,212,2.7,False
+1012,Autumn Woods Neighborhood,55,421,Walnut Creek Neighborhood,3355,41.9,True
+225,Northbound NW 6th Street @ NW 26th Avenue,55,422,Uptown Village Apartments,2883,36.0,True
+1380,Westbound NW 39th AVE @ NW 7th ST,55,422,Uptown Village Apartments,2390,29.9,True
+1004,Windsor Assisted Living,55,1003,The Arc,210,2.6,False
+995,Summer Creek Neighborhood,55,1003,The Arc,1962,24.5,True
+278,NW 6th Street & NW 16th Avenue,55,422,Uptown Village Apartments,3475,43.4,True
+520,Santa Fe,55,520,Santa Fe,0,0.0,False
+989,Pinewood Apartments,55,421,Walnut Creek Neighborhood,2916,36.5,True
+422,Uptown Village Apartments,55,422,Uptown Village Apartments,0,0.0,False
+1169,Northwood Pines Neighborhood,6,1,Rosa Parks RTS Downtown Station,7507,93.8,True
+1623,SW 6th St nearside SW 5th Ave (southbound),6,1,Rosa Parks RTS Downtown Station,869,10.9,True
+241,Grace Presbyterian Church,6,1,Rosa Parks RTS Downtown Station,4277,53.5,True
+736,Wesley United Methodist Church,6,1,Rosa Parks RTS Downtown Station,3366,42.1,True
+259,ALDI Food Market,6,1,Rosa Parks RTS Downtown Station,4916,61.4,True
+1311,Depot Ave Farside SW 3rd St,6,1,Rosa Parks RTS Downtown Station,581,7.3,True
+216,Gainesville Police Department,6,1,Rosa Parks RTS Downtown Station,1706,21.3,True
+275,NW 6th St @ NW 22nd Ave,6,1,Rosa Parks RTS Downtown Station,3118,39.0,True
+413,Northwood Oaks Neighborhood,6,1,Rosa Parks RTS Downtown Station,7531,94.1,True
+282,D.R. Williams Fellowship Hall,6,1,Rosa Parks RTS Downtown Station,1463,18.3,True
+218,Bailey Village Assisted Living,6,1,Rosa Parks RTS Downtown Station,2173,27.2,True
+237,Sandy's Boutique,6,1,Rosa Parks RTS Downtown Station,5387,67.3,True
+1479,Sorrento New Home Community,6,1,Rosa Parks RTS Downtown Station,7051,88.1,True
+1551,Social Security Administration,6,1,Rosa Parks RTS Downtown Station,5898,73.7,True
+279,Little Warriors Day School,6,1,Rosa Parks RTS Downtown Station,2184,27.3,True
+255,Rural King,6,1,Rosa Parks RTS Downtown Station,3870,48.4,True
+1,Rosa Parks RTS Downtown Station,6,1,Rosa Parks RTS Downtown Station,0,0.0,False
+236,Early Learning Coalition,6,1,Rosa Parks RTS Downtown Station,5706,71.3,True
+256,Mount Pleasant Cemetary,6,1,Rosa Parks RTS Downtown Station,4099,51.2,True
+1585,NW 6th St @ NW 3rd Ave,6,1,Rosa Parks RTS Downtown Station,1193,14.9,True
+262,Westgate Mobile Manor Park,6,1,Rosa Parks RTS Downtown Station,5699,71.2,True
+261,Sunshine Inn,6,1,Rosa Parks RTS Downtown Station,5322,66.5,True
+277,NW 6th Street @ NW 19th Lane,6,1,Rosa Parks RTS Downtown Station,2824,35.3,True
+398,Sorrento New Home Community,6,1,Rosa Parks RTS Downtown Station,7035,87.9,True
+254,Big Lot on NW 13th Street,6,1,Rosa Parks RTS Downtown Station,3638,45.5,True
+1625,SW 6th St & SW 3rd Ave (southbound),6,1,Rosa Parks RTS Downtown Station,899,11.2,True
+242,McDonald's @ NW 13th Street,6,1,Rosa Parks RTS Downtown Station,4080,51.0,True
+737,Wawa @ NW 13th St,6,1,Rosa Parks RTS Downtown Station,3506,43.8,True
+735,Rena's Ballroom,6,1,Rosa Parks RTS Downtown Station,3285,41.1,True
+1168,Northwood Oaks Neighborhood,6,1,Rosa Parks RTS Downtown Station,7518,94.0,True
+221,Family Acupuncture Center,6,1,Rosa Parks RTS Downtown Station,2739,34.2,True
+215,Williams Fellowship Hall,6,1,Rosa Parks RTS Downtown Station,1524,19.1,True
+1622,SW 6th St nearside SW 5th Ave,6,1,Rosa Parks RTS Downtown Station,838,10.5,True
+239,Publix @ NW 39th Avenue,6,1,Rosa Parks RTS Downtown Station,4913,61.4,True
+258,M&E Auto Specialists,6,1,Rosa Parks RTS Downtown Station,4425,55.3,True
+399,The Home Depot @ NW 53rd Avenue,6,1,Rosa Parks RTS Downtown Station,6788,84.8,True
+402,ABC Liquor Store @ NW 34th Street,6,1,Rosa Parks RTS Downtown Station,7730,96.6,True
+1504,PPG Paints Store,6,1,Rosa Parks RTS Downtown Station,1138,14.2,True
+1312,Depot Ave nearside SW 3rd St,6,1,Rosa Parks RTS Downtown Station,576,7.2,True
+223,NW 6th St NW 21st Ln,6,1,Rosa Parks RTS Downtown Station,3049,38.1,True
+238,CVS @ NW 13th Street,6,1,Rosa Parks RTS Downtown Station,5195,64.9,True
+280,American Auto Insurance,6,1,Rosa Parks RTS Downtown Station,1915,23.9,True
+1505,Planned Furnishings,6,1,Rosa Parks RTS Downtown Station,1052,13.2,True
+1455,North Walmart Supercenter,6,1,Rosa Parks RTS Downtown Station,7820,97.8,True
+243,Verizon Shop,6,1,Rosa Parks RTS Downtown Station,3883,48.5,True
+217,Big Ron's Yoga,6,1,Rosa Parks RTS Downtown Station,1882,23.5,True
+220,Medical Marijuana Treatment Center,6,1,Rosa Parks RTS Downtown Station,2432,30.4,True
+260,Auto Zone @ NW 13th Street,6,1,Rosa Parks RTS Downtown Station,5110,63.9,True
+1478,Tractor Supply Co @ NW 53rd Avenue,6,1,Rosa Parks RTS Downtown Station,6802,85.0,True
+403,Kangaroo Gas @ NW 34th Street,6,1,Rosa Parks RTS Downtown Station,7522,94.0,True
+1221,Eastbound NW 23rd Avenue @ NW 13th Street,6,1,Rosa Parks RTS Downtown Station,3473,43.4,True
+1223,Forest Meadows Funeral Home,6,1,Rosa Parks RTS Downtown Station,3252,40.7,True
+1170,Pine Ridge Apartments,6,1,Rosa Parks RTS Downtown Station,7505,93.8,True
+1222,Hearing Aid Gainesville,6,1,Rosa Parks RTS Downtown Station,3359,42.0,True
+1624,SW 6th St & SW 3rd Ave,6,1,Rosa Parks RTS Downtown Station,871,10.9,True
+1593,Social Security NB NW 13th St,6,1,Rosa Parks RTS Downtown Station,5894,73.7,True
+278,NW 6th Street & NW 16th Avenue,6,1,Rosa Parks RTS Downtown Station,2502,31.3,True
+412,Northwood Pines Neighborhood,6,1,Rosa Parks RTS Downtown Station,7518,94.0,True
+346,Westbound E University Avenue @ SE 21st Street,7,1,Rosa Parks RTS Downtown Station,2544,31.8,True
+300,Fast Eddie's Restaurant,7,1,Rosa Parks RTS Downtown Station,1738,21.7,True
+111,Southbound SE 15th Street @ SE 4th Avenue,7,1,Rosa Parks RTS Downtown Station,1652,20.6,True
+1553,Health Department,7,1,Rosa Parks RTS Downtown Station,2867,35.8,True
+317,Northbound SE 35th Street @ SE 18th Ave,7,1,Rosa Parks RTS Downtown Station,4241,53.0,True
+307,Southeast Gator Liquor @ Hawthorne Road,7,1,Rosa Parks RTS Downtown Station,2795,34.9,True
+101,SE 24th Street - Dollar General Store,7,1,Rosa Parks RTS Downtown Station,2802,35.0,True
+349,Westbound E University Avenue @ NE 16th Street,7,1,Rosa Parks RTS Downtown Station,1920,24.0,True
+342,Alachua County Sheriffs Department,7,1,Rosa Parks RTS Downtown Station,3038,38.0,True
+325,Verdant Cove Apartments,7,1,Rosa Parks RTS Downtown Station,4891,61.1,True
+347,SE 18th St @ E University Avenue,7,1,Rosa Parks RTS Downtown Station,2171,27.1,True
+306,Eastbound University Avenue @ SE 24th Street,7,1,Rosa Parks RTS Downtown Station,2887,36.1,True
+1,Rosa Parks RTS Downtown Station,7,1,Rosa Parks RTS Downtown Station,0,0.0,False
+338,Durelle Heights Neighborhood,7,1,Rosa Parks RTS Downtown Station,3455,43.2,True
+63,Norwood Neighborhood,7,1,Rosa Parks RTS Downtown Station,1174,14.7,True
+330,Westbound Hawthorne Road @ SE 39th Street,7,1,Rosa Parks RTS Downtown Station,4650,58.1,True
+82,McPherson Recreational Center,7,1,Rosa Parks RTS Downtown Station,2096,26.2,True
+96,Northbound SE 15th Street @ SE 3rd Avenue,7,1,Rosa Parks RTS Downtown Station,1676,20.9,True
+135,Dignity Project,7,1,Rosa Parks RTS Downtown Station,747,9.3,True
+345,Harper's Pointe,7,1,Rosa Parks RTS Downtown Station,2758,34.5,True
+304,Eastbound University Avenue @ SE 21st Street,7,1,Rosa Parks RTS Downtown Station,2515,31.4,True
+334,Southbound SE 35th Street @ SE 20th Avenue,7,1,Rosa Parks RTS Downtown Station,4291,53.6,True
+350,Fast Eddie's Restaurant,7,1,Rosa Parks RTS Downtown Station,1713,21.4,True
+329,Chevron Food Mart @ SE 43rd Street,7,1,Rosa Parks RTS Downtown Station,4964,62.1,True
+136,SE 4th Street @ SE 10th Ave,7,1,Rosa Parks RTS Downtown Station,515,6.4,True
+128,Southbound SE 15th Street @ SE 14th Avenue,7,1,Rosa Parks RTS Downtown Station,1803,22.5,True
+131,Westbound SE 22nd Avenue @ SE 13th Street,7,1,Rosa Parks RTS Downtown Station,2043,25.5,True
+60,SE 4th Street @ SE 10th Avenue,7,1,Rosa Parks RTS Downtown Station,507,6.3,True
+331,Eastside Food Store,7,1,Rosa Parks RTS Downtown Station,4125,51.6,True
+314,Faith Missionary Church,7,1,Rosa Parks RTS Downtown Station,3862,48.3,True
+319,Northbound SE 35th Street @ SE 16th Avenue,7,1,Rosa Parks RTS Downtown Station,4185,52.3,True
+313,Lana's Place,7,1,Rosa Parks RTS Downtown Station,3648,45.6,True
+315,Eastbound SE 21st Avenue @ SE 32nd Terrace,7,1,Rosa Parks RTS Downtown Station,4041,50.5,True
+309,Alachua County Sheriff's Office,7,1,Rosa Parks RTS Downtown Station,3234,40.4,True
+61,Dignity Project,7,1,Rosa Parks RTS Downtown Station,741,9.3,True
+64,Sugarhill Neighborhood @ SE 4th Street,7,1,Rosa Parks RTS Downtown Station,1433,17.9,True
+113,Southbound SE 15th Street @ SE 7th Avenue,7,1,Rosa Parks RTS Downtown Station,1621,20.3,True
+308,Eastbound Hawthorne Road @ SE 26th Street,7,1,Rosa Parks RTS Downtown Station,3022,37.8,True
+339,Northbound SE 27th Street @ SE 15th Avenue,7,1,Rosa Parks RTS Downtown Station,3384,42.3,True
+324,Eastside High School,7,1,Rosa Parks RTS Downtown Station,4913,61.4,True
+336,Faith Missionary Church,7,1,Rosa Parks RTS Downtown Station,3859,48.2,True
+132,Westbound SE 22nd Avenue @ SE 12th Street,7,1,Rosa Parks RTS Downtown Station,1896,23.7,True
+320,Kangaroo @ SE 35th Street,7,1,Rosa Parks RTS Downtown Station,4141,51.8,True
+303,Alachua County School Board Administration Annex,7,1,Rosa Parks RTS Downtown Station,2199,27.5,True
+335,Westbound SE 21st Avenue @ SE 32nd Terrace,7,1,Rosa Parks RTS Downtown Station,4042,50.5,True
+133,Gainesville Housing Authority,7,1,Rosa Parks RTS Downtown Station,1441,18.0,True
+108,SE 24th Street at Hawthorne Road,7,1,Rosa Parks RTS Downtown Station,2784,34.8,True
+134,Norwood Neighborhood (North),7,1,Rosa Parks RTS Downtown Station,1164,14.5,True
+323,Chevron Food Mart @ SE 43rd Street,7,1,Rosa Parks RTS Downtown Station,4978,62.2,True
+66,Eastbound SE 22nd Avenue @ SE 12th Street,7,1,Rosa Parks RTS Downtown Station,1925,24.1,True
+316,SE 35th St @ SE 21st Avenue,7,1,Rosa Parks RTS Downtown Station,4294,53.7,True
+107,Health Department,7,1,Rosa Parks RTS Downtown Station,2716,33.9,True
+337,Lana's Place,7,1,Rosa Parks RTS Downtown Station,3555,44.4,True
+129,McPherson Recreational Center,7,1,Rosa Parks RTS Downtown Station,2089,26.1,True
+343,Dollar General,7,1,Rosa Parks RTS Downtown Station,2809,35.1,True
+67,Eastbound SE 22nd Avenue @ SE 13th Street,7,1,Rosa Parks RTS Downtown Station,2042,25.5,True
+332,Southbound SE 35th Street @ SE 16th Avenue,7,1,Rosa Parks RTS Downtown Station,4172,52.1,True
+311,Southbound SE 27th Street @ SE 15th Avenue,7,1,Rosa Parks RTS Downtown Station,3371,42.1,True
+301,Eastbound University Avenue @ SE 15th Street,7,1,Rosa Parks RTS Downtown Station,1871,23.4,True
+322,E Hawthorne Road @ SE 39th Terrace,7,1,Rosa Parks RTS Downtown Station,4644,58.1,True
+341,Alachua County Sheriffs Department,7,1,Rosa Parks RTS Downtown Station,3272,40.9,True
+84,Northbound SE 15th Street @ SE 13th Place,7,1,Rosa Parks RTS Downtown Station,1789,22.4,True
+326,Eastwood Meadows,7,1,Rosa Parks RTS Downtown Station,4972,62.2,True
+312,Durelle Heights Neighborhood,7,1,Rosa Parks RTS Downtown Station,3460,43.2,True
+327,The Verdant Cove,7,1,Rosa Parks RTS Downtown Station,4865,60.8,True
+103,Northbound SE 24th Street @ E University Avenue,7,1,Rosa Parks RTS Downtown Station,2922,36.5,True
+333,Southbound Se 35th Street @ SE 18th Avenue,7,1,Rosa Parks RTS Downtown Station,4223,52.8,True
+1116,Valwood Neighborhood,75,1043,Asbury Park Apartments,72,0.9,False
+1608,Shell Rock Villas,75,1062,Linton Oaks Neighborhood @ SW 61st Street,189,2.4,False
+1056,Linton Oaks Neighborhood,75,1062,Linton Oaks Neighborhood @ SW 61st Street,291,3.6,False
+1114,Haile Plantation Neighborhood,75,1047,Vet Mem PK,603,7.5,True
+1064,Treebecka Park Apartments,75,1062,Linton Oaks Neighborhood @ SW 61st Street,617,7.7,True
+1034,Madison Cove Apartments,75,1034,Madison Cove Apartments,0,0.0,False
+1101,Tower Plaza,75,1102,Advance Auto Parts,304,3.8,False
+1627,SW 32nd Road @ The Vibe (Eastbound),75,1493,Butler Plaza Transfer Station,485,6.1,True
+1085,The Gardens Apartments,75,1104,The Gardens Apartments,136,1.7,False
+1621,SW 8th Ave @ Nearside SW 67th Terr,75,1062,Linton Oaks Neighborhood @ SW 61st Street,677,8.5,True
+1089,Harbor Cove Apartments,75,1087,Pine Meadow Apartments,352,4.4,False
+1057,Linton Oaks Neighborhood @ SW 61st Street,75,1062,Linton Oaks Neighborhood @ SW 61st Street,18,0.2,False
+1046,Tower Village Apartments,75,1047,Vet Mem PK,278,3.5,False
+1119,CROM Equipment Rentals,75,1042,Publix @ Tower Square on SW 75th Street,499,6.2,True
+1082,Sparrow Apartments,75,1104,The Gardens Apartments,657,8.2,True
+1081,Sparrow Apartments,75,1104,The Gardens Apartments,755,9.4,True
+1054,Tower Oaks Glenn Apartments,75,1109,Tower 24 Shopping Center,1048,13.1,True
+1120,Life Storage,75,1042,Publix @ Tower Square on SW 75th Street,790,9.9,True
+1058,Linton Oaks,75,1062,Linton Oaks Neighborhood @ SW 61st Street,195,2.4,False
+1036,Westgate Mobile Manor Park,75,1034,Madison Cove Apartments,465,5.8,True
+1096,Oaks Square Complex,75,1096,Oaks Square Complex,0,0.0,False
+1124,Dogwood Dog Park,75,1034,Madison Cove Apartments,28,0.3,False
+1112,Vet Mem PK,75,1047,Vet Mem PK,71,0.9,False
+1043,Asbury Park Apartments,75,1043,Asbury Park Apartments,0,0.0,False
+1098,North Florida Regional Medical Center,75,1098,North Florida Regional Medical Center,0,0.0,False
+1104,The Gardens Apartments,75,1104,The Gardens Apartments,0,0.0,False
+1049,Tower Road Branch Library,75,1109,Tower 24 Shopping Center,312,3.9,False
+1055,Split Rock Conservation Area,75,1062,Linton Oaks Neighborhood @ SW 61st Street,477,6.0,True
+1100,West Newberry Rd Nearside NW 69th Ter,75,1096,Oaks Square Complex,34,0.4,False
+174,Terwilliger Elementary School,75,174,Terwilliger Elementary School,0,0.0,False
+1038,A Child's Place,75,1034,Madison Cove Apartments,849,10.6,True
+1051,Walgreens @ SW 24th Avenue,75,1109,Tower 24 Shopping Center,210,2.6,False
+1115,Stillwind Neighborhood,75,1043,Asbury Park Apartments,281,3.5,False
+1087,Pine Meadow Apartments,75,1087,Pine Meadow Apartments,0,0.0,False
+1063,Linton Oaks @ SW 24th Ave,75,1062,Linton Oaks Neighborhood @ SW 61st Street,326,4.1,False
+1059,Linton Oaks Neighborhood @ SW 64th Terrace,75,1062,Linton Oaks Neighborhood @ SW 61st Street,404,5.0,True
+1109,Tower 24 Shopping Center,75,1109,Tower 24 Shopping Center,0,0.0,False
+1039,Kanapaha Station Plaza,75,1042,Publix @ Tower Square on SW 75th Street,817,10.2,True
+172,Oaks Mall SW 62nd Blvd,75,172,Oaks Mall SW 62nd Blvd,0,0.0,False
+1122,Westgate Manor Park,75,1034,Madison Cove Apartments,487,6.1,True
+1040,Town & Country Veterinarians,75,1042,Publix @ Tower Square on SW 75th Street,533,6.7,True
+1121,SunState,75,1034,Madison Cove Apartments,898,11.2,True
+1091,Home Depot @ NW 4th Boulevard,75,1087,Pine Meadow Apartments,324,4.0,False
+1041,Bank of America @ Tower Square on Archer Road,75,1042,Publix @ Tower Square on SW 75th Street,186,2.3,False
+1044,Kanapaha Middle School,75,1043,Asbury Park Apartments,370,4.6,False
+1111,Kenwood Neighborhood,75,1047,Vet Mem PK,666,8.3,True
+1083,Cricket Club Apartments,75,1104,The Gardens Apartments,437,5.5,True
+1084,Reflections Apartments,75,1104,The Gardens Apartments,131,1.6,False
+1079,Westbound SW 8th Avenue @ SW 70th Terrace,75,1062,Linton Oaks Neighborhood @ SW 61st Street,871,10.9,True
+1630,SW 32nd Rd @ The Vibe (Westbound),75,1493,Butler Plaza Transfer Station,454,5.7,True
+1072,Sparrow Apartments,75,1104,The Gardens Apartments,763,9.5,True
+1113,Tower Village,75,1047,Vet Mem PK,279,3.5,False
+1626,SW 43rd St @ Cracker Barrel,75,1252,Plaza Health and Rehab,652,8.2,True
+1103,Tower Hill,75,1104,The Gardens Apartments,186,2.3,False
+1126,Haystacks Housing Complex,75,1252,Plaza Health and Rehab,29,0.4,False
+1067,Carriage House Lane,75,1109,Tower 24 Shopping Center,280,3.5,False
+171,Oaks Mall @ NW 62nd Blvd,75,174,Terwilliger Elementary School,104,1.3,False
+1078,Gordon Manor Neighborhood,75,1062,Linton Oaks Neighborhood @ SW 61st Street,734,9.2,True
+1062,Linton Oaks Neighborhood @ SW 61st Street,75,1062,Linton Oaks Neighborhood @ SW 61st Street,0,0.0,False
+1061,Linton Oaks Neighborhood @ SW 63rd Terrace,75,1062,Linton Oaks Neighborhood @ SW 61st Street,342,4.3,False
+1614,Celebration Pointe SW 45th St & SW 31st Pl,75,1493,Butler Plaza Transfer Station,628,7.9,True
+1050,Bellamy Grand,75,1109,Tower 24 Shopping Center,62,0.8,False
+1035,Kanapaha Botanical Gardens,75,1034,Madison Cove Apartments,170,2.1,False
+1053,Galen College of Nursing,75,1109,Tower 24 Shopping Center,492,6.2,True
+1047,Vet Mem PK,75,1047,Vet Mem PK,0,0.0,False
+1102,Advance Auto Parts,75,1102,Advance Auto Parts,0,0.0,False
+1033,Westbound Archer Road @ SW 50th Street,75,1252,Plaza Health and Rehab,246,3.1,False
+1493,Butler Plaza Transfer Station,75,1493,Butler Plaza Transfer Station,0,0.0,False
+1125,Hailey Forest Condominiums,75,1252,Plaza Health and Rehab,242,3.0,False
+1629,SW 43rd St @ Texas Roadhouse,75,1252,Plaza Health and Rehab,655,8.2,True
+175,Oaks Mall SW 62nd Blvd,75,175,Oaks Mall SW 62nd Blvd,0,0.0,False
+1118,Arredondo Farms,75,1042,Publix @ Tower Square on SW 75th Street,206,2.6,False
+1123,Broken Arrow Bluff Community,75,1034,Madison Cove Apartments,238,3.0,False
+1105,Cricket Club Apartments,75,1104,The Gardens Apartments,416,5.2,True
+1042,Publix @ Tower Square on SW 75th Street,75,1042,Publix @ Tower Square on SW 75th Street,0,0.0,False
+1048,Kanapaha Park,75,1047,Vet Mem PK,512,6.4,True
+1097,Oaks Mall,75,1098,North Florida Regional Medical Center,182,2.3,False
+1066,KISS 105.3 FM Station,75,1109,Tower 24 Shopping Center,497,6.2,True
+1117,Tower Square @ SW 75th Street,75,1042,Publix @ Tower Square on SW 75th Street,107,1.3,False
+1094,Clarion Inn,75,1102,Advance Auto Parts,436,5.4,True
+1093,Park Place Car Wash,75,1102,Advance Auto Parts,147,1.8,False
+1110,Tower Road Library,75,1109,Tower 24 Shopping Center,313,3.9,False
+1252,Plaza Health and Rehab,75,1252,Plaza Health and Rehab,0,0.0,False
+1099,SUBWAY@ Newberry RD,75,1098,North Florida Regional Medical Center,142,1.8,False
+1065,Tower Oaks Glenn Apartments,75,1109,Tower 24 Shopping Center,1029,12.9,True
+518,Santa Fe College @ NW 83rd Street,76,520,Santa Fe,515,6.4,True
+528,Northwest Baptist Church,76,175,Oaks Mall SW 62nd Blvd,1895,23.7,True
+521,Santa Fe College,76,520,Santa Fe,243,3.0,False
+1397,Westbound SW 24th Ave @ SW 61st St,76,172,Oaks Mall SW 62nd Blvd,1632,20.4,True
+1064,Treebecka Park Apartments,76,172,Oaks Mall SW 62nd Blvd,1784,22.3,True
+517,Shenandoah Neighborhood,76,520,Santa Fe,893,11.2,True
+1108,Sunrise Subdivision (Southbound),76,172,Oaks Mall SW 62nd Blvd,2509,31.4,True
+1600,Markets West,76,172,Oaks Mall SW 62nd Blvd,2154,26.9,True
+514,Westbound NW 23rd Avenue @ NW 63rd Terrace,76,175,Oaks Mall SW 62nd Blvd,1804,22.5,True
+1393,Northbound NW 55th ST @ NW 14th AVE,76,175,Oaks Mall SW 62nd Blvd,1068,13.3,True
+525,Hickory Woods Neighborhood,76,520,Santa Fe,1709,21.4,True
+1055,Split Rock Conservation Area,76,172,Oaks Mall SW 62nd Blvd,1689,21.1,True
+174,Terwilliger Elementary School,76,174,Terwilliger Elementary School,0,0.0,False
+824,Hampton Oaks Apartments,76,172,Oaks Mall SW 62nd Blvd,303,3.8,False
+526,Eastbound NW 23rd Avenue @ NW 63rd Terrace,76,175,Oaks Mall SW 62nd Blvd,1789,22.4,True
+1063,Linton Oaks @ SW 24th Ave,76,172,Oaks Mall SW 62nd Blvd,1587,19.8,True
+1395,Southbound NW 55th ST @ NW 9th LN,76,175,Oaks Mall SW 62nd Blvd,737,9.2,True
+828,Rockwood Villas Apartments,76,172,Oaks Mall SW 62nd Blvd,1489,18.6,True
+1068,CVS Pharmacy @ SW 75th Street,76,172,Oaks Mall SW 62nd Blvd,2887,36.1,True
+1398,Westbound SW 24th AVE @ SW 75th ST,76,172,Oaks Mall SW 62nd Blvd,3000,37.5,True
+822,Palm Garden of Gainesville,76,172,Oaks Mall SW 62nd Blvd,521,6.5,True
+172,Oaks Mall SW 62nd Blvd,76,172,Oaks Mall SW 62nd Blvd,0,0.0,False
+524,Quail Ridge Neighborhood,76,520,Santa Fe,1449,18.1,True
+1405,Eastbound SW 24th AVE @ SW 84th ST,76,172,Oaks Mall SW 62nd Blvd,3489,43.6,True
+1394,Southbound NW 55th ST @ NW 14th AVE,76,175,Oaks Mall SW 62nd Blvd,1061,13.3,True
+523,Shenandoah Neighborhood,76,520,Santa Fe,894,11.2,True
+1392,Northbound NW 55th St @ NW 9th Ln,76,175,Oaks Mall SW 62nd Blvd,753,9.4,True
+1601,Markets West (Eastbound),76,172,Oaks Mall SW 62nd Blvd,2153,26.9,True
+171,Oaks Mall @ NW 62nd Blvd,76,174,Terwilliger Elementary School,104,1.3,False
+827,Lakewood Villas Apartments,76,172,Oaks Mall SW 62nd Blvd,1203,15.0,True
+825,The Earl Apartments,76,172,Oaks Mall SW 62nd Blvd,494,6.2,True
+515,Hickory Woods Neighborhood,76,520,Santa Fe,1723,21.5,True
+1400,Westbound SW 24th AVE @ SW 84th ST,76,172,Oaks Mall SW 62nd Blvd,3443,43.0,True
+820,Spyglass Apartments,76,172,Oaks Mall SW 62nd Blvd,1152,14.4,True
+522,The Pentecostals of Gainesville,76,520,Santa Fe,687,8.6,True
+818,Redpoint Apartments,76,172,Oaks Mall SW 62nd Blvd,1802,22.5,True
+819,Rockwood Villas Apartments,76,172,Oaks Mall SW 62nd Blvd,1418,17.7,True
+823,Hampton Oaks Apartments,76,172,Oaks Mall SW 62nd Blvd,219,2.7,False
+829,Forest View Apartments,76,172,Oaks Mall SW 62nd Blvd,1754,21.9,True
+516,Quail Ridge Neighborhood,76,520,Santa Fe,1469,18.4,True
+175,Oaks Mall SW 62nd Blvd,76,175,Oaks Mall SW 62nd Blvd,0,0.0,False
+1402,Westbound SW 87th Dr @ SW 91st St,76,172,Oaks Mall SW 62nd Blvd,3919,49.0,True
+1069,Sunrise Subdivision,76,172,Oaks Mall SW 62nd Blvd,2466,30.8,True
+1396,Eastbound SW 24th Ave @ Majestic Oaks,76,172,Oaks Mall SW 62nd Blvd,1626,20.3,True
+512,Northwest Baptist Church,76,175,Oaks Mall SW 62nd Blvd,1898,23.7,True
+520,Santa Fe,76,520,Santa Fe,0,0.0,False
+176,Panera Bread @ Newberry Road,76,175,Oaks Mall SW 62nd Blvd,190,2.4,False
+1407,Eastbound SW 24th AVE @ SW 76th ST,76,172,Oaks Mall SW 62nd Blvd,3012,37.7,True
+381,Altrusa House of Gainesville,8,422,Uptown Village Apartments,796,10.0,True
+436,Applebee's @ NW 13th Street,8,247,Gainesville High School,1017,12.7,True
+1169,Northwood Pines Neighborhood,8,409,North Walmart Supercenter,605,7.6,True
+46,Beaty Towers,8,45,University Police Department,218,2.7,False
+252,Plaza Verde - NW 23rd Avenue,8,252,Plaza Verde - NW 23rd Avenue,0,0.0,False
+369,CVS @ NW 13th Street,8,247,Gainesville High School,455,5.7,True
+442,Southbound SW 13th Street @ Inner Road,8,362,Social 28 Apartments,169,2.1,False
+414,Barnhill Clinic,8,409,North Walmart Supercenter,1181,14.8,True
+444,University Housing Office,8,45,University Police Department,365,4.6,False
+363,SW 13th Street & W University Avenue,8,441,Tigert Hall,208,2.6,False
+424,Girls Place of Alachua County,8,422,Uptown Village Apartments,536,6.7,True
+430,Misty Oaks Apartments,8,432,Cobblestone Apartments,427,5.3,True
+391,Gethsemane Lutheran Church,8,421,Walnut Creek Neighborhood,1204,15.1,True
+367,Xerographic Copy Center,8,247,Gainesville High School,1049,13.1,True
+413,Northwood Oaks Neighborhood,8,409,North Walmart Supercenter,826,10.3,True
+1343,Northside Park and Senior Recreational Center,8,1343,Northside Park and Senior Recreational Center,0,0.0,False
+375,Brook Wood Terrace Neighborhood,8,432,Cobblestone Apartments,226,2.8,False
+42,Shands Hospital @ Center Drive,8,42,Shands Hospital @ Center Drive,0,0.0,False
+438,The Gate Food Store @ NW 13th Street,8,441,Tigert Hall,699,8.7,True
+426,Ridgeview Baptist Church,8,432,Cobblestone Apartments,879,11.0,True
+419,NW 39th Avenue @ NW 34th Street,8,421,Walnut Creek Neighborhood,1070,13.4,True
+360,Norman Field,8,45,University Police Department,381,4.8,False
+396,Barnhill Clinic,8,409,North Walmart Supercenter,1124,14.0,True
+409,North Walmart Supercenter,8,409,North Walmart Supercenter,0,0.0,False
+1420,Southbound SW 13th ST @ SW 14th AVE,8,42,Shands Hospital @ Center Drive,717,9.0,True
+247,Gainesville High School,8,247,Gainesville High School,0,0.0,False
+1550,Hotel Eleo @ SW 16th Ave Westbound,8,42,Shands Hospital @ Center Drive,684,8.5,True
+373,Furniture Kingdom,8,252,Plaza Verde - NW 23rd Avenue,99,1.2,False
+389,Westbound NW 39th Avenue @ NW 31st Street,8,421,Walnut Creek Neighborhood,812,10.2,True
+395,YMCA @ NW 34th Street,8,409,North Walmart Supercenter,1325,16.6,True
+388,Springtree Subdivision,8,421,Walnut Creek Neighborhood,610,7.6,True
+394,Family Dollar @ NW 34th Street,8,409,North Walmart Supercenter,1597,20.0,True
+440,North 13th Street @ NW 1st Avenue,8,441,Tigert Hall,366,4.6,False
+428,Southbound NW 21st Street @ NW 36th Avenue,8,422,Uptown Village Apartments,645,8.1,True
+441,Tigert Hall,8,441,Tigert Hall,0,0.0,False
+393,Capri Neighborhood,8,421,Walnut Creek Neighborhood,1399,17.5,True
+417,Capri Neighborhood,8,421,Walnut Creek Neighborhood,1359,17.0,True
+425,Eastbound NW 39th Ave at NW 19th St Green Tree Pk,8,422,Uptown Village Apartments,897,11.2,True
+45,University Police Department,8,45,University Police Department,0,0.0,False
+386,Forest of the Unicorn Neighborhood,8,422,Uptown Village Apartments,103,1.3,False
+390,NW 39th Avenue @ NW 34th Street,8,421,Walnut Creek Neighborhood,1100,13.8,True
+372,Lux 13 Apartments,8,247,Gainesville High School,70,0.9,False
+421,Walnut Creek Neighborhood,8,421,Walnut Creek Neighborhood,0,0.0,False
+43,Center Dr @ Museum Rd,8,43,Center Dr @ Museum Rd,0,0.0,False
+1168,Northwood Oaks Neighborhood,8,409,North Walmart Supercenter,823,10.3,True
+423,Palmetto Woods Neighborhood,8,422,Uptown Village Apartments,305,3.8,False
+366,University House Apartments,8,441,Tigert Hall,1009,12.6,True
+420,Vida Springs Church,8,421,Walnut Creek Neighborhood,574,7.2,True
+429,Glen Springs Apartments,8,432,Cobblestone Apartments,575,7.2,True
+427,Altrusa House of Gainesville,8,422,Uptown Village Apartments,792,9.9,True
+408,Northbound NW 23rd Terrace @ US Hwy 441,8,408,Northbound NW 23rd Terrace @ US Hwy 441,0,0.0,False
+382,Ridgeview Baptist Church,8,432,Cobblestone Apartments,854,10.7,True
+248,Gainesville High School,8,247,Gainesville High School,283,3.5,False
+1359,Gainesville Healthcare Center,8,42,Shands Hospital @ Center Drive,493,6.2,True
+1374,Westbound NW 39th AVE @ NW 19th TER,8,422,Uptown Village Apartments,888,11.1,True
+384,Girls Place of Alachua County,8,422,Uptown Village Apartments,563,7.0,True
+44,Frazier Rogers Hall (Eastbound),8,43,Center Dr @ Museum Rd,120,1.5,False
+387,Walnut Creek Neighborhood,8,421,Walnut Creek Neighborhood,28,0.3,False
+433,Brookwood Terrace,8,432,Cobblestone Apartments,215,2.7,False
+405,Pine Ridge Apartments,8,409,North Walmart Supercenter,357,4.5,False
+432,Cobblestone Apartments,8,432,Cobblestone Apartments,0,0.0,False
+374,UF Health Homecare,8,374,UF Health Homecare,0,0.0,False
+439,NW 13th St @ Nearside NW 3rd Pl Southbound,8,441,Tigert Hall,537,6.7,True
+416,Pizza Hut @ NW 34th Street,8,421,Walnut Creek Neighborhood,1638,20.5,True
+434,Direct Auto Insurance,8,247,Gainesville High School,661,8.3,True
+403,Kangaroo Gas @ NW 34th Street,8,1343,Northside Park and Senior Recreational Center,258,3.2,False
+385,Sonic Drive In,8,422,Uptown Village Apartments,212,2.7,False
+364,Publix @ NW 13th St and W Univ Ave,8,441,Tigert Hall,459,5.7,True
+368,LifeSouth Community Blood Center @ NW 13th Street,8,247,Gainesville High School,720,9.0,True
+418,Southbound NW 34th Street @ NW 41st Avenue,8,421,Walnut Creek Neighborhood,1209,15.1,True
+380,Kiwanis Park,8,422,Uptown Village Apartments,629,7.9,True
+437,All Star Automotive,8,441,Tigert Hall,903,11.3,True
+379,Northbound NW 21st Avenue @ NW 33rd Avenue,8,432,Cobblestone Apartments,616,7.7,True
+245,Plaza Verde @ NW 13th St Southbound,8,245,Plaza Verde @ NW 13th St Southbound,0,0.0,False
+446,UF Health Archer Road,8,42,Shands Hospital @ Center Drive,276,3.4,False
+407,Hampton Court Apartments,8,408,Northbound NW 23rd Terrace @ US Hwy 441,159,2.0,False
+435,State Farm Insurance @ NW 13th Street,8,247,Gainesville High School,830,10.4,True
+1595,UF Heart Health,8,45,University Police Department,637,8.0,True
+362,Social 28 Apartments,8,362,Social 28 Apartments,0,0.0,False
+361,Norman Hall,8,362,Social 28 Apartments,222,2.8,False
+365,Theory Apartments,8,441,Tigert Hall,736,9.2,True
+370,Gainesville High School,8,247,Gainesville High School,225,2.8,False
+422,Uptown Village Apartments,8,422,Uptown Village Apartments,0,0.0,False
+404,Pine Ridge Apartments,8,409,North Walmart Supercenter,244,3.1,False
+378,Misty Oaks Apartments,8,432,Cobblestone Apartments,445,5.6,True
+412,Northwood Pines Neighborhood,8,409,North Walmart Supercenter,569,7.1,True
+376,Cobblestone Apartments,8,432,Cobblestone Apartments,31,0.4,False
+406,Northbound NW 23rd Terrace @ NW 62nd Avenue,8,408,Northbound NW 23rd Terrace @ US Hwy 441,434,5.4,True
+461,University Club Apartments,9,460,Towne Parc Apartments,212,2.7,False
+1253,Graham Hall,9,1253,Graham Hall,0,0.0,False
+467,Cancer and Genetics Research,9,1194,Commuter Lot/Garage 14,392,4.9,False
+463,University Commons,9,463,University Commons,0,0.0,False
+477,Cancer & Genetics Research Center,9,1194,Commuter Lot/Garage 14,376,4.7,False
+486,Gator Place Condominiums,9,457,Hickory Place Apartments,158,2.0,False
+449,Hideaway Apartments,9,457,Hickory Place Apartments,893,11.2,True
+453,Windsor Park Apartments,9,457,Hickory Place Apartments,635,7.9,True
+483,University Club Apartments,9,460,Towne Parc Apartments,161,2.0,False
+450,Lexington Crossing Apartments,9,457,Hickory Place Apartments,769,9.6,True
+1194,Commuter Lot/Garage 14,9,1194,Commuter Lot/Garage 14,0,0.0,False
+454,Northbound SW 27th Street @ SW 35th Place,9,457,Hickory Place Apartments,579,7.2,True
+1482,Lake Alice Conservation Area,9,1194,Commuter Lot/Garage 14,508,6.3,True
+460,Towne Parc Apartments,9,460,Towne Parc Apartments,0,0.0,False
+462,University of Florida Energy Research,9,481,University Commons,327,4.1,False
+466,Forestry Field Lab/Plant Growth,9,1194,Commuter Lot/Garage 14,741,9.3,True
+456,Arbor Park Apartments,9,457,Hickory Place Apartments,195,2.4,False
+451,Lexington Crossing Apartments,9,457,Hickory Place Apartments,697,8.7,True
+488,Countryside at the University Apartments,9,457,Hickory Place Apartments,479,6.0,True
+1254,Gator Corner Dining Facility @ Gale Lemerand,9,1253,Graham Hall,268,3.4,False
+1192,Turlington Hall,9,925,The HUB,137,1.7,False
+966,Weimer Hall,9,925,The HUB,230,2.9,False
+482,University of Florida Energy Research,9,481,University Commons,343,4.3,False
+1193,Rawlings Hall,9,925,The HUB,252,3.1,False
+489,Southbound SW 23rd Street @ Williston Road,9,457,Hickory Place Apartments,718,9.0,True
+469,Commuter Lot Parking Garage @ Gale Lemerand,9,469,Commuter Lot Parking Garage @ Gale Lemerand,0,0.0,False
+473,Reitz Union,9,473,Reitz Union,0,0.0,False
+485,Southwood Apartments,9,485,Southwood Apartments,0,0.0,False
+455,Casablanca East Apartments,9,457,Hickory Place Apartments,457,5.7,True
+468,Parking & Transportation Services,9,1194,Commuter Lot/Garage 14,272,3.4,False
+925,The HUB,9,925,The HUB,0,0.0,False
+479,Campus Edge Condominiums,9,463,University Commons,742,9.3,True
+481,University Commons,9,481,University Commons,0,0.0,False
+447,Hunters Run,9,457,Hickory Place Apartments,849,10.6,True
+490,The Polos Apartments,9,457,Hickory Place Apartments,771,9.6,True
+459,SW 23rd Terrace @ SW 35th Place,9,485,Southwood Apartments,114,1.4,False
+478,IFAS Lab,9,1194,Commuter Lot/Garage 14,756,9.4,True
+465,Campus Edge Condominiums,9,463,University Commons,751,9.4,True
+484,Towne Parc Apartments,9,460,Towne Parc Apartments,31,0.4,False
+457,Hickory Place Apartments,9,457,Hickory Place Apartments,0,0.0,False
+1481,Cancer/Genetics Research Complex,9,1194,Commuter Lot/Garage 14,517,6.5,True
+464,Mt Vernon Apartments @ SW 23rd Drive,9,463,University Commons,615,7.7,True
+448,Westbound SW 40th Place @ NW 26th Terrace,9,457,Hickory Place Apartments,786,9.8,True
+480,Mt Vernon Apartments,9,463,University Commons,604,7.6,True
