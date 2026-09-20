@@ -1,4 +1,5 @@
-Public Sans (variable, weights 400 to 700, Latin subset)
-Copyright 2015 The Public Sans Project Authors (https://github.com/uswds/public-sans)
+Overpass (variable, weights 400 to 800, Latin subset)
+Copyright 2016 The Overpass Project Authors (https://github.com/RedHatOfficial/Overpass)
 Licensed under the SIL Open Font License, Version 1.1: https://openfontlicense.org
-Self-hosted here so the site makes no request to a font service. File: public-sans-var.woff2.
+Overpass is derived from the Highway Gothic lettering used on US road signs.
+Self-hosted here so the site makes no request to a font service. File: overpass-var.woff2.
