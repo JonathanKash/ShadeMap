@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ShadeMap Gainesville</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous">
 <style>
   :root {
     --bg: #fff; --ink: #202124; --muted: #5f6368; --line: #e8eaed;
@@ -217,12 +218,13 @@
 
 <div class="titlebar">
   Gainesville bus stops ranked by summer heat, ridership, shelter and equity.
-  <a href="planner.html">Shade planner</a> &middot; <a href="classic.html">Classic map</a> &middot; <a href="https://github.com/JonathanKash/ShadeMap">Method &amp; data</a>
+  <a href="planner.html">Shade planner</a> &middot; <a href="classic.html">Classic map</a> &middot; <a href="https://github.com/JonathanKash/ShadeMap">Method &amp; data</a> &middot; <a href="disclosures.html">About &amp; disclosures</a>
 </div>
 
 <div id="up-modal" hidden></div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
 <script src="config.js"></script>
 <script>
 (function () {
@@ -270,7 +272,7 @@
   // same key-free Esri layers the classic map uses (CARTO tiles need an API key now)
   L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
     maxNativeZoom: 16, maxZoom: 19,
-    attribution: "Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ"
+    attribution: "Tiles &copy; Esri &middot; Shelter data &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
   }).addTo(map);
   L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}", {
     maxNativeZoom: 16, maxZoom: 19, pane: "tilePane"
