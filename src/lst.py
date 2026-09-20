@@ -54,6 +54,9 @@ def search_items(bbox=ALACHUA_BBOX, date_range=DATE_RANGE, max_cloud=20):
         },
     )
     items = list(search.items())
+    # L2SR products carry surface reflectance only; the ST band we need
+    # (lwir11) exists only on L2SP items
+    items = [it for it in items if "lwir11" in it.assets]
     items.sort(key=lambda it: it.properties.get("eo:cloud_cover", 100.0))
     return items
 
@@ -139,7 +142,7 @@ def scene_to_celsius(item, bbox=ALACHUA_BBOX):
     return celsius
 
 
-def render_preview(celsius, item, out_path=DATA_DIR / "lst_preview.png"):
+def render_preview(celsius, title, out_path=DATA_DIR / "lst_preview.png"):
     """Save a quick-look PNG with a Celsius colorbar."""
     import matplotlib
     matplotlib.use("Agg")
@@ -149,10 +152,7 @@ def render_preview(celsius, item, out_path=DATA_DIR / "lst_preview.png"):
     fig, ax = plt.subplots(figsize=(10, 9))
     im = ax.imshow(celsius.values, cmap="inferno", vmin=vmin, vmax=vmax)
     fig.colorbar(im, ax=ax, label="Land surface temperature (deg C)", shrink=0.8)
-    date = item.properties["datetime"][:10]
-    ax.set_title(f"Landsat LST, Alachua County, {date} "
-                 f"({item.properties['platform']}, "
-                 f"{item.properties['eo:cloud_cover']:.0f}% cloud)")
+    ax.set_title(title)
     ax.set_axis_off()
     fig.tight_layout()
     fig.savefig(out_path, dpi=150)
@@ -161,26 +161,100 @@ def render_preview(celsius, item, out_path=DATA_DIR / "lst_preview.png"):
     return out_path
 
 
+def build_composite(items, bbox=ALACHUA_BBOX, crs="EPSG:32617", resolution=30):
+    """Per-pixel median LST (Celsius) across scenes, on one common grid.
+
+    Scene-level cloud cover barely matters here because every pixel is
+    masked individually with qa_pixel before the median.
+
+    Returns (celsius_median, n_obs, scene_dates) where n_obs counts valid
+    observations per pixel and scene_dates is a sorted list of YYYY-MM-DD.
+    Cached to data/ keyed by the set of item ids.
+    """
+    import hashlib
+
+    DATA_DIR.mkdir(exist_ok=True)
+    key = hashlib.md5(",".join(sorted(it.id for it in items)).encode()).hexdigest()[:10]
+    comp_path = DATA_DIR / f"lst_composite_{key}.tif"
+    nobs_path = DATA_DIR / f"lst_composite_{key}_nobs.tif"
+    dates_path = DATA_DIR / f"lst_composite_{key}_dates.txt"
+
+    scene_dates = sorted({it.properties["datetime"][:10] for it in items})
+
+    if comp_path.exists() and nobs_path.exists():
+        print(f"  cache hit: {comp_path.name}")
+        median = rioxarray.open_rasterio(comp_path).squeeze("band", drop=True)
+        n_obs = rioxarray.open_rasterio(nobs_path).squeeze("band", drop=True)
+        return median, n_obs, scene_dates
+
+    # All scenes must agree on scaling before we composite them together
+    scales = {get_scale_offset(it) for it in items}
+    if len(scales) != 1:
+        raise ValueError(f"Inconsistent scale/offset across scenes: {scales}")
+    scale, offset = scales.pop()
+
+    import odc.stac
+
+    t0 = time.perf_counter()
+    ds = odc.stac.load(
+        items,
+        bands=["lwir11", "qa_pixel"],
+        bbox=bbox,
+        crs=crs,
+        resolution=resolution,
+        groupby="solar_day",
+        chunks=None,
+    )
+    print(f"  fetched {ds.sizes['time']} solar days in "
+          f"{time.perf_counter() - t0:.1f}s, grid {ds.sizes['y']}x{ds.sizes['x']}")
+
+    valid = (ds["lwir11"] != 0) & ((ds["qa_pixel"].astype(np.uint16) & QA_BAD_BITS) == 0)
+    celsius = (ds["lwir11"].astype("float32") * scale + offset - 273.15).where(valid)
+
+    median = celsius.median(dim="time", skipna=True).astype("float32")
+    n_obs = valid.sum(dim="time").astype("int16")
+    median.rio.write_crs(crs, inplace=True)
+    n_obs.rio.write_crs(crs, inplace=True)
+
+    covered = float((n_obs > 0).mean())
+    print(f"  composite shape={median.shape} crs={median.rio.crs} "
+          f"min={float(median.min()):.1f} max={float(median.max()):.1f} "
+          f"coverage={covered:.1%} median_obs_per_px={float(n_obs.median()):.0f}")
+
+    median.rio.to_raster(comp_path)
+    n_obs.rio.to_raster(nobs_path)
+    dates_path.write_text("\n".join(scene_dates), encoding="utf-8")
+    print(f"  cached -> {comp_path.name}")
+    return median, n_obs, scene_dates
+
+
 if __name__ == "__main__":
+    MAX_CLOUD = 70  # per-pixel qa_pixel masking does the real cloud work
+
     print("Searching Planetary Computer...")
-    items = search_items()
-    print(f"Found {len(items)} scenes with <20% cloud in {DATE_RANGE}:")
+    items = search_items(max_cloud=MAX_CLOUD)
+    print(f"Found {len(items)} scenes with <{MAX_CLOUD}% cloud in {DATE_RANGE}:")
     for it in items:
         print(f"  {it.id}  cloud={it.properties['eo:cloud_cover']:.1f}%  "
               f"{it.properties['datetime'][:10]}")
     if not items:
         raise SystemExit("No scenes found. Widen the date range or cloud threshold.")
 
-    best = items[0]
-    print(f"\nLoading best scene: {best.id}")
+    print("\nBuilding median composite...")
     t0 = time.perf_counter()
-    celsius = scene_to_celsius(best)
-    print(f"Total load+mask+scale: {time.perf_counter() - t0:.1f}s")
+    median, n_obs, scene_dates = build_composite(items)
+    print(f"Total composite: {time.perf_counter() - t0:.1f}s, "
+          f"dates: {'; '.join(scene_dates)}")
 
-    lo, hi = float(celsius.min()), float(celsius.max())
+    lo, hi = float(median.min()), float(median.max())
     if not (15.0 <= lo and hi <= 60.0):
         print(f"WARNING: LST range [{lo:.1f}, {hi:.1f}] C is outside the "
               "plausible 15-60 C envelope for Florida summer. Check scaling "
               "before building on this.")
 
-    render_preview(celsius, best)
+    render_preview(
+        median,
+        f"Landsat LST median composite, Alachua County\n"
+        f"{len(scene_dates)} days, {scene_dates[0]} to {scene_dates[-1]}",
+        out_path=DATA_DIR / "lst_composite_preview.png",
+    )
