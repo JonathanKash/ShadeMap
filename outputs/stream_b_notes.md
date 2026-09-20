@@ -67,3 +67,17 @@ Regenerate after score.py: `cd src && ../.venv/bin/python impact.py`. Every sent
 - Headlines: 44 percent of weekday bus visits fall in 11 am to 5 pm; 49 percent of visits are
   at stops OSM lists as unsheltered and another 28 percent at unknown, only 23 percent at
   sheltered; the top 20 stops get 8 percent of visits from 2 percent of stops.
+
+## Ranking stability under census uncertainty (outputs/ranking_stability.md and .csv)
+Regenerate after score.py: `cd src && ../.venv/bin/python stability.py` (fixed seed, reproducible).
+- ACS numbers are estimates with margins of error. Two campus tracts are tiny: 164 and 237
+  households, with margins of about 17 and 29 points on the no-vehicle share. 19 of the top 20
+  stops sit in those two tracts.
+- Redrawing each tract's share within its margin 1000 times: on average 16.3 of the 20
+  published top stops stay in the top 20; ranks 1 to 10 stay in at least 90 percent of draws;
+  ranks 15 to 20 are near-ties (41 to 76 percent).
+- Only census uncertainty is varied (heat, bus visits and shelter are held fixed), so say
+  "the top 10 are robust to census error, the rest of the top 20 is close", not that the
+  whole ranking has an error bar. The published ranking is unchanged and nothing was tuned.
+- Several top-20 stops are the same place: Southwest Recreation Center appears 3 times
+  (different stop ids, ranks 3, 5, 8). Say so in the README rather than hiding it.
