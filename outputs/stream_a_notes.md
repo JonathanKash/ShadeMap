@@ -75,6 +75,20 @@ days), rebuilding the composite from each, and re-ranking.
   precise ordinal ranking. Say plainly that positions within the list can swap
   under measurement noise, but membership in the list is stable.
 
+## Canopy proxy (opt-in, `outputs/stop_canopy.csv`)
+
+Sentinel-2 L2A at 10 m, 17 summer scenes, SCL cloud mask, median NDVI composite.
+The processing-baseline DN offset of 1000 was removed before the ratio (MPC
+serves unharmonized values). Per stop, in the same 100 m buffer: `mean_ndvi` and
+`pct_green` (share of pixels with NDVI above 0.4, a canopy-or-dense-vegetation
+fraction). All 971 stops covered. Greener buffers run cooler (r = -0.55 against
+mean LST), which cross-validates both layers. Intended for map popups ("bare
+surroundings" vs "tree cover nearby"), especially where OSM shelter status is
+unknown. The score formula is frozen; this is context, not an input.
+
+Regenerate: `.venv/Scripts/python src/lst.py canopy`. Source:
+https://planetarycomputer.microsoft.com/dataset/sentinel-2-l2a
+
 ## EMERGE curriculum requirement (flag for C, from the track PDF in repo root)
 
 The track requires naming at least one EMERGE curriculum and the lesson or method
