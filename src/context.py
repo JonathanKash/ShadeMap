@@ -29,6 +29,7 @@ OVERPASS_QUERY = """[out:json][timeout:60];
 );
 out body;"""
 MATCH_M = 25  # CLAUDE-B.md: nearest OSM node within about 25 m
+REF_MAX_M = 100  # sanity cap for the ref-tag fallback in shelter_status()
 
 
 def fetch_osm() -> list[dict]:
@@ -61,6 +62,24 @@ def shelter_status(stops: gpd.GeoDataFrame) -> pd.Series:
     status.index = j["stop_id"].values
     matched = j["osm_id"].notna().sum()
     print(f"OSM nodes {len(osm)}; stops matched within {MATCH_M} m: {matched}/{len(j)}")
+
+    # Fallback for stops still unknown: OSM `ref` equals the GTFS stop_id (leading zeros
+    # stripped). Checked 2026-09-20: where the spatial match and the ref both give a shelter
+    # answer they agree 485 of 485 times, so the ref is a reliable key. Guard: the ref node
+    # must be within REF_MAX_M of the stop, so a mis-tagged ref far away cannot leak in.
+    by_ref = {}
+    for e, pt in zip(els, osm.geometry):
+        ref = e.get("tags", {}).get("ref", "").lstrip("0")
+        if ref and ref not in by_ref:
+            by_ref[ref] = (e.get("tags", {}).get("shelter", ""), pt)
+    geom = s.set_index("stop_id").geometry
+    recovered = 0
+    for sid in status.index[status == "unknown"]:
+        tag, pt = by_ref.get(sid.lstrip("0"), ("", None))
+        if tag in ("yes", "no") and geom[sid].distance(pt) <= REF_MAX_M:
+            status[sid] = "sheltered" if tag == "yes" else "none"
+            recovered += 1
+    print(f"recovered {recovered} unknown stops via OSM ref match (within {REF_MAX_M} m)")
     print(f"shelter_status counts: {status.value_counts().to_dict()}")
     return status
 

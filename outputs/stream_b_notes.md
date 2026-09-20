@@ -23,7 +23,10 @@ The default read turns `stop_id` into int and breaks joins on string ids.
 ## shelter_status
 - OSM via Overpass, 933 bus stop and platform nodes. Each GTFS stop takes the nearest OSM
   node within 25 m. shelter=yes is sheltered, shelter=no is none, everything else is unknown.
-- Result: none 472, unknown 396, sheltered 103. 718 of 971 stops matched an OSM node.
+- Fallback: for stops still unknown, the OSM `ref` tag equals the GTFS stop_id. Where the
+  spatial match and the ref both gave an answer they agreed 485 of 485 times. A ref match is
+  accepted only if that node is within 100 m of the stop. This recovered 26 stops.
+- Result: none 495, unknown 370, sheltered 106. 718 of 971 stops matched an OSM node by distance.
 - Unknown covers both "no OSM node within 25 m" and "OSM node with no shelter tag". Nothing
   was guessed. OSM shelter=no is only as good as the mappers, so treat none as "OSM says no".
 
