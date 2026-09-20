@@ -80,6 +80,7 @@ Every download is cached in `data/`, so a rerun is fast. The handoff files each 
 - **30 m pixels blur the stop with its surroundings.** The 100 m buffer is a neighborhood average, not the temperature of the pad the rider stands on.
 - **42 of 971 stops (4.3 percent) have no temperature data.** This is not cloud cover. The Landsat surface temperature product has a known gap in its emissivity input over part of west-central Gainesville. We chose not to estimate these values: every temperature in the ranking is a measured satellite value. We show these stops as gray and do not rank them, rather than scoring them as cool.
 - **Census data is tract level.** A tract is a coarse proxy for who actually waits at a given stop.
+- **Shade itself is not measured.** The analysis does not include tree canopy, building shadows, or sun angle. The only protection input is whether OpenStreetMap lists a shelter at the stop. The ranking shows where heat exposure and need look highest and where no shelter is known, not how shaded each stop is. Tree canopy and shadow analysis would be a natural next step.
 - **Descriptive only.** The list shows where the data says heat exposure is highest. It is not a recommendation for what any agency should build.
 
 ## Repository layout
