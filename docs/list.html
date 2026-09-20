@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ShadeMap: the full ranking as a list</title>
+<style>
+  :root { --ink: #0f172a; --muted: #475569; --line: #e2e8f0; --accent: #2563eb; --accent-ink: #1d4ed8; }
+  * { box-sizing: border-box; }
+  body { font-family: "Public Sans", system-ui, "Segoe UI", Roboto, Arial, sans-serif; color: var(--ink);
+    max-width: 1080px; margin: 0 auto; padding: 20px 16px 60px; line-height: 1.45; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  h1 { font-size: 22px; margin: 8px 0 4px; }
+  .sub { color: var(--muted); font-size: 14px; margin-bottom: 14px; }
+  .controls { display: flex; gap: 10px; flex-wrap: wrap; margin: 12px 0; align-items: center; }
+  #f { flex: 1; min-width: 200px; max-width: 340px; padding: 9px 12px; font-size: 14px;
+    border: 1px solid var(--line); border-radius: 20px; font-family: inherit; }
+  label.ck { font-size: 13.5px; display: flex; gap: 6px; align-items: center; }
+  .tbl-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; }
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; min-width: 860px; }
+  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  td.name { white-space: normal; min-width: 220px; }
+  th { background: #f8fafc; cursor: pointer; user-select: none; position: sticky; top: 0; }
+  th:hover { background: #f1f5f9; }
+  th .arrow { color: var(--accent-ink); font-size: 11px; }
+  tr.need td.name::before { content: "\25CF "; color: #111; }
+  tr.excluded { color: var(--muted); }
+  .count { font-size: 13px; color: var(--muted); margin: 8px 2px; }
+  @media print { .controls, .sub a { display: none; } body { padding: 0; } }
+</style>
+</head>
+<body>
+<a href="app.html">&larr; Back to the map</a>
+<h1>Every RTS stop, ranked by priority for shade</h1>
+<p class="sub">The same data as <a href="app.html">the map</a>, as a sortable table. Click a
+column header to sort. A black dot marks the 20 stops on the
+<a href="https://github.com/JonathanKash/ShadeMap">"needs shade most"</a> list. Gray rows are
+not ranked; the reason is in the last column. Raw CSVs and method are in the
+<a href="https://github.com/JonathanKash/ShadeMap">repository</a>.</p>
+
+<div class="controls">
+  <input id="f" type="search" placeholder="Filter by stop name or route" aria-label="Filter stops">
+  <label class="ck"><input id="only-ranked" type="checkbox"> Ranked stops only</label>
+  <label class="ck"><input id="only-need" type="checkbox"> Needs shade most only</label>
+</div>
+<div class="count" id="count"></div>
+<div class="tbl-wrap">
+<table>
+  <thead><tr id="head"></tr></thead>
+  <tbody id="body"></tbody>
+</table>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+  var COLS = [
+    { k: "rank", t: "Rank", num: true },
+    { k: "name", t: "Stop" },
+    { k: "routes", t: "Routes" },
+    { k: "trips", t: "Buses/weekday", num: true },
+    { k: "lst_f", t: "Summer temp (F)", num: true },
+    { k: "green", t: "Green cover", num: true },
+    { k: "shelter", t: "Shelter (OSM)" },
+    { k: "need_rank", t: "Needs-shade rank", num: true },
+    { k: "district", t: "District" },
+    { k: "links", t: "" },
+    { k: "excluded", t: "Not ranked because" }
+  ];
+  var stops = [], sortK = "rank", sortAsc = true;
+  var head = document.getElementById("head"), body = document.getElementById("body");
+
+  COLS.forEach(function (c) {
+    var th = document.createElement("th");
+    th.innerHTML = esc(c.t) + ' <span class="arrow"></span>';
+    if (c.k !== "links") th.addEventListener("click", function () {
+      if (sortK === c.k) sortAsc = !sortAsc; else { sortK = c.k; sortAsc = c.k !== "trips"; }
+      render();
+    });
+    head.appendChild(th);
+  });
+
+  function val(s, k) {
+    if (k === "routes") return s.routes.join(", ");
+    return s[k];
+  }
+  function render() {
+    var q = document.getElementById("f").value.trim().toLowerCase();
+    var onlyRanked = document.getElementById("only-ranked").checked;
+    var onlyNeed = document.getElementById("only-need").checked;
+    var isRoute = /^\d+$/.test(q);
+    var rows = stops.filter(function (s) {
+      if (onlyRanked && s.rank == null) return false;
+      if (onlyNeed && !(s.need_rank != null && s.need_rank <= 20)) return false;
+      if (!q) return true;
+      return isRoute ? s.routes.indexOf(q) !== -1 : s.name.toLowerCase().indexOf(q) !== -1;
+    });
+    rows.sort(function (a, b) {
+      var x = val(a, sortK), y = val(b, sortK);
+      if (x == null && y == null) return 0;
+      if (x == null) return 1;
+      if (y == null) return -1;
+      var cmp = typeof x === "number" ? x - y : String(x).localeCompare(String(y));
+      return sortAsc ? cmp : -cmp;
+    });
+    document.getElementById("count").textContent = rows.length + " stops shown";
+    head.querySelectorAll("th").forEach(function (th, i) {
+      th.querySelector(".arrow").textContent = COLS[i].k === sortK ? (sortAsc ? "▴" : "▾") : "";
+    });
+    body.innerHTML = rows.map(function (s) {
+      var cls = [];
+      if (s.need_rank != null && s.need_rank <= 20) cls.push("need");
+      if (s.rank == null) cls.push("excluded");
+      return "<tr" + (cls.length ? ' class="' + cls.join(" ") + '"' : "") + ">" +
+        "<td>" + (s.rank != null ? "#" + s.rank : "") + "</td>" +
+        '<td class="name">' + esc(s.name) + "</td>" +
+        "<td>" + esc(s.routes.join(", ")) + "</td>" +
+        "<td>" + s.trips + "</td>" +
+        "<td>" + (s.lst_f != null ? s.lst_f : "") + "</td>" +
+        "<td>" + (s.green != null ? s.green + "%" : "") + "</td>" +
+        "<td>" + esc(s.shelter) + "</td>" +
+        "<td>" + (s.need_rank != null && s.need_rank <= 20 ? "#" + s.need_rank : "") + "</td>" +
+        "<td>" + (s.district ? esc(s.district) : "") + "</td>" +
+        '<td><a href="app.html?stop=' + encodeURIComponent(s.id) + '">map</a> &middot; ' +
+        '<a href="case.html?stop=' + encodeURIComponent(s.id) + '">case</a></td>' +
+        "<td>" + esc(s.excluded || "") + "</td></tr>";
+    }).join("");
+  }
+
+  fetch("app_data.json").then(function (r) { return r.json(); }).then(function (d) {
+    stops = d.stops;
+    render();
+  });
+  ["f", "only-ranked", "only-need"].forEach(function (id) {
+    document.getElementById(id).addEventListener("input", render);
+  });
+})();
+</script>
+</body>
+</html>
