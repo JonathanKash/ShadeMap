@@ -275,8 +275,178 @@ def compute_stop_lst(median, scene_dates,
     return df
 
 
+# Published TIRS band 10 thermal constants, used only if mtl.json is unreachable
+PLANCK_K = {"landsat-8": (774.8853, 1321.0789), "landsat-9": (799.0284, 1329.2405)}
+
+
+def get_planck_constants(item):
+    """K1/K2 for band 10 from the item's mtl.json, else published constants."""
+    import json
+    import urllib.request
+
+    try:
+        with urllib.request.urlopen(item.assets["mtl.json"].href, timeout=30) as r:
+            mtl = json.load(r)
+        tc = mtl["LANDSAT_METADATA_FILE"]["LEVEL1_THERMAL_CONSTANTS"]
+        return float(tc["K1_CONSTANT_BAND_10"]), float(tc["K2_CONSTANT_BAND_10"])
+    except Exception as e:
+        k = PLANCK_K[item.properties["platform"]]
+        print(f"  mtl.json unavailable for {item.id} ({e}), "
+              f"using published K1/K2 {k}")
+        return k
+
+
+def build_bt_composite(items, bbox=ALACHUA_BBOX, crs="EPSG:32617", resolution=30):
+    """Median brightness temperature (Celsius) composite from the trad band.
+
+    trad (thermal radiance) has no ASTER-GED emissivity dependency, so it
+    covers the structural holes in the lwir11 ST product. BT underestimates
+    true LST; calibrate against lwir11 before using it as a fill.
+    """
+    import hashlib
+
+    DATA_DIR.mkdir(exist_ok=True)
+    key = hashlib.md5(("bt:" + ",".join(sorted(it.id for it in items))).encode()).hexdigest()[:10]
+    comp_path = DATA_DIR / f"bt_composite_{key}.tif"
+
+    if comp_path.exists():
+        print(f"  cache hit: {comp_path.name}")
+        return rioxarray.open_rasterio(comp_path).squeeze("band", drop=True)
+
+    # each solar day is a single platform (L8 and L9 are 8 days apart), so
+    # Planck constants can be looked up per day
+    day_k = {}
+    for it in items:
+        day = np.datetime64(it.properties["datetime"][:10])
+        if day not in day_k:
+            day_k[day] = get_planck_constants(it)
+
+    import odc.stac
+
+    t0 = time.perf_counter()
+    ds = odc.stac.load(
+        items, bands=["trad", "qa_pixel"], bbox=bbox, crs=crs,
+        resolution=resolution, groupby="solar_day", chunks=None,
+    )
+    print(f"  fetched {ds.sizes['time']} solar days in {time.perf_counter() - t0:.1f}s")
+
+    slices = []
+    for t in ds.time.values:
+        k1, k2 = day_k[t.astype("datetime64[D]")]
+        trad = ds["trad"].sel(time=t)
+        qa = ds["qa_pixel"].sel(time=t)
+        valid = (trad > 0) & ((qa.astype(np.uint16) & QA_BAD_BITS) == 0)
+        radiance = trad.astype("float32") * 0.001
+        bt = (k2 / np.log(k1 / radiance + 1.0) - 273.15).where(valid)
+        slices.append(bt)
+
+    median = xr.concat(slices, dim="time").median(dim="time", skipna=True).astype("float32")
+    median.rio.write_crs(crs, inplace=True)
+    print(f"  BT composite shape={median.shape} crs={median.rio.crs} "
+          f"min={float(median.min()):.1f} max={float(median.max()):.1f} "
+          f"coverage={float(median.notnull().mean()):.1%}")
+    median.rio.to_raster(comp_path)
+    return median
+
+
+def _zonal(median, stops, buffer_m=100, stats=("mean", "max", "count")):
+    from rasterstats import zonal_stats
+
+    buffers = stops.to_crs("EPSG:6440").geometry.buffer(buffer_m).to_crs(median.rio.crs)
+    return zonal_stats(buffers, np.ma.masked_invalid(median.values),
+                       affine=median.rio.transform(), stats=list(stats))
+
+
+def gapfill(items, scene_dates):
+    """Estimate LST for stops in the ST product's emissivity holes.
+
+    Fits mean_lst_c ~ mean BT over stops that have both, then predicts for
+    the pixel_count == 0 stops. Writes outputs/stop_lst_gapfill.csv (42 rows,
+    contract columns plus method/fit-quality columns). Opt-in for C.
+    """
+    import geopandas as gpd
+    import pandas as pd
+
+    root = Path(__file__).resolve().parent.parent
+    df = pd.read_csv(root / "outputs" / "stop_lst.csv", dtype={"stop_id": str})
+    stops = gpd.read_file(root / "outputs" / "stops.geojson")
+
+    bt = build_bt_composite(items)
+    zs = _zonal(bt, stops)
+    bt_df = pd.DataFrame({
+        "stop_id": stops["stop_id"].astype(str),
+        "mean_bt_c": [z["mean"] for z in zs],
+        "max_bt_c": [z["max"] for z in zs],
+        "bt_pixel_count": [int(z["count"]) for z in zs],
+    })
+    m = df.merge(bt_df, on="stop_id")
+
+    fit = m[(m.pixel_count > 0) & (m.bt_pixel_count > 0)]
+    slope, intercept = np.polyfit(fit.mean_bt_c, fit.mean_lst_c, 1)
+    pred = slope * fit.mean_bt_c + intercept
+    resid = fit.mean_lst_c - pred
+    r2 = 1 - (resid ** 2).sum() / ((fit.mean_lst_c - fit.mean_lst_c.mean()) ** 2).sum()
+    rmse = float(np.sqrt((resid ** 2).mean()))
+    print(f"  calibration on {len(fit)} stops: lst = {slope:.3f}*bt + {intercept:.2f}, "
+          f"r2={r2:.3f} rmse={rmse:.2f} C")
+
+    gap = m[m.pixel_count == 0].copy()
+    out = pd.DataFrame({
+        "stop_id": gap.stop_id,
+        "mean_lst_c": (slope * gap.mean_bt_c + intercept).round(2),
+        "max_lst_c": (slope * gap.max_bt_c + intercept).round(2),
+        "pixel_count": gap.bt_pixel_count,
+        "scene_dates": ";".join(scene_dates),
+        "method": "bt_regression",
+        "fit_r2": round(float(r2), 3),
+        "fit_rmse_c": round(rmse, 2),
+    })
+    n_est = int(out.mean_lst_c.notna().sum())
+    print(f"  gapfill: {out.shape}, estimated LST for {n_est} of {len(out)} stops, "
+          f"range=[{out.mean_lst_c.min():.1f}, {out.mean_lst_c.max():.1f}]")
+    out_path = root / "outputs" / "stop_lst_gapfill.csv"
+    out.to_csv(out_path, index=False)
+    print(f"  wrote {out_path}")
+    return out
+
+
+def rank_stability(items):
+    """Spearman rank correlation: single clearest scene vs the composite.
+
+    One defensibility sentence for the README: does the ranking depend on
+    compositing choices?
+    """
+    import geopandas as gpd
+    import pandas as pd
+
+    root = Path(__file__).resolve().parent.parent
+    df = pd.read_csv(root / "outputs" / "stop_lst.csv", dtype={"stop_id": str})
+    stops = gpd.read_file(root / "outputs" / "stops.geojson")
+
+    best = items[0]
+    print(f"  single scene: {best.id} "
+          f"({best.properties['eo:cloud_cover']:.1f}% cloud)")
+    celsius = scene_to_celsius(best)
+    zs = _zonal(celsius, stops, stats=("mean", "count"))
+    single = pd.DataFrame({
+        "stop_id": stops["stop_id"].astype(str),
+        "single_mean": [z["mean"] for z in zs],
+        "single_count": [int(z["count"]) for z in zs],
+    })
+    m = df.merge(single, on="stop_id")
+    both = m[(m.pixel_count > 0) & (m.single_count > 0)].dropna(
+        subset=["mean_lst_c", "single_mean"])
+    rho = both.mean_lst_c.rank().corr(both.single_mean.rank())
+    print(f"  {len(both)} stops have data in both; Spearman rank correlation "
+          f"= {rho:.3f}")
+    return rho
+
+
 if __name__ == "__main__":
+    import sys
+
     MAX_CLOUD = 90  # per-pixel qa_pixel masking does the real cloud work
+    mode = sys.argv[1] if len(sys.argv) > 1 else "main"
 
     print("Searching Planetary Computer...")
     items = search_items(max_cloud=MAX_CLOUD)
@@ -286,6 +456,38 @@ if __name__ == "__main__":
               f"{it.properties['datetime'][:10]}")
     if not items:
         raise SystemExit("No scenes found. Widen the date range or cloud threshold.")
+
+    scene_dates = sorted({it.properties["datetime"][:10] for it in items})
+
+    if mode == "gapfill":
+        print("\nGap-filling ST holes from brightness temperature...")
+        gapfill(items, scene_dates)
+        raise SystemExit(0)
+    if mode == "stability":
+        print("\nRank stability check...")
+        rank_stability(items)
+        raise SystemExit(0)
+    if mode == "splithalf":
+        import geopandas as gpd
+        import pandas as pd
+
+        print("\nSplit-half stability: median of odd vs even solar days...")
+        days = sorted({it.properties["datetime"][:10] for it in items})
+        half_a = [it for it in items if days.index(it.properties["datetime"][:10]) % 2 == 0]
+        half_b = [it for it in items if days.index(it.properties["datetime"][:10]) % 2 == 1]
+        stops = gpd.read_file(Path(__file__).resolve().parent.parent / "outputs" / "stops.geojson")
+        halves = []
+        for name, half in [("A", half_a), ("B", half_b)]:
+            print(f"  half {name}: {len(half)} scenes")
+            comp, _, _ = build_composite(half)
+            zs = _zonal(comp, stops, stats=("mean", "count"))
+            halves.append(pd.Series(
+                [z["mean"] if z["count"] > 0 else np.nan for z in zs]))
+        both = pd.DataFrame({"a": halves[0], "b": halves[1]}).dropna()
+        rho = both.a.rank().corr(both.b.rank())
+        print(f"  {len(both)} stops covered in both halves; "
+              f"Spearman rank correlation = {rho:.3f}")
+        raise SystemExit(0)
 
     print("\nBuilding median composite...")
     t0 = time.perf_counter()

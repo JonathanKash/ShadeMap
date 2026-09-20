@@ -41,6 +41,27 @@ rerun with the cache present takes seconds.
 - Median composite over a season, not a single heat event. Steadier and more
   defensible, but it will not show the worst single day.
 
+## Gap-fill for the 42 no-data stops (opt-in, `outputs/stop_lst_gapfill.csv`)
+
+The 42 stops in the emissivity hole now have estimated temperatures. Method: the
+`trad` thermal radiance band has no emissivity dependency and covers 99.8 percent
+of the county, so a median brightness temperature composite was built from the
+same 37 scenes (Planck constants read from each scene's MTL metadata), then a
+linear fit of ST against BT over the 929 stops that have both (r2 0.76, RMSE
+1.45 C) predicts ST where the product is blank. The file has the contract columns
+plus `method`, `fit_r2`, `fit_rmse_c`. If used, say in the README that 42 stops
+carry estimated values with about 1.5 C uncertainty, which moves percentile ranks
+only modestly. If not used, keep showing them as no data. C's call; the main
+`stop_lst.csv` is untouched.
+
+Regenerate: `.venv/Scripts/python src/lst.py gapfill`.
+
+## Ranking robustness (for the README)
+
+- A single clear day ranks stops differently than the summer median (Spearman
+  0.65 against the clearest scene, 329 comparable stops). Day-to-day noise is
+  exactly why the composite exists; do not build the ranking on one scene.
+
 ## EMERGE curriculum requirement (flag for C, from the track PDF in repo root)
 
 The track requires naming at least one EMERGE curriculum and the lesson or method
