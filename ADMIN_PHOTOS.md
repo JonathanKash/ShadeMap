@@ -50,7 +50,7 @@ with a wrong name, a stop id that does not exist, or a file that is not a real i
 `outputs/stop_photos.csv` lists the stops that have a photo (`stop_id, file, stop_name,
 rank`). It is only the header line until the first upload. To show photos, read it in
 `make_map.py` and add an image to the popup when the stop has one. Photos are served from
-`photos/` next to `index.html`:
+`photos/` next to `classic.html`:
 
 ```python
 # once, near the top of make_map.py
@@ -91,9 +91,12 @@ When someone reports a stop:
    ```
    cd src && ../.venv/bin/python context.py && cd ..
    .venv/bin/python src/score.py && .venv/bin/python src/make_map.py
+   .venv/bin/python src/make_app_data.py
    ```
-4. Commit `outputs/shelter_overrides.csv`, `outputs/stops_context.csv`, the scored files and
-   `docs/index.html`, then close the issue and thank the reporter.
+   The app view (`docs/app.html`, the default page) reads `docs/app_data.json`, so skip the last
+   line and it will keep showing the old shelter status.
+4. Commit `outputs/shelter_overrides.csv`, `outputs/stops_context.csv`, the scored files,
+   `docs/classic.html` and `docs/app_data.json`, then close the issue and thank the reporter.
 
 `context.py` stops with an error on a row with no source, a bad status, or a stop id that
 does not exist, so a typo cannot silently change the data.
