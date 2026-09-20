@@ -58,3 +58,12 @@ Regenerate after score.py: `.venv/bin/python src/route_ranking.py`.
   stops not known to be sheltered, to the request channels for a shelter (myGNV, RTS phone).
 - Limit to state: the report link needs a GitHub account and someone has to triage issues.
   It is a feedback path, not a service, and it makes no promise about what the city does.
+
+## Impact numbers (outputs/impact_summary.md, outputs/stop_afternoon_trips.csv)
+Regenerate after score.py: `cd src && ../.venv/bin/python impact.py`. Every sentence in
+`impact_summary.md` is computed from the data, so paste from it rather than retyping.
+- afternoon_trips = bus visits at the stop between 11:00 and 16:59 on the same representative
+  Wednesday as daily_trips. It counts scheduled visits, not measured afternoon temperatures.
+- Headlines: 44 percent of weekday bus visits fall in 11 am to 5 pm; 49 percent of visits are
+  at stops OSM lists as unsheltered and another 28 percent at unknown, only 23 percent at
+  sheltered; the top 20 stops get 8 percent of visits from 2 percent of stops.

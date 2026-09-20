@@ -123,6 +123,27 @@ def build_daily_trips() -> pd.DataFrame:
     return out
 
 
+def build_afternoon_trips(start_hour: int = 11, end_hour: int = 17) -> pd.DataFrame:
+    """Bus visits per stop between start_hour and end_hour on the representative day.
+
+    Landsat sees mid-morning heat, so this counts how many visits fall in the hottest part
+    of the day (default 11:00 to 16:59). Same trips as daily_trips, so afternoon_trips is
+    always <= daily_trips. Uses departure_time, falling back to arrival_time. GTFS times can
+    pass 24:00 (after midnight); those hours never fall in the window, which is correct.
+    """
+    services = active_service_ids()
+    trips = read_table("trips.txt").apply(lambda c: c.str.strip())
+    trips = trips[trips.service_id.isin(services)][["trip_id"]]
+    st = read_table("stop_times.txt")[["trip_id", "stop_id", "departure_time", "arrival_time"]]
+    st = st.merge(trips, on="trip_id", how="inner")
+    t = st["departure_time"].where(st["departure_time"].str.strip() != "", st["arrival_time"])
+    hour = t.str.strip().str.split(":").str[0].astype(int)
+    st = st[(hour >= start_hour) & (hour < end_hour)]
+    out = st.groupby("stop_id").size().rename("afternoon_trips").reset_index()
+    out["stop_id"] = out["stop_id"].astype(str)
+    return out
+
+
 if __name__ == "__main__":
     write_stops_geojson()
     dt = build_daily_trips()
