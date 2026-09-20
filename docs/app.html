@@ -226,9 +226,13 @@
   // ---- map -----------------------------------------------------------------
   var map = L.map("map", { zoomControl: false }).setView([29.652, -82.34], 13);
   L.control.zoom({ position: "bottomright" }).addTo(map);
-  L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
-    maxZoom: 19,
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
+  // same key-free Esri layers the classic map uses (CARTO tiles need an API key now)
+  L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
+    maxNativeZoom: 16, maxZoom: 19,
+    attribution: "Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ"
+  }).addTo(map);
+  L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}", {
+    maxNativeZoom: 16, maxZoom: 19, pane: "tilePane"
   }).addTo(map);
   var canvas = L.canvas({ padding: 0.4 });
 
