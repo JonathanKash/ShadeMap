@@ -144,9 +144,23 @@
     padding: 6px 12px calc(6px + env(safe-area-inset-bottom)); text-align: center; }
   .titlebar a { color: var(--accent); text-decoration: none; }
 
+  /* colour key: swatches match colorFor() and styleFor() in the script below */
+  .legend { position: absolute; left: 12px; bottom: 44px; z-index: 950; max-width: min(280px, calc(100vw - 24px));
+    background: rgba(255,255,255,.96); border-radius: 12px; box-shadow: var(--shadow); font-size: 13px; }
+  .legend summary { cursor: pointer; padding: 8px 12px; font-weight: 600; list-style: none; }
+  .legend summary::-webkit-details-marker { display: none; }
+  .legend summary::after { content: " \25BE"; color: var(--muted); }
+  .legend[open] summary::after { content: " \25B4"; }
+  .legend .lg-body { padding: 0 12px 10px; }
+  .legend .row { display: flex; align-items: center; gap: 8px; margin: 3px 0; }
+  .legend .sw { flex: none; width: 14px; height: 14px; border-radius: 50%; border: 1px solid #b5b9bd; }
+  .legend .sw.ring { border: 2.5px solid #b06000; background: #fee5d9; }
+  .legend .note { margin-top: 6px; color: var(--muted); font-size: 12px; line-height: 1.35; }
+
   @media (max-width: 640px) {
     /* the two-line footer covered the Leaflet attribution and its links on phones */
     .leaflet-bottom { bottom: 58px; }
+    .legend { bottom: 66px; }
     .panel { top: auto; height: 72vh; width: 100vw; border-radius: 16px 16px 0 0;
       transform: translateY(105%); }
     .panel.open { transform: translateY(0); }
@@ -175,6 +189,22 @@
 </div>
 
 <aside class="panel" id="panel" aria-label="Stop details"></aside>
+
+<details class="legend" id="legend" open>
+  <summary>What the dots mean</summary>
+  <div class="lg-body">
+    <div><b>Color: priority for shade</b></div>
+    <div class="row"><span class="sw" style="background:#a50f15"></span>Top 5 percent of stops</div>
+    <div class="row"><span class="sw" style="background:#de2d26"></span>Next 10 percent</div>
+    <div class="row"><span class="sw" style="background:#fb6a4a"></span>Next 20 percent</div>
+    <div class="row"><span class="sw" style="background:#fcae91"></span>Next 25 percent</div>
+    <div class="row"><span class="sw" style="background:#fee5d9"></span>Lowest 40 percent</div>
+    <div class="row"><span class="sw" style="background:#9aa0a6"></span>Not ranked (no satellite data or no weekday service)</div>
+    <div class="row"><span class="sw ring"></span>Brown ring: on the "needs shade most" list</div>
+    <div class="note">Bigger dots have more weekday buses. The largest dots are the top 20 stops. Tap a dot for details.</div>
+  </div>
+</details>
+<script>if (window.innerWidth <= 640) document.getElementById("legend").open = false;</script>
 
 <div class="titlebar">
   Gainesville bus stops ranked by summer heat, ridership, shelter and equity.
