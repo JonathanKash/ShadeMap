@@ -24,6 +24,27 @@ df = (scored
       .merge(need[["stop_id", "shade_need_rank"]], on="stop_id", how="left")
       .merge(canopy[["stop_id", "pct_green"]], on="stop_id", how="left"))
 
+# city commission district per stop (dataGNV 4pxv-ww5v, cached in data/).
+# Stops outside city limits get district None and the page falls back to
+# the at-large members.
+import geopandas as gpd
+
+ROMAN = {"District I": "1", "District II": "2", "District III": "3", "District IV": "4"}
+dist_path = root / "data" / "commission_districts.geojson"
+if dist_path.exists():
+    districts = gpd.read_file(dist_path)[["name", "geometry"]]
+    pts = gpd.GeoDataFrame(
+        df[["stop_id"]],
+        geometry=gpd.points_from_xy(df.stop_lon, df.stop_lat), crs="EPSG:4326")
+    joined = gpd.sjoin(pts, districts.to_crs("EPSG:4326"), how="left", predicate="within")
+    joined = joined.drop_duplicates("stop_id")
+    dmap = dict(zip(joined.stop_id, joined["name"].map(ROMAN)))
+    df["district"] = df.stop_id.map(dmap)
+    print(f"district join: {df.district.notna().sum()} of {len(df)} stops in a district")
+else:
+    df["district"] = None
+    print("WARNING: data/commission_districts.geojson missing, districts empty")
+
 flagged = near[near.no_shelter_within_5min]
 flags = {}
 for _, r in flagged.iterrows():
@@ -51,6 +72,7 @@ for _, s in df.iterrows():
         "need_rank": None if pd.isna(s.shade_need_rank) else int(s.shade_need_rank),
         "excluded": None if pd.isna(s.excluded_reason) else s.excluded_reason,
         "flags": flags.get(s.stop_id, []),
+        "district": None if pd.isna(s.district) else s.district,
     })
 
 out = {"n_ranked": n_ranked, "stops": stops}

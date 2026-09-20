@@ -63,6 +63,18 @@ Everything else is read-only static content.
   and read-only; worst case abuse is quota consumption on the function,
   and the kill switch is blanking `busFeedUrl`.
 
+## Missing-stop suggestions (same audit standard)
+
+`stop_suggestions` (created by `supabase/setup_missing_stops.sql`) mirrors the
+photo table's row level security exactly: anon inserts are forced pending,
+only approved rows are publicly readable, no update or delete. Coordinates
+are constrained to the Alachua County bounding box and note length is
+bounded, so junk inserts are limited to the pending queue. Notes are
+HTML-escaped before rendering. The advocacy page (`case.html`) renders only
+repo-committed data plus already-reviewed photos and takes a stop id from
+the URL, matched against the baked dataset (an unknown id shows "not found",
+nothing user-controlled is echoed).
+
 ## Reviewer guidance
 
 Approve only photos that show a bus stop with no recognizable faces, no

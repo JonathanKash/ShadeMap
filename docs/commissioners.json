@@ -1,0 +1,17 @@
+{
+  "as_of": "2026-09-20",
+  "source": "gainesvillefl.gov City Commission pages, checked on the date above. Commission seats change at elections: verify at https://www.gainesvillefl.gov/City-Commission before relying on a name.",
+  "shared_email": "CityComm@gainesvillefl.gov",
+  "shared_phone": "352-334-5016",
+  "mayor": { "name": "Harvey Ward", "title": "Mayor" },
+  "at_large": [
+    { "name": "Reina Saco", "title": "Commissioner, At-Large Seat A" },
+    { "name": "Cynthia Chestnut", "title": "Commissioner, At-Large Seat B" }
+  ],
+  "districts": {
+    "1": { "name": "Desmon Duncan-Walker", "title": "Commissioner, District 1" },
+    "2": { "name": "Ed Book", "title": "Commissioner, District 2" },
+    "3": { "name": "Casey Willits", "title": "Commissioner, District 3" },
+    "4": { "name": "Bryan Eastman", "title": "Commissioner, District 4" }
+  }
+}
