@@ -1,4 +1,4 @@
-"""Stream C: build docs/index.html (static Folium map) from outputs/scored_stops.csv.
+"""Stream C: build docs/classic.html (static Folium map) from outputs/scored_stops.csv.
 
 Run from the repo root after score.py: python src/make_map.py
 """
@@ -248,9 +248,11 @@ def main():
     print(f"canopy joined, {df['pct_green'].notna().sum()} of {len(df)} stops have pct_green")
     m = build(df)
     DOCS.mkdir(exist_ok=True)
-    m.save(DOCS / "index.html")
-    size_kb = (DOCS / "index.html").stat().st_size / 1024
-    print(f"wrote docs/index.html ({size_kb:.0f} KB), {N_RANKED} ranked stops")
+    # docs/index.html is a small redirect to the app view (docs/app.html), so the classic
+    # Folium map is written to docs/classic.html and never overwrites it
+    m.save(DOCS / "classic.html")
+    size_kb = (DOCS / "classic.html").stat().st_size / 1024
+    print(f"wrote docs/classic.html ({size_kb:.0f} KB), {N_RANKED} ranked stops")
 
 
 if __name__ == "__main__":

@@ -2,13 +2,17 @@
 
 Riders of Gainesville's RTS buses wait for the bus on unshaded asphalt through Florida summers, and the people who wait the longest are the ones without a car. Nobody has a ranked, data-backed list of which stops are hottest, so ShadeMap builds one from NASA Landsat satellite temperatures, bus schedules, shelter data, and census data.
 
-**Live map:** https://jonathankash.github.io/ShadeMap/ (tap any stop for details)
+**Live map:** https://jonathankash.github.io/ShadeMap/ (tap any stop for details). Also: the [shade planner](https://jonathankash.github.io/ShadeMap/planner.html) and the [classic map](https://jonathankash.github.io/ShadeMap/classic.html).
 
 ![ShadeMap map of Gainesville bus stops colored by priority for shade](assets/map.png)
 
 ## What the map shows
 
-Every RTS bus stop is a dot. Darker red and bigger means higher priority for shade. The 20 highest-priority stops are numbered. Stops with no satellite data or no weekday service are gray and are not ranked.
+Every RTS bus stop is a dot. Color shows priority for shade, from pale for the lowest 40 percent of stops to dark red for the top 5 percent. Bigger dots have more weekday buses. A brown ring marks the 20 stops on the "needs shade most" list described below. Stops with no satellite data or no weekday service are gray and are not ranked.
+
+Use the search box to find a stop or route, and the chips to filter to all stops, the priority top 20, the "needs shade most" list, or stops with no shelter. Tapping a stop opens a panel with its rank, heat, shelter status, a warning when no sheltered stop is within a 5 minute walk on its route, and rider photos when there are any. The classic map shows the same ranking with numbered pins for the top 20 ([screenshot](assets/classic_map.png)).
+
+The **shade planner** answers a what-if: if the city could add shelters at only some stops, which ones reach the most weekday bus visits? You pick how many stops and see the bus visits covered, on a map, with a CSV download. It is a what-if, not a plan or a cost estimate.
 
 The full ranking is in [`outputs/scored_stops.csv`](outputs/scored_stops.csv) and the top 20 are in [`outputs/top_20_stops.csv`](outputs/top_20_stops.csv).
 
@@ -43,7 +47,7 @@ There is no model, and the weights were not adjusted to change the ranking.
 
 ## Other lists in the data
 
-The map shows the stop ranking above. Three more views are in `outputs/` as CSV files. They are not drawn on the map.
+The map shows the stop ranking above. Three more views are in `outputs/` as CSV files. The first is also on the map as the "needs shade most" chip and the brown rings; the route ranking and shelter-distance files are CSV only, and the shelter-distance warning shows in each stop's panel.
 
 **Where the wait itself is worst** ([`outputs/shade_need.csv`](outputs/shade_need.csv)). The main score multiplies by bus visits, so it answers "where would a shelter help the most riders," and busy campus stops lead. This second list asks a different question, "where is standing at the stop hardest," and does not reward busy stops:
 
@@ -79,7 +83,7 @@ Every stop popup links to the City of Gainesville's myGNV request portal and the
 4. **Transit dependence.** ACS 2024 5-year estimates at census tract level: households with no vehicle (table B08201) and residents 65 and older (table B01001, shown in the data but not used in the score). Numbers come from Census Reporter, a keyless mirror of the same ACS tables. Tract shapes are Census TIGER/Line 2024.
 5. **Vegetation context.** Sentinel-2 L2A at 10 m, 17 summer scenes, cloud-masked, median NDVI composite. For each stop we report the share of pixels within 100 m with NDVI above 0.4 (`pct_green`) in `outputs/stop_canopy.csv`. It is shown in the map popups and is not part of the main score. It is used in the separate "where the wait itself is worst" list described above. Greener stops run cooler in our data (r = -0.55 against land surface temperature).
 6. **Afternoon check (NASA ECOSTRESS, not scored).** ECOSTRESS ECO_L2T_LSTE v2 from NASA Earthdata / LP DAAC, summer 2026 afternoon overpasses (12:00 to 5:00 PM). Used only to size the gap between morning Landsat values and afternoon heat, described under Limitations.
-7. **Scoring and map.** `src/score.py` joins the tables and computes the score. `src/make_map.py` builds the static map in `docs/index.html`.
+7. **Scoring and map.** `src/score.py` joins the tables and computes the score. `src/make_map.py` builds the classic static map in `docs/classic.html`, and `src/make_app_data.py` bakes the data file the app view (`docs/app.html`, the default page) loads.
 
 **Result counts:** 971 stops, 915 ranked, 42 excluded for no satellite data, 14 excluded for no weekday service.
 
@@ -107,13 +111,16 @@ python src/gtfs.py            # stops and weekday trips
 cd src && python context.py && cd ..   # shelters and census
 python src/lst.py             # Landsat composite and per-stop temperatures
 python src/score.py           # scored_stops.csv and top_20_stops.csv
-python src/make_map.py        # docs/index.html
+python src/make_map.py        # docs/classic.html
 
 # optional extra lists (outputs/shade_need.csv, route_ranking.csv, nearest_shelter.csv)
 python src/lst.py canopy      # Sentinel-2 green cover per stop
 python src/shade_need.py
 python src/route_ranking.py
 python src/nearest_shelter.py
+
+# data file for the app view (docs/app.html), run last so it picks up everything above
+python src/make_app_data.py
 ```
 
 Every download is cached in `data/`, so a rerun is fast. The handoff files each step produces are committed in `outputs/`, so you can also run `score.py` and `make_map.py` directly without the earlier steps.
@@ -139,10 +146,12 @@ src/lst.py       Landsat fetch, scale, composite, per-stop temperatures
 src/gtfs.py      stop parsing and weekday trip counts
 src/context.py   OpenStreetMap shelters and census tracts
 src/score.py     join, score, rank
-src/make_map.py  builds the map
+src/make_map.py  builds the classic map (docs/classic.html)
+src/make_app_data.py   bakes docs/app_data.json for the app view
 src/shade_need.py, route_ranking.py, nearest_shelter.py   the extra lists
 outputs/         handoff CSVs, the final ranked CSVs, and the extra lists
-docs/            the map (index.html), photo upload code, served by GitHub Pages
+docs/            served by GitHub Pages: index.html (redirects to app.html, the default map),
+                 app.html, planner.html, classic.html, and the photo upload code
 supabase/        one-time storage setup for rider photos (see SUPABASE_SETUP.md)
 assets/          screenshots and photos
 analysis.ipynb   the analysis, runs top to bottom
