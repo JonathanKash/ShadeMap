@@ -7,14 +7,27 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
       integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous">
 <style>
+  /* design tokens: transit blue on slate neutrals, every text pair checked at 4.5:1 or better */
   :root {
-    --bg: #fff; --ink: #202124; --muted: #5f6368; --line: #e8eaed;
-    --accent: #1a73e8; --hot: #c5221f; --warm: #ea8600; --ok: #188038;
-    --shadow: 0 1px 2px rgba(60,64,67,.3), 0 2px 6px 2px rgba(60,64,67,.15);
+    --bg: #fff; --ink: #0f172a; --muted: #475569; --line: #e2e8f0;
+    --accent: #2563eb; --accent-ink: #1d4ed8; --accent-soft: #eaf1ff; --accent-line: #c7d9fb; --ring: #2563eb;
+    --hot: #c5221f; --warm: #ea8600; --ok: #188038;
+    --shadow: 0 1px 2px rgba(15,23,42,.08), 0 4px 14px rgba(15,23,42,.12);
     --radius: 12px;
   }
+  /* self-hosted Public Sans, the US government civic typeface, clean numerals (fonts/LICENSE.txt) */
+  @font-face { font-family: "Public Sans"; font-style: normal; font-weight: 400 700; font-display: swap;
+    src: url(fonts/public-sans-var.woff2) format("woff2");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
   * { box-sizing: border-box; }
-  html, body { margin: 0; height: 100%; font-family: Roboto, "Segoe UI", system-ui, Arial, sans-serif; color: var(--ink); }
+  html, body { margin: 0; height: 100%; color: var(--ink);
+    font-family: "Public Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
+  button, select, input, textarea { font-family: inherit; }
+  /* visible keyboard focus everywhere (buttons do not inherit the page font by default) */
+  :where(button, a, select, input, textarea, summary):focus-visible { outline: 3px solid var(--ring); outline-offset: 2px; }
+  #q:focus-visible { outline: 0; }
+  .search-card:focus-within { box-shadow: 0 0 0 3px var(--ring), var(--shadow); }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; } }
   #map { position: absolute; inset: 0; }
 
   /* floating search card, Google Maps style */
@@ -31,12 +44,12 @@
   }
   #clear-q { border: 0; background: none; cursor: pointer; color: var(--muted);
     font-size: 18px; padding: 6px 10px; border-radius: 50%; display: none; }
-  #clear-q:hover { background: #f1f3f4; }
+  #clear-q:hover { background: #f1f5f9; }
   #results {
     max-height: 320px; overflow-y: auto; border-top: 1px solid var(--line); display: none;
   }
   .result { display: flex; gap: 12px; padding: 10px 16px; cursor: pointer; align-items: center; }
-  .result:hover, .result.active { background: #f1f3f4; }
+  .result:hover, .result.active { background: #f1f5f9; }
   .result .r-name { font-size: 14px; }
   .result .r-sub { font-size: 12px; color: var(--muted); }
 
@@ -44,16 +57,18 @@
   .chips { position: absolute; top: 68px; left: 12px; z-index: 999; display: flex;
     gap: 8px; flex-wrap: wrap; max-width: calc(100vw - 24px); }
   .chip {
-    background: var(--bg); border: 1px solid var(--line); border-radius: 16px;
-    padding: 6px 14px; font-size: 13px; cursor: pointer; box-shadow: var(--shadow);
-    color: var(--ink); white-space: nowrap;
+    background: var(--bg); border: 1px solid var(--line); border-radius: 20px;
+    min-height: 40px; padding: 8px 16px; font-size: 14px; cursor: pointer; box-shadow: var(--shadow);
+    color: var(--ink); white-space: nowrap; transition: background-color .15s ease, border-color .15s ease;
   }
-  .chip.on { background: #e8f0fe; border-color: #d2e3fc; color: #1967d2; font-weight: 500; }
+  .chip:hover { background: #f8fafc; border-color: #cbd5e1; }
+  .chip.on:hover { background: var(--accent-soft); border-color: var(--accent-line); }
+  .chip.on { background: var(--accent-soft); border-color: var(--accent-line); color: var(--accent-ink); font-weight: 500; }
   /* route selector: picks one route, everything else greys out */
-  .route-select { background: var(--bg); border: 1px solid var(--line); border-radius: 16px; padding: 6px 10px;
-    font-size: 13px; box-shadow: var(--shadow); color: var(--ink); max-width: min(240px, calc(100vw - 24px)); cursor: pointer; }
-  .route-select.on { background: #e8f0fe; border-color: #d2e3fc; color: #1967d2; font-weight: 500; }
-  .route-info { background: var(--bg); border-radius: 12px; padding: 5px 10px; font-size: 12px;
+  .route-select { background: var(--bg); border: 1px solid var(--line); border-radius: 20px; min-height: 40px; padding: 8px 12px;
+    font-size: 14px; box-shadow: var(--shadow); color: var(--ink); max-width: min(260px, calc(100vw - 24px)); cursor: pointer; }
+  .route-select.on { background: var(--accent-soft); border-color: var(--accent-line); color: var(--accent-ink); font-weight: 500; }
+  .route-info { background: var(--bg); border-radius: 12px; padding: 8px 12px; font-size: 13px;
     color: var(--muted); box-shadow: var(--shadow); max-width: calc(100vw - 24px); }
   .route-info[hidden] { display: none; }
 
@@ -78,11 +93,11 @@
   .b-rank { background: #fce8e6; color: var(--hot); }
   .b-need { background: #111; color: #fff; }
   .b-shelter-none { background: #fce8e6; color: var(--hot); }
-  .b-shelter-unknown { background: #f1f3f4; color: var(--muted); }
+  .b-shelter-unknown { background: #f1f5f9; color: var(--muted); }
   .b-shelter-sheltered { background: #e6f4ea; color: var(--ok); }
-  .b-nodata { background: #f1f3f4; color: var(--muted); }
+  .b-nodata { background: #f1f5f9; color: var(--muted); }
   .routes { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0 2px; }
-  .route-pill { background: #e8f0fe; color: #1967d2; border-radius: 10px;
+  .route-pill { background: var(--accent-soft); color: var(--accent-ink); border-radius: 10px;
     font-size: 12px; font-weight: 500; padding: 2px 9px; }
 
   .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
@@ -105,9 +120,9 @@
   .tabs { display: flex; gap: 4px; overflow-x: auto; padding-bottom: 6px; }
   .tab { border: 1px solid var(--line); background: var(--bg); border-radius: 14px;
     font-size: 12.5px; padding: 5px 12px; cursor: pointer; white-space: nowrap; color: var(--ink); }
-  .tab.on { background: #e8f0fe; border-color: #d2e3fc; color: #1967d2; font-weight: 500; }
+  .tab.on { background: var(--accent-soft); border-color: var(--accent-line); color: var(--accent-ink); font-weight: 500; }
   .tab .n { color: var(--muted); font-size: 11px; }
-  .tab.on .n { color: #1967d2; }
+  .tab.on .n { color: var(--accent-ink); }
   .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
   .gallery figure { margin: 0; }
   .gallery img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 8px; display: block; }
@@ -148,12 +163,14 @@
     font-size: 20px; cursor: pointer; color: var(--muted); }
 
   .titlebar { position: absolute; bottom: 0; left: 0; right: 0; z-index: 900;
-    background: rgba(255,255,255,.94); font-size: 12px; color: var(--muted);
+    background: rgba(255,255,255,.96); font-size: 13px; color: var(--muted);
     padding: 6px 12px calc(6px + env(safe-area-inset-bottom)); text-align: center; }
-  .titlebar a { color: var(--accent); text-decoration: none; }
+  .titlebar a { color: var(--accent-ink); text-decoration: none; display: inline-block; padding: 4px 3px; }
+  .titlebar a:hover { text-decoration: underline; }
+  .titlebar .brand { color: var(--ink); }
 
   /* colour key: swatches match colorFor() and styleFor() in the script below */
-  .legend { position: absolute; left: 12px; bottom: 44px; z-index: 950; max-width: min(280px, calc(100vw - 24px));
+  .legend { position: absolute; left: 12px; bottom: calc(var(--footer-h, 36px) + 8px); z-index: 950; max-width: min(280px, calc(100vw - 24px));
     background: rgba(255,255,255,.96); border-radius: 12px; box-shadow: var(--shadow); font-size: 13px; }
   .legend summary { cursor: pointer; padding: 8px 12px; font-weight: 600; list-style: none; }
   .legend summary::-webkit-details-marker { display: none; }
@@ -165,10 +182,9 @@
   .legend .sw.need { background: #111; border: 2px solid #fff; box-shadow: 0 0 0 1px #b5b9bd; }
   .legend .note { margin-top: 6px; color: var(--muted); font-size: 12px; line-height: 1.35; }
 
+  /* the footer row sits over the map attribution, so lift the attribution above it */
+  .leaflet-bottom { bottom: var(--footer-h, 36px); }
   @media (max-width: 640px) {
-    /* the two-line footer covered the Leaflet attribution and its links on phones */
-    .leaflet-bottom { bottom: 58px; }
-    .legend { bottom: 66px; }
     .panel { top: auto; height: 72vh; width: 100vw; border-radius: 16px 16px 0 0;
       transform: translateY(105%); }
     .panel.open { transform: translateY(0); }
@@ -216,10 +232,18 @@
 </details>
 <script>if (window.innerWidth <= 640) document.getElementById("legend").open = false;</script>
 
-<div class="titlebar">
-  Gainesville bus stops ranked by summer heat, ridership, shelter and equity.
+<div class="titlebar" id="titlebar">
+  <strong class="brand">ShadeMap</strong> ranks Gainesville bus stops by summer heat, ridership, shelter and equity.
   <a href="planner.html">Shade planner</a> &middot; <a href="classic.html">Classic map</a> &middot; <a href="https://github.com/JonathanKash/ShadeMap">Method &amp; data</a> &middot; <a href="disclosures.html">About &amp; disclosures</a>
 </div>
+<script>
+(function () {  // keep the map attribution and legend above the footer, however many lines it wraps to
+  var tb = document.getElementById("titlebar");
+  function set() { document.documentElement.style.setProperty("--footer-h", tb.offsetHeight + "px"); }
+  set(); window.addEventListener("resize", set);
+  if (window.ResizeObserver) new ResizeObserver(set).observe(tb);
+})();
+</script>
 
 <div id="up-modal" hidden></div>
 

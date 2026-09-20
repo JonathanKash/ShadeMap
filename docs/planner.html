@@ -8,18 +8,24 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
   :root {
-    --bg: #ffffff; --panel: #f6f7f9; --ink: #1f2933; --muted: #52606d; --line: #dfe3e8;
-    --main: #1a5fb4; --need: #c64600; --none: #b71c1c; --unknown: #e08600; --sheltered: #2e7d32;
+    --bg: #ffffff; --panel: #f8fafc; --ink: #0f172a; --muted: #475569; --line: #e2e8f0;
+    --main: #2563eb; --main-dark: #1d4ed8; --need: #c64600; --none: #b71c1c; --unknown: #e08600; --sheltered: #2e7d32;
     --radius: 12px;
   }
+  /* self-hosted Public Sans, the US government civic typeface, clean numerals (fonts/LICENSE.txt) */
+  @font-face { font-family: "Public Sans"; font-style: normal; font-weight: 400 700; font-display: swap;
+    src: url(fonts/public-sans-var.woff2) format("woff2");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--ink);
-    font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
+    font: 16px/1.5 "Public Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
+  button, select, input, textarea { font-family: inherit; }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; } }
   a { color: var(--main); }
   a:focus-visible, button:focus-visible, input:focus-visible, tr:focus-visible {
-    outline: 3px solid #1a73e8; outline-offset: 2px; }
+    outline: 3px solid var(--main); outline-offset: 2px; }
   header { padding: 16px 16px 4px; max-width: 1200px; margin: 0 auto; }
-  h1 { font-size: 22px; margin: 0 0 4px; }
+  h1 { font-size: 26px; line-height: 1.2; margin: 0 0 6px; }
   header p { margin: 0 0 8px; color: var(--muted); max-width: 70ch; }
   nav { font-size: 14px; margin-bottom: 6px; }
 
@@ -39,7 +45,7 @@
 
   .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
   .stat { background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 10px; }
-  .stat b { display: block; font-size: 22px; line-height: 1.2; }
+  .stat b { display: block; font-size: 24px; line-height: 1.2; }
   .stat span { color: var(--muted); font-size: 13px; }
   .routes-line { margin: 10px 0 0; color: var(--muted); font-size: 14px; }
 
@@ -53,17 +59,17 @@
   .dot { display: inline-block; width: 11px; height: 11px; border-radius: 50%; margin-right: 5px; vertical-align: -1px; border: 1px solid #fff; box-shadow: 0 0 0 1px #9aa5b1; }
 
   .actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 14px 0 8px; }
-  button.dl { background: var(--main); color: #fff; border: 0; border-radius: 8px; padding: 10px 16px;
-    font-size: 15px; font-weight: 600; cursor: pointer; }
-  button.dl:hover { background: #154c91; }
+  button.dl { background: var(--main); color: #fff; border: 0; border-radius: 10px; min-height: 44px; padding: 10px 18px;
+    font-size: 16px; font-weight: 700; cursor: pointer; transition: background-color .15s ease; }
+  button.dl:hover { background: var(--main-dark); }
 
   .tablewrap { max-height: 440px; overflow: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); }
   table { border-collapse: collapse; width: 100%; font-size: 14px; }
   th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
-  th { position: sticky; top: 0; background: #eef1f4; z-index: 1; font-size: 13px; }
+  th { position: sticky; top: 0; background: #f1f5f9; z-index: 1; font-size: 13px; }
   td.num, th.num { text-align: right; white-space: nowrap; }
   tbody tr { cursor: pointer; }
-  tbody tr:hover { background: #f1f5fb; }
+  tbody tr:hover { background: #eaf1ff; }
   .pill { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: 12px; color: #fff; white-space: nowrap; }
   .pill.none { background: var(--none); } .pill.unknown { background: #a35f00; } .pill.sheltered { background: var(--sheltered); }
 
@@ -144,7 +150,7 @@
   var COLORS = { none: "#b71c1c", unknown: "#e08600", sheltered: "#2e7d32" };
   var LABEL = { none: "No shelter", unknown: "Unknown", sheltered: "Sheltered" };
   var LISTS = {
-    main: { key: "rank", name: "most people helped", color: "#1a5fb4" },
+    main: { key: "rank", name: "most people helped", color: "#2563eb" },
     need: { key: "need_rank", name: "worst wait", color: "#c64600" }
   };
   var stops = [], total = 0, totalUnsheltered = 0, sorted = {}, cum = {};
