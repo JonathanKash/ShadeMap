@@ -89,6 +89,29 @@ unknown. The score formula is frozen; this is context, not an input.
 Regenerate: `.venv/Scripts/python src/lst.py canopy`. Source:
 https://planetarycomputer.microsoft.com/dataset/sentinel-2-l2a
 
+## ECOSTRESS afternoon heat (narrative only, no per-stop file)
+
+We pulled all 20 unique afternoon (12:00 to 17:00 EDT) ECOSTRESS ECO_L2T_LSTE
+overpasses of Gainesville for summer 2026 from the LP DAAC cloud. Only 3 were
+usable after cloud screening: Florida summer afternoons are almost always
+cloudy, and the remaining overpasses were too contaminated to rank individual
+stops (rank agreement with the Landsat layer stayed near 0.2, so a per-stop
+afternoon CSV was deliberately not shipped). What the clearest afternoon does
+support, for the README and the demo script:
+
+- On August 14, 2026 at 2:52 PM, the median surface in the Gainesville tile
+  was 44.3 C and a quarter of the area exceeded 50 C (ECOSTRESS, 70 m, 88
+  percent cloud-free).
+- The morning Landsat composite median is 33.2 C. Mid-morning satellite values
+  understate what an afternoon rider stands on by roughly 10 C.
+- Use this as one or two sentences of context. Do not present afternoon values
+  per stop; we tested that and the data cannot support it. Saying we checked is
+  itself credible.
+
+Source: NASA ECOSTRESS ECO_L2T_LSTE v2 via NASA Earthdata / LP DAAC.
+Regenerate: `.venv/Scripts/python src/lst.py eco` (needs an Earthdata login;
+tiles are cached in data/ecostress/).
+
 ## EMERGE curriculum requirement (flag for C, from the track PDF in repo root)
 
 The track requires naming at least one EMERGE curriculum and the lesson or method
