@@ -145,23 +145,34 @@ which the track judging asks about anyway.
 A second top 20 that answers a different question than the main score. The
 main score multiplies by trip volume, so it answers "where does a shelter
 help the most riders" and campus dominates. This one answers "where is the
-wait itself worst": among stops with at least 10 weekday bus visits and no
-shelter per OSM,
+wait itself worst," built deliberately for social benefit:
 
-    shade_need = lst_percentile * (1 - pct_green / 100) * transit_dependence
+    shade_need = lst_percentile * (1 - pct_green / 100)
+                 * shelter_factor * social_vulnerability
 
-Heat, times lack of green cover, times neighborhood transit dependence.
-Service is an entry threshold, not a multiplier. 454 stops qualify; columns
-`shade_need_rank` and `top20_shade_need` join on `stop_id`. Only 10 of its
-top 20 overlap with the official top 20. The newcomers are the bare
-parking-lot stops the project pitch describes: the Butler Plaza retail
-strips run 44 to 46 C with 4 to 10 percent green cover.
+- Any weekday service qualifies. Sparse service means longer waits in the
+  sun, not less need; a frequency bar would exclude the neighborhoods
+  transit serves worst.
+- Unknown shelter status is included at factor 1.25 (confirmed none is 1.5,
+  C's convention). OSM mapping is densest around campus and wealthier
+  areas, so excluding unmapped stops would bias against under-mapped
+  neighborhoods.
+- social_vulnerability blends car-free households and residents 65 plus,
+  the population heat harms most. Both columns are B's census work.
+
+814 stops qualify; `shade_need_rank` and `top20_shade_need` join on
+`stop_id`. Only 4 of the top 20 overlap with the official list. Rank 4 is
+the stop at GRACE Marketplace, the homeless services campus (13 buses a
+day, 23 percent green, no shelter). Others include Gainesville High School,
+Westgate Mobile Manor Park, and CVS @ Millhopper in a tract that is 28
+percent seniors. This is the demo list: real poles on bare asphalt where
+the people waiting have no alternative.
 
 Suggested use: a distinct marker or badge on the map ("needs shade most"),
 or at minimum a second table in the README and Devpost text. One sentence
-for judges: among served stops with no known shelter, need is how hot the
-stop is, times how little green surrounds it, times how transit-dependent
-the neighborhood is. Regenerate: `.venv/Scripts/python src/shade_need.py`.
+for judges: among stops without a confirmed shelter, need is how hot the
+stop is, times how bare its surroundings are, times how vulnerable the
+neighborhood is. Regenerate: `.venv/Scripts/python src/shade_need.py`.
 
 ## EMERGE curriculum requirement (flag for C, from the track PDF in repo root)
 
