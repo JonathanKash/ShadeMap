@@ -330,10 +330,19 @@
         '<div class="card warn"><h3>No sheltered stop within a 5 minute walk</h3>' + lines +
         "<br><br>To ask for a shelter here: report it at " +
         '<a href="https://www.mygnv.org" target="_blank" rel="noopener">myGNV.org</a> ' +
-        "or call RTS Customer Service at <a href=\"tel:+13523342600\">352-334-2600</a> " +
-        "(Mon to Fri, 8 am to 4 pm). RTS weighs safety, accessibility and use when it picks " +
-        "stop improvements, and this map is evidence.</div>";
+        "or call RTS Customer Service at <a href=\"tel:+13523342600\">352-334-2600</a>" +
+        ". This panel has the stop's heat, service and shelter data to point to.</div>";
     }
+    // every stop: a prefilled GitHub issue so residents can correct the shelter data
+    var reportUrl = "https://github.com/JonathanKash/ShadeMap/issues/new?title=" +
+      encodeURIComponent("Shelter info: stop " + s.id + " " + s.name) + "&body=" +
+      encodeURIComponent("Stop: " + s.name + " (stop_id " + s.id + ")\nOur map says: " + s.shelter +
+        "\n\nWhat is actually at this stop (shelter, no shelter, not sure):\n\n" +
+        "How do you know (date you visited, or attach a photo):\n");
+    var reportHtml = '<div class="card"><h3>Is our shelter information wrong?</h3>' +
+      "Shelter status comes from OpenStreetMap, which is partial. If you know this stop, " +
+      '<a href="' + esc(reportUrl) + '" target="_blank" rel="noopener">tell us what is there</a> ' +
+      "(needs a free GitHub account).</div>";
 
     panel.innerHTML =
       '<button class="panel-x" aria-label="Close">&times;</button>' +
@@ -349,7 +358,7 @@
       statCell(s.no_veh != null ? s.no_veh + "%" : "no data", "households with no car") +
       statCell(s.rank != null ? "#" + s.rank : "not ranked", "of " + window.APP_N_RANKED + " ranked stops") +
       "</div>" +
-      flagsHtml +
+      flagsHtml + reportHtml +
       '<div class="photos"><h3>Photos of this stop</h3><div id="ph-body"><div class="empty">Loading photos...</div></div></div>';
 
     panel.querySelector(".panel-x").addEventListener("click", closePanel);
