@@ -15,3 +15,4 @@ odc-stac
 pystac-client
 planetary-computer
 jupyter
+pillow
