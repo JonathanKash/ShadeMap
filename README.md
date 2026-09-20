@@ -45,7 +45,8 @@ There is no model, and the weights were not adjusted to change the ranking.
 2. **Stops and service.** Stop locations and weekday bus visits come from the RTS GTFS feed (Spring 2026, 971 stops), using Wednesday, February 11, 2026 as the representative weekday.
 3. **Shelters.** OpenStreetMap via the Overpass API. Each stop takes the nearest OSM bus stop or platform within 25 m. `shelter=yes` is sheltered, `shelter=no` is none, and everything else is unknown.
 4. **Transit dependence.** ACS 2024 5-year estimates at census tract level: households with no vehicle (table B08201) and residents 65 and older (table B01001, shown in the data but not used in the score). Numbers come from Census Reporter, a keyless mirror of the same ACS tables. Tract shapes are Census TIGER/Line 2024.
-5. **Scoring and map.** `src/score.py` joins the tables and computes the score. `src/make_map.py` builds the static map in `docs/index.html`.
+5. **Vegetation context (popups only).** Sentinel-2 L2A at 10 m, 17 summer scenes, cloud-masked, median NDVI composite. For each stop we report the share of pixels within 100 m with NDVI above 0.4 (`pct_green`) in `outputs/stop_canopy.csv`. It is shown in the map popups and is not part of the score. Greener stops run cooler in our data (r = -0.55 against land surface temperature).
+6. **Scoring and map.** `src/score.py` joins the tables and computes the score. `src/make_map.py` builds the static map in `docs/index.html`.
 
 **Result counts:** 971 stops, 915 ranked, 42 excluded for no satellite data, 14 excluded for no weekday service.
 
@@ -80,7 +81,7 @@ Every download is cached in `data/`, so a rerun is fast. The handoff files each 
 - **30 m pixels blur the stop with its surroundings.** The 100 m buffer is a neighborhood average, not the temperature of the pad the rider stands on.
 - **42 of 971 stops (4.3 percent) have no temperature data.** This is not cloud cover. The Landsat surface temperature product has a known gap in its emissivity input over part of west-central Gainesville. We chose not to estimate these values: every temperature in the ranking is a measured satellite value. We show these stops as gray and do not rank them, rather than scoring them as cool.
 - **Census data is tract level.** A tract is a coarse proxy for who actually waits at a given stop.
-- **Shade itself is not measured.** The analysis does not include tree canopy, building shadows, or sun angle. The only protection input is whether OpenStreetMap lists a shelter at the stop. The ranking shows where heat exposure and need look highest and where no shelter is known, not how shaded each stop is. Tree canopy and shadow analysis would be a natural next step.
+- **Shade itself is not measured.** The analysis does not include tree canopy, building shadows, or sun angle. The only protection input is whether OpenStreetMap lists a shelter at the stop. The ranking shows where heat exposure and need look highest and where no shelter is known, not how shaded each stop is. The popups show nearby green cover from satellite vegetation data as context, but that is a vegetation measure, not shade, and it does not affect the ranking. Tree canopy and shadow analysis would be a natural next step.
 - **Descriptive only.** The list shows where the data says heat exposure is highest. It is not a recommendation for what any agency should build.
 
 ## Repository layout

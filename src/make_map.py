@@ -80,6 +80,10 @@ CSS = """
 def popup_html(r, ranked):
     name = escape(str(r["stop_name"]))
     routes = escape(str(r["routes"])) if pd.notna(r["routes"]) else "none that day"
+    # vegetation is shown for context only, it is not part of the score
+    green = ("Green cover within 100 m: no data" if pd.isna(r["pct_green"])
+             else f'Green cover within 100 m: {r["pct_green"]:.0f} percent '
+                  f'(satellite vegetation, not measured shade)')
     if ranked:
         head = (f'<div class="name">{name}</div>'
                 f'<div class="rank">Rank {int(r["rank"])} of {N_RANKED}</div>')
@@ -95,6 +99,7 @@ def popup_html(r, ranked):
         f'<div>Bus visits per weekday: {int(r["daily_trips"])}</div>'
         f'<div>Summer morning heat nearby: {heat}</div>'
         f'<div>{SHELTER_TEXT.get(r["shelter_status"], "Shelter status unknown")}</div>'
+        f'<div>{green}</div>'
         f'</div>'
     )
 
@@ -176,6 +181,10 @@ def build(df):
 def main():
     df = pd.read_csv(ROOT / "outputs" / "scored_stops.csv",
                      dtype={"stop_id": str, "tract_geoid": str})
+    canopy = pd.read_csv(ROOT / "outputs" / "stop_canopy.csv", dtype={"stop_id": str},
+                         usecols=["stop_id", "pct_green"])
+    df = df.merge(canopy, on="stop_id", how="left", validate="one_to_one")
+    print(f"canopy joined, {df['pct_green'].notna().sum()} of {len(df)} stops have pct_green")
     m = build(df)
     DOCS.mkdir(exist_ok=True)
     m.save(DOCS / "index.html")
