@@ -85,10 +85,13 @@ Regenerate after score.py: `cd src && ../.venv/bin/python stability.py` (fixed s
 ## Near and far from campus (outputs/priority_near_far_campus.csv and .md, outputs/stop_campus.csv, docs/campus.json)
 Regenerate after score.py: `cd src && ../.venv/bin/python campus.py`. Boundary is the OpenStreetMap
 University of Florida relations (main and East Campus), cached in data/, area 7.6 km2.
-- Near campus = within 1 mile of the campus EDGE (campus included), far = beyond. Distance is from the
+- Near campus = within 1 mile of the MAIN campus edge (campus included), far = beyond. Distance is from the
   boundary, not a center point: UF is about 3 km across, a mile around its center would not cover it.
-- 423 stops near, 548 far. Far stops carry 33 percent of weekday bus visits and 37 percent of the
-  visits at stops with no known shelter. The two top 10 lists carry 6 percent of visits together.
+  The separate 20-acre OSM "East Campus" outline is excluded: it is 2.7 miles from the main campus and
+  its own one-mile ring pulled 54 NE Gainesville stops (NE 15th St, Waldo Rd) into "near campus".
+- 369 stops near, 602 far. Far stops carry 36 percent of weekday bus visits and 41 percent of the
+  visits at stops with no known shelter. The map draws the campus outline and the mile line
+  (docs/campus_zone.geojson) while a zone chip is active. The two top 10 lists carry 6 percent of visits together.
 - Each zone is ranked with the same score, nothing re-weighted. The far top 10 is citywide ranks 51
   to 77, 1.5 to 3 miles from campus: Oaks Mall and apartment stops on routes 75, 52, 15 (NW Gainesville).
   The near top 10 is identical to the old citywide top 10.

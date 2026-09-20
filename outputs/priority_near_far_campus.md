@@ -2,9 +2,9 @@
 
 Near campus means within 1 mile of the University of Florida campus edge (OpenStreetMap boundary), campus included. Far from campus is everything beyond that. Each zone is ranked with the same score as the main ranking.
 
-- 423 of 971 stops are near campus and 548 are far from it.
-- Stops far from campus carry 33 percent of weekday bus visits.
-- Of the visits at stops with no known shelter, 37 percent are far from campus.
+- 369 of 971 stops are near campus and 602 are far from it.
+- Stops far from campus carry 36 percent of weekday bus visits.
+- Of the visits at stops with no known shelter, 41 percent are far from campus.
 - The two top 10 lists together carry 2,242 bus visits a weekday, 6 percent of the system total.
 
 ## Top 10 far from campus
