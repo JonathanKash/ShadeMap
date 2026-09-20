@@ -1,0 +1,187 @@
+﻿"""Stream C: build docs/index.html (static Folium map) from outputs/scored_stops.csv.
+
+Run from the repo root after score.py: python src/make_map.py
+"""
+from html import escape
+from pathlib import Path
+
+import folium
+import pandas as pd
+from folium import DivIcon
+
+ROOT = Path(__file__).resolve().parents[1]
+DOCS = ROOT / "docs"
+
+CENTER = (29.6516, -82.3248)  # Gainesville
+# sequential ramp, light to dark, one color per fifth of ranked stops
+RAMP = ["#ffffb2", "#fecc5c", "#fd8d3c", "#f03b20", "#bd0026"]
+RAMP_LABELS = [
+    "Lowest 20 percent of stops",
+    "Lower middle",
+    "Middle",
+    "Upper middle",
+    "Highest 20 percent of stops",
+]
+NO_DATA = "#9aa0a6"
+
+TITLE = (
+    "Which Gainesville bus stops need shade most? Stops are ranked by summer heat, "
+    "bus service, shelter, and how many nearby households have no car."
+)
+
+SHELTER_TEXT = {
+    "sheltered": "Sheltered (per OpenStreetMap)",
+    "none": "No shelter (per OpenStreetMap)",
+    "unknown": "Shelter status unknown",
+}
+
+CSS = """
+<style>
+  #title-bar {
+    position: fixed; top: 10px; left: 50%; transform: translateX(-50%);
+    z-index: 9999; box-sizing: border-box; width: min(720px, calc(100vw - 120px));
+    background: rgba(255,255,255,0.96); border-radius: 8px; padding: 8px 12px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.3); font: 14px/1.35 system-ui, sans-serif;
+    color: #1f2933; text-align: center;
+  }
+  #title-bar b { font-size: 16px; display: block; margin-bottom: 2px; }
+  #legend {
+    position: fixed; bottom: 22px; left: 10px; z-index: 9999; max-width: 250px;
+    background: rgba(255,255,255,0.96); border-radius: 8px; padding: 8px 12px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.3); font: 13px/1.35 system-ui, sans-serif;
+    color: #1f2933;
+  }
+  #legend .head { font-weight: 600; margin-bottom: 4px; }
+  #legend .row { display: flex; align-items: center; margin: 2px 0; }
+  #legend .sw {
+    width: 14px; height: 14px; border-radius: 50%; margin-right: 8px;
+    border: 1px solid rgba(0,0,0,0.35); flex: none;
+  }
+  #legend .note { margin-top: 6px; font-size: 12px; color: #52606d; }
+  .rank-pin {
+    box-sizing: border-box; width: 22px; height: 22px; border-radius: 50%;
+    background: #111827; color: #fff;
+    border: 2px solid #fff; box-shadow: 0 0 4px rgba(0,0,0,0.6);
+    font: 700 11px/18px system-ui, sans-serif; text-align: center;
+  }
+  .popup { font: 13px/1.4 system-ui, sans-serif; min-width: 200px; }
+  .popup .name { font-weight: 600; font-size: 14px; }
+  .popup .rank { color: #bd0026; font-weight: 700; }
+  @media (max-width: 600px) {
+    #title-bar { font-size: 12px; padding: 6px 8px; left: 56px; transform: none;
+                 width: calc(100vw - 66px); }
+    #title-bar b { font-size: 14px; }
+    #legend { font-size: 11px; max-width: 190px; bottom: 16px; padding: 6px 8px; }
+  }
+</style>
+"""
+
+
+def popup_html(r, ranked):
+    name = escape(str(r["stop_name"]))
+    routes = escape(str(r["routes"])) if pd.notna(r["routes"]) else "none that day"
+    if ranked:
+        head = (f'<div class="name">{name}</div>'
+                f'<div class="rank">Rank {int(r["rank"])} of {N_RANKED}</div>')
+        heat = f'{r["mean_lst_c"]:.1f} C / {r["mean_lst_f"]:.1f} F'
+    else:
+        head = (f'<div class="name">{name}</div>'
+                f'<div>Not ranked: {escape(str(r["excluded_reason"]))}</div>')
+        heat = ("no data" if pd.isna(r["mean_lst_c"])
+                else f'{r["mean_lst_c"]:.1f} C / {r["mean_lst_f"]:.1f} F')
+    return (
+        f'<div class="popup">{head}'
+        f'<div>Routes: {routes}</div>'
+        f'<div>Bus visits per weekday: {int(r["daily_trips"])}</div>'
+        f'<div>Summer morning heat nearby: {heat}</div>'
+        f'<div>{SHELTER_TEXT.get(r["shelter_status"], "Shelter status unknown")}</div>'
+        f'</div>'
+    )
+
+
+def legend_html(n_ranked, n_missing):
+    rows = "".join(
+        f'<div class="row"><span class="sw" style="background:{c}"></span>{lab}</div>'
+        for c, lab in reversed(list(zip(RAMP, RAMP_LABELS)))
+    )
+    return (
+        '<div id="legend">'
+        '<div class="head">Priority for shade</div>'
+        f'{rows}'
+        '<div class="row"><span class="rank-pin" style="width:18px;height:18px;'
+        'font-size:10px;line-height:14px;margin-right:8px;flex:none">1</span>'
+        'Top 20 stops, numbered</div>'
+        f'<div class="row"><span class="sw" style="background:{NO_DATA}"></span>'
+        f'Not ranked ({n_missing}: no satellite data or no service)</div>'
+        '<div class="note">Bigger dots mean a higher score. Tap a stop for details. '
+        f'{n_ranked} stops ranked.</div>'
+        '</div>'
+    )
+
+
+def build(df):
+    global N_RANKED
+    ranked = df[df["rank"].notna()].copy()
+    unranked = df[df["rank"].isna()]
+    N_RANKED = len(ranked)
+
+    # color class from score quintile, radius from score
+    ranked["cls"] = pd.qcut(ranked["score"].rank(method="first"), 5, labels=False)
+    smin, smax = ranked["score"].min(), ranked["score"].max()
+    ranked["radius"] = 3.5 + 6.5 * (ranked["score"] - smin) / (smax - smin)
+
+    # Esri light gray canvas: keyless, muted so the color ramp reads clearly
+    m = folium.Map(location=CENTER, zoom_start=12, tiles=None,
+                   control_scale=True, zoom_control=True, max_zoom=16)
+    esri = "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/{}/MapServer/tile/{{z}}/{{y}}/{{x}}"
+    folium.TileLayer(esri.format("World_Light_Gray_Base"), name="Base", max_zoom=16,
+                     attr="Tiles &copy; Esri", control=False).add_to(m)
+    folium.TileLayer(esri.format("World_Light_Gray_Reference"), name="Labels", max_zoom=16,
+                     attr="Tiles &copy; Esri", control=False, pane="shadowPane").add_to(m)
+
+    for _, r in unranked.iterrows():
+        folium.CircleMarker(
+            (r["stop_lat"], r["stop_lon"]), radius=3, color=NO_DATA, weight=1,
+            fill=True, fill_color=NO_DATA, fill_opacity=0.6,
+            popup=folium.Popup(popup_html(r, False), max_width=280),
+        ).add_to(m)
+
+    # low scores first so the high ones draw on top
+    for _, r in ranked.sort_values("score").iterrows():
+        folium.CircleMarker(
+            (r["stop_lat"], r["stop_lon"]), radius=float(r["radius"]),
+            color="#333333", weight=0.6, fill=True,
+            fill_color=RAMP[int(r["cls"])], fill_opacity=0.85,
+            popup=folium.Popup(popup_html(r, True), max_width=280),
+        ).add_to(m)
+
+    for _, r in ranked[ranked["rank"] <= 20].iterrows():
+        folium.Marker(
+            (r["stop_lat"], r["stop_lon"]),
+            icon=DivIcon(icon_size=(22, 22), icon_anchor=(11, 11),
+                         html=f'<div class="rank-pin">{int(r["rank"])}</div>'),
+            popup=folium.Popup(popup_html(r, True), max_width=280),
+            z_index_offset=1000,
+        ).add_to(m)
+
+    root = m.get_root()
+    root.header.add_child(folium.Element(CSS))
+    root.header.add_child(folium.Element("<title>ShadeMap: Gainesville bus stop heat ranking</title>"))
+    root.html.add_child(folium.Element(
+        f'<div id="title-bar"><b>ShadeMap Gainesville</b>{TITLE}</div>'))
+    root.html.add_child(folium.Element(legend_html(N_RANKED, len(unranked))))
+    return m
+
+
+def main():
+    df = pd.read_csv(ROOT / "outputs" / "scored_stops.csv",
+                     dtype={"stop_id": str, "tract_geoid": str})
+    m = build(df)
+    DOCS.mkdir(exist_ok=True)
+    m.save(DOCS / "index.html")
+    size_kb = (DOCS / "index.html").stat().st_size / 1024
+    print(f"wrote docs/index.html ({size_kb:.0f} KB), {N_RANKED} ranked stops")
+
+
+if __name__ == "__main__":
+    main()
