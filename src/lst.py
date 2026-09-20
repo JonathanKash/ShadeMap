@@ -543,6 +543,139 @@ def canopy():
     return df
 
 
+def _earthdata_session():
+    """Authenticated session: netrc via earthaccess, else bearer token file."""
+    import earthaccess
+    import requests
+
+    try:
+        auth = earthaccess.login(strategy="netrc")
+        if auth.authenticated:
+            return earthaccess.get_requests_https_session()
+    except Exception:
+        pass
+    token_path = DATA_DIR / "earthdata_token.txt"
+    if token_path.exists():
+        s = requests.Session()
+        s.headers["Authorization"] = f"Bearer {token_path.read_text().strip()}"
+        return s
+    raise SystemExit(
+        "No Earthdata auth. Either run earthaccess.login(persist=True) in a "
+        "terminal or put a token in data/earthdata_token.txt"
+    )
+
+
+def ecostress(afternoon_utc=(16, 21)):
+    """Afternoon LST per stop from ECOSTRESS ECO_L2T_LSTE v2 tiles.
+
+    Downloads LST and cloud GeoTIFFs for afternoon (default 12:00-17:00 EDT)
+    summer overpasses, builds a cloud-masked median composite in Celsius,
+    and writes outputs/stop_lst_afternoon.csv (opt-in for C, contract-like
+    schema). Tiles share one grid per MGRS tile, so no reprojection between
+    granules is needed.
+    """
+    import earthaccess
+    import geopandas as gpd
+    import pandas as pd
+
+    root = Path(__file__).resolve().parent.parent
+    eco_dir = DATA_DIR / "ecostress"
+    eco_dir.mkdir(parents=True, exist_ok=True)
+
+    results = earthaccess.search_data(
+        short_name="ECO_L2T_LSTE",
+        bounding_box=(-82.45, 29.60, -82.30, 29.72),
+        temporal=("2026-06-01", "2026-09-20"),
+    )
+    seen = set()
+    granules = []
+    for g in results:
+        t = g["umm"]["TemporalExtent"]["RangeDateTime"]["BeginningDateTime"]
+        # CMR can return multiple processing versions of one overpass
+        if afternoon_utc[0] <= int(t[11:13]) <= afternoon_utc[1] and t not in seen:
+            seen.add(t)
+            granules.append((t, g))
+    granules.sort(key=lambda x: x[0])
+    print(f"  {len(results)} granules total, {len(granules)} in the "
+          f"{afternoon_utc[0]}-{afternoon_utc[1]}h UTC afternoon window")
+
+    session = _earthdata_session()
+    files = {"LST": [], "cloud": []}
+    t0 = time.perf_counter()
+    for t, g in granules:
+        links = [u for u in g.data_links() if u.endswith(".tif")]
+        for kind in files:
+            want = [u for u in links if u.endswith(f"_{kind}.tif")]
+            if not want:
+                continue
+            url = want[0]
+            dest = eco_dir / url.rsplit("/", 1)[1]
+            if not dest.exists():
+                r = session.get(url, timeout=120)
+                r.raise_for_status()
+                dest.write_bytes(r.content)
+            files[kind].append((t, dest))
+    print(f"  {len(files['LST'])} LST tiles on disk "
+          f"({time.perf_counter() - t0:.0f}s incl. cache hits)")
+
+    slices, used_dates = [], set()
+    ref = None
+    for (t, lst_path), (_, cloud_path) in zip(files["LST"], files["cloud"]):
+        lst = rioxarray.open_rasterio(lst_path, masked=True).squeeze("band", drop=True)
+        cloud = rioxarray.open_rasterio(cloud_path).squeeze("band", drop=True)
+        if ref is None:
+            ref = lst
+            print(f"  tile grid {lst.shape} crs={lst.rio.crs}")
+        elif lst.shape != ref.shape:
+            print(f"  skipping {lst_path.name}: different tile/grid {lst.shape}")
+            continue
+        vals = lst.values.astype("float32")
+        # v2 tiled LST is Kelvin; some builds ship scaled ints, so normalize
+        finite = vals[np.isfinite(vals)]
+        if finite.size and finite.max() > 400:
+            vals = vals * 0.02
+        vals = vals - 273.15
+        vals[(cloud.values == 1) | ~np.isfinite(vals)] = np.nan
+        frac = np.isfinite(vals).mean()
+        if frac < 0.40:
+            # the ECOSTRESS cloud mask is permissive: mostly-cloudy overpasses
+            # keep contaminated edge pixels that read cold and add noise
+            print(f"  skipping {lst_path.name.split('_')[5]}: only {frac:.0%} valid")
+            continue
+        slices.append(vals)
+        used_dates.add(t[:10])
+    if not slices:
+        raise SystemExit("No usable afternoon tiles after cloud masking")
+
+    stack = np.stack(slices)
+    median = np.nanmedian(stack, axis=0).astype("float32")
+    comp = ref.copy(data=median)
+    n_obs = np.isfinite(stack).sum(axis=0)
+    print(f"  afternoon composite from {len(slices)} overpasses on "
+          f"{len(used_dates)} days: min={np.nanmin(median):.1f} "
+          f"max={np.nanmax(median):.1f} "
+          f"coverage={np.isfinite(median).mean():.1%} "
+          f"median_obs={int(np.median(n_obs))}")
+
+    stops = gpd.read_file(root / "outputs" / "stops.geojson")
+    zs = _zonal(comp, stops)
+    df = pd.DataFrame({
+        "stop_id": stops["stop_id"].astype(str),
+        "mean_lst_c": [round(z["mean"], 2) if z["count"] else None for z in zs],
+        "max_lst_c": [round(z["max"], 2) if z["count"] else None for z in zs],
+        "pixel_count": [int(z["count"]) for z in zs],
+        "scene_dates": ";".join(sorted(used_dates)),
+    })
+    n_zero = int((df.pixel_count == 0).sum())
+    print(f"  stop_lst_afternoon: {df.shape}, pixel_count==0 for {n_zero} "
+          f"stops, mean range=[{df.mean_lst_c.min():.1f}, "
+          f"{df.mean_lst_c.max():.1f}]")
+    out_path = root / "outputs" / "stop_lst_afternoon.csv"
+    df.to_csv(out_path, index=False)
+    print(f"  wrote {out_path}")
+    return df
+
+
 if __name__ == "__main__":
     import sys
 
@@ -552,6 +685,10 @@ if __name__ == "__main__":
     if mode == "canopy":
         print("Sentinel-2 canopy proxy per stop...")
         canopy()
+        raise SystemExit(0)
+    if mode == "eco":
+        print("ECOSTRESS afternoon LST per stop...")
+        ecostress()
         raise SystemExit(0)
 
     print("Searching Planetary Computer...")
