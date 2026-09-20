@@ -68,7 +68,7 @@
   .badges { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0 4px; }
   .badge { font-size: 12px; border-radius: 6px; padding: 3px 8px; font-weight: 500; }
   .b-rank { background: #fce8e6; color: var(--hot); }
-  .b-need { background: #fef7e0; color: #b06000; }
+  .b-need { background: #111; color: #fff; }
   .b-shelter-none { background: #fce8e6; color: var(--hot); }
   .b-shelter-unknown { background: #f1f3f4; color: var(--muted); }
   .b-shelter-sheltered { background: #e6f4ea; color: var(--ok); }
@@ -154,7 +154,7 @@
   .legend .lg-body { padding: 0 12px 10px; }
   .legend .row { display: flex; align-items: center; gap: 8px; margin: 3px 0; }
   .legend .sw { flex: none; width: 14px; height: 14px; border-radius: 50%; border: 1px solid #b5b9bd; }
-  .legend .sw.ring { border: 2.5px solid #b06000; background: #fee5d9; }
+  .legend .sw.need { background: #111; border: 2px solid #fff; box-shadow: 0 0 0 1px #b5b9bd; }
   .legend .note { margin-top: 6px; color: var(--muted); font-size: 12px; line-height: 1.35; }
 
   @media (max-width: 640px) {
@@ -200,7 +200,7 @@
     <div class="row"><span class="sw" style="background:#fcae91"></span>Next 25 percent</div>
     <div class="row"><span class="sw" style="background:#fee5d9"></span>Lowest 40 percent</div>
     <div class="row"><span class="sw" style="background:#9aa0a6"></span>Not ranked (no satellite data or no weekday service)</div>
-    <div class="row"><span class="sw ring"></span>Brown ring: on the "needs shade most" list</div>
+    <div class="row"><span class="sw need"></span>Black: the 20 stops that "need shade most"</div>
     <div class="note">Bigger dots have more weekday buses. The largest dots are the top 20 stops. Tap a dot for details.</div>
   </div>
 </details>
@@ -282,12 +282,14 @@
     return 4 + Math.min(4, Math.sqrt(s.trips || 0) / 4);
   }
   function styleFor(s) {
-    var isNeed = s.need_rank != null && s.need_rank <= 20;
+    var isNeed = needTop(s);
+    // "needs shade most" stops are solid black so they stand out from the red priority scale
     return {
-      renderer: canvas, radius: radiusFor(s), fillColor: colorFor(s), fillOpacity: 0.85,
-      color: isNeed ? "#b06000" : "#fff", weight: isNeed ? 2.5 : 1
+      renderer: canvas, radius: radiusFor(s), fillColor: isNeed ? "#111" : colorFor(s),
+      fillOpacity: isNeed ? 1 : 0.85, color: "#fff", weight: isNeed ? 2 : 1
     };
   }
+  function needTop(s) { return s.need_rank != null && s.need_rank <= 20; }
   function visible(s) {
     if (filter === "top20") return s.rank != null && s.rank <= 20;
     if (filter === "need") return s.need_rank != null && s.need_rank <= 20;
@@ -297,7 +299,7 @@
   function applyFilter() {
     stops.forEach(function (s) {
       var m = markers[s.id];
-      if (visible(s)) { if (!map.hasLayer(m)) m.addTo(map); }
+      if (visible(s)) { if (!map.hasLayer(m)) m.addTo(map); if (needTop(s)) m.bringToFront(); }
       else if (map.hasLayer(m)) map.removeLayer(m);
     });
   }
@@ -592,7 +594,7 @@
       markers[s.id] = m;
     });
     // draw coolest first so the hottest stops sit on top
-    stops.slice().sort(function (a, b) { return (b.rank || 1e9) - (a.rank || 1e9); })
+    stops.slice().sort(function (a, b) { return (needTop(a) - needTop(b)) || ((b.rank || 1e9) - (a.rank || 1e9)); })
       .forEach(function (s) { if (visible(s)) markers[s.id].addTo(map); });
   });
 })();
