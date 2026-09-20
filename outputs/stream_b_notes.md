@@ -50,3 +50,11 @@ Regenerate after score.py: `.venv/bin/python src/route_ranking.py`.
 - Limits to state: a stop's bus visits count every route at that stop, so routes through
   busy hubs (Reitz Union, The Hub) get a boost. The top routes are mostly UF corridor routes,
   the same campus-tract effect as in the stop ranking.
+
+## Community corrections (outputs/shelter_overrides.csv)
+- Empty by design until someone verifies a stop. Columns: stop_id, status, source, date.
+  Overrides beat OSM in context.py; each row must have a source. See ADMIN_PHOTOS.md.
+- Popups link to a prefilled GitHub issue per stop ("Shelter info wrong? Tell us") and, for
+  stops not known to be sheltered, to the request channels for a shelter (myGNV, RTS phone).
+- Limit to state: the report link needs a GitHub account and someone has to triage issues.
+  It is a feedback path, not a service, and it makes no promise about what the city does.

@@ -67,3 +67,33 @@ photo = (f'<img src="photos/{escape(img)}" alt="Photo of {name}" loading="lazy" 
 Because the file list comes from the CSV, popups never link to a missing image. Credit
 line for photos taken by the team: "Photo: ShadeMap team". For any photo from someone else,
 get their permission and credit them.
+
+## Handling a shelter report (community corrections)
+
+Every stop popup has a **Shelter info wrong? Tell us** link. It opens a prefilled GitHub
+issue with the stop name, its id, and what the map currently says. Popups for stops not
+known to be sheltered also say **Want a shelter here?** with the City of Gainesville request
+portal (myGNV, mygnv.org) and the RTS phone number from RTS's own GTFS feed. The map makes
+no promise about what the city will do with a request.
+
+When someone reports a stop:
+
+1. **Check it.** Look at the attached photo, or visit. Do not accept a report you cannot
+   back up. A wrong shelter status is worse than an unknown one.
+2. **Add one row** to `outputs/shelter_overrides.csv`:
+   ```
+   stop_id,status,source,date
+   1254,sheltered,"photo from issue #12, checked against Street View",2026-09-21
+   ```
+   `status` is exactly `sheltered`, `none` or `unknown`. `source` is required and says how it
+   was verified. If a stop appears twice the newest row wins.
+3. **Rebuild** (needs the venv from `requirements.txt`; scores and the map read the new value):
+   ```
+   cd src && ../.venv/bin/python context.py && cd ..
+   .venv/bin/python src/score.py && .venv/bin/python src/make_map.py
+   ```
+4. Commit `outputs/shelter_overrides.csv`, `outputs/stops_context.csv`, the scored files and
+   `docs/index.html`, then close the issue and thank the reporter.
+
+`context.py` stops with an error on a row with no source, a bad status, or a stop id that
+does not exist, so a typo cannot silently change the data.

@@ -84,6 +84,35 @@ def shelter_status(stops: gpd.GeoDataFrame) -> pd.Series:
     return status
 
 
+OVERRIDES_CSV = OUT / "shelter_overrides.csv"  # stop_id,status,source,date
+
+
+def apply_overrides(status: pd.Series) -> pd.Series:
+    """Let verified field reports beat OSM. Every row must name its source.
+
+    This is how community corrections enter the data (see ADMIN_PHOTOS.md). It fails loudly
+    on a bad row instead of skipping it, and it refuses rows with no source, so nothing gets
+    into the shelter column without a traceable reason. If a stop appears twice the last row
+    wins, so a newer visit can correct an older one.
+    """
+    if not OVERRIDES_CSV.exists():
+        return status
+    o = pd.read_csv(OVERRIDES_CSV, dtype=str).fillna("")
+    if o.empty:
+        return status
+    o = o.apply(lambda c: c.str.strip())
+    bad = o[~o.status.isin(["sheltered", "none", "unknown"]) | ~o.stop_id.isin(status.index)
+            | (o.source == "")]
+    assert bad.empty, f"bad rows in {OVERRIDES_CSV.name} (need a real stop_id, status of "\
+                      f"sheltered/none/unknown, and a source):\n{bad}"
+    o = o.drop_duplicates("stop_id", keep="last")
+    changed = int((status.loc[o.stop_id].values != o.status.values).sum())
+    status = status.copy()
+    status.loc[o.stop_id] = o.status.values
+    print(f"shelter overrides: {len(o)} rows applied, {changed} changed the OSM-based value")
+    return status
+
+
 # --- Census tracts + ACS --------------------------------------------------------------
 #
 # DECISION: api.census.gov now redirects keyless requests to missing_key.html (checked
@@ -162,7 +191,7 @@ def build_context() -> pd.DataFrame:
     # Stops with no trips on the representative day (weekend-only, etc.) keep their row.
     ctx["daily_trips"] = ctx["daily_trips"].fillna(0).astype(int)
     ctx["routes"] = ctx["routes"].fillna("")
-    ctx["shelter_status"] = ctx["stop_id"].map(shelter_status(stops))
+    ctx["shelter_status"] = ctx["stop_id"].map(apply_overrides(shelter_status(stops)))
     ctx = ctx.merge(census_join(stops), on="stop_id", how="left")
     ctx = ctx[COLUMNS]
 

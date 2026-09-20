@@ -4,6 +4,7 @@ Run from the repo root after score.py: python src/make_map.py
 """
 from html import escape
 from pathlib import Path
+from urllib.parse import quote
 
 import folium
 import pandas as pd
@@ -86,6 +87,36 @@ CSS = """
 """
 
 
+REPO = "https://github.com/JonathanKash/ShadeMap"
+
+
+def action_html(r):
+    """What a resident can do from the popup (added by Stream B for community impact).
+
+    1. Ask for a shelter: only at stops not known to be sheltered. Channels are the City of
+       Gainesville request portal (myGNV, mygnv.org redirects to the city's portal) and the
+       RTS phone number from the agency line of RTS's own GTFS feed. No promise is made
+       about what the city will do.
+    2. Report wrong shelter info: opens a prefilled GitHub issue for this stop. A maintainer
+       who verifies it adds a sourced row to outputs/shelter_overrides.csv (see ADMIN_PHOTOS.md).
+    """
+    stop_id, name = str(r["stop_id"]), str(r["stop_name"])
+    status = str(r["shelter_status"])
+    body = (f"Stop: {name} (stop_id {stop_id})\nOur map says: {status}\n\n"
+            "What is actually at this stop (shelter, no shelter, not sure):\n\n"
+            "How do you know (date you visited, or attach a photo):\n")
+    issue = (f"{REPO}/issues/new?title={quote(f'Shelter info: stop {stop_id} {name}', safe='')}"
+             f"&body={quote(body, safe='')}")
+    ask = ""
+    if status != "sheltered":
+        ask = ('<div style="margin-top:6px"><b>Want a shelter here?</b> Ask the city: '
+               '<a href="https://mygnv.org" target="_blank" rel="noopener">myGNV</a> '
+               'or call RTS at (352) 334-2600.</div>')
+    fix = (f'<div style="margin-top:4px;font-size:12px"><a href="{escape(issue)}" '
+           f'target="_blank" rel="noopener">Shelter info wrong? Tell us</a></div>')
+    return ask + fix
+
+
 def popup_html(r, ranked):
     name = escape(str(r["stop_name"]))
     routes = escape(str(r["routes"])) if pd.notna(r["routes"]) else "none that day"
@@ -115,6 +146,7 @@ def popup_html(r, ranked):
         f'<div>{SHELTER_TEXT.get(r["shelter_status"], "Shelter status unknown")}</div>'
         f'<div>{green}</div>'
         f'{photo}'
+        f'{action_html(r)}'
         f'</div>'
     )
 
