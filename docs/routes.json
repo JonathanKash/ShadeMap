@@ -3,156 +3,156 @@
   "name": "Butler Plaza to The Hub",
   "rank": 1,
   "n_routes": 26,
-  "ranked_stops": 36
+  "ranked_stops": 26
  },
  "38": {
   "name": "Reitz Union to Gainesville Place",
   "rank": 2,
   "n_routes": 26,
-  "ranked_stops": 31
+  "ranked_stops": 18
  },
  "21": {
   "name": "Reitz Union To Liv Apartments",
   "rank": 3,
   "n_routes": 26,
-  "ranked_stops": 38
+  "ranked_stops": 26
  },
  "118": {
   "name": "Park-N-Ride 1 (Cultural Plaza) To The Hub",
   "rank": 4,
   "n_routes": 26,
-  "ranked_stops": 23
+  "ranked_stops": 19
  },
  "1": {
   "name": "Downtown Station to Butler Plaza",
   "rank": 5,
   "n_routes": 26,
-  "ranked_stops": 54
+  "ranked_stops": 35
  },
  "20": {
   "name": "Reitz Union To Oaks Mall",
   "rank": 6,
   "n_routes": 26,
-  "ranked_stops": 48
+  "ranked_stops": 33
  },
  "9": {
   "name": "Reitz Union To Hunters Run",
   "rank": 7,
   "n_routes": 26,
-  "ranked_stops": 41
+  "ranked_stops": 32
  },
  "12": {
   "name": "The Hub to Dollar General",
   "rank": 8,
   "n_routes": 26,
-  "ranked_stops": 50
+  "ranked_stops": 39
  },
  "52": {
   "name": "Reitz Union to Jonesville",
   "rank": 9,
   "n_routes": 26,
-  "ranked_stops": 62
+  "ranked_stops": 51
  },
  "37": {
   "name": "Reitz Union to Butler Plaza Transfer Station",
   "rank": 10,
   "n_routes": 26,
-  "ranked_stops": 45
+  "ranked_stops": 31
  },
  "15": {
   "name": "Downtown Station To NW 13 Street / NW 23 Avenue",
   "rank": 11,
   "n_routes": 26,
-  "ranked_stops": 71
+  "ranked_stops": 68
  },
  "5": {
   "name": "Downtown Station to Oaks Mall",
   "rank": 12,
   "n_routes": 26,
-  "ranked_stops": 54
+  "ranked_stops": 45
  },
  "75": {
   "name": "Oaks Mall to Butler Plaza",
   "rank": 13,
   "n_routes": 26,
-  "ranked_stops": 83
+  "ranked_stops": 67
  },
  "26": {
   "name": "Downtown Station to Airport",
   "rank": 14,
   "n_routes": 26,
-  "ranked_stops": 50
- },
- "8": {
-  "name": "UF Health To N Walmart Supercenter",
-  "rank": 15,
-  "n_routes": 26,
-  "ranked_stops": 84
+  "ranked_stops": 43
  },
  "3": {
   "name": "Downtown Station to N Main Post Office",
+  "rank": 15,
+  "n_routes": 26,
+  "ranked_stops": 43
+ },
+ "8": {
+  "name": "UF Health To N Walmart Supercenter",
   "rank": 16,
   "n_routes": 26,
-  "ranked_stops": 48
+  "ranked_stops": 70
  },
  "43": {
   "name": "UF Health to Santa Fe College",
   "rank": 17,
   "n_routes": 26,
-  "ranked_stops": 86
- },
- "13": {
-  "name": "US 441 to Alight Apartments",
-  "rank": 18,
-  "n_routes": 26,
-  "ranked_stops": 45
+  "ranked_stops": 72
  },
  "10": {
   "name": "Downtown Station To Santa Fe College",
+  "rank": 18,
+  "n_routes": 26,
+  "ranked_stops": 59
+ },
+ "13": {
+  "name": "US 441 to Alight Apartments",
   "rank": 19,
   "n_routes": 26,
-  "ranked_stops": 65
+  "ranked_stops": 39
  },
  "6": {
   "name": "Downtown Station to N Walmart Supercenter",
   "rank": 20,
   "n_routes": 26,
-  "ranked_stops": 57
+  "ranked_stops": 56
  },
  "17": {
   "name": "Beaty Towers To Rosa Parks Downtown Station",
   "rank": 21,
   "n_routes": 26,
-  "ranked_stops": 29
+  "ranked_stops": 22
  },
  "55": {
   "name": "Blount Center To Santa Fe College",
   "rank": 22,
   "n_routes": 26,
-  "ranked_stops": 73
+  "ranked_stops": 69
  },
  "11": {
   "name": "Downtown Station To Eastwood Meadows",
   "rank": 23,
   "n_routes": 26,
-  "ranked_stops": 52
+  "ranked_stops": 47
  },
  "7": {
   "name": "Downtown Station to Eastwood Meadows",
   "rank": 24,
   "n_routes": 26,
-  "ranked_stops": 63
- },
- "23": {
-  "name": "Butler Plaza to Santa Fe College",
-  "rank": 25,
-  "n_routes": 26,
-  "ranked_stops": 41
+  "ranked_stops": 62
  },
  "76": {
   "name": "Haile Plantation To Santa Fe College",
+  "rank": 25,
+  "n_routes": 26,
+  "ranked_stops": 42
+ },
+ "23": {
+  "name": "Butler Plaza to Santa Fe College",
   "rank": 26,
   "n_routes": 26,
-  "ranked_stops": 46
+  "ranked_stops": 34
  }
 }
