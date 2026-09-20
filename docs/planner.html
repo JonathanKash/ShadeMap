@@ -93,17 +93,17 @@
         <legend>Which list of stops?</legend>
         <label class="opt"><input type="radio" name="list" value="main" checked>
           <span>Most people helped<small>The main ranking: hot, busy, unsheltered, car-free area.</small></span></label>
-        <label class="opt"><input type="radio" name="list" value="off">
-          <span>Outside the UF campus<small>The same score, but only stops off campus, so the rest of Gainesville is not crowded out.</small></span></label>
-        <label class="opt"><input type="radio" name="list" value="on">
-          <span>On the UF campus<small>The same score, only stops inside the campus boundary.</small></span></label>
+        <label class="opt"><input type="radio" name="list" value="far">
+          <span>Far from campus (beyond 1 mile)<small>The same score, but only stops more than a mile from the UF campus, so the rest of Gainesville is not crowded out.</small></span></label>
+        <label class="opt"><input type="radio" name="list" value="near">
+          <span>Near campus (within 1 mile)<small>The same score, only stops within a mile of the UF campus, campus included.</small></span></label>
         <label class="opt"><input type="radio" name="list" value="need">
           <span>Where the wait itself is worst<small>Ignores how busy a stop is, so quiet stops in hot, car-free or senior neighborhoods count.</small></span></label>
       </fieldset>
       <label for="n" style="font-weight:600">How many stops get a shelter?</label>
       <div class="slider-row">
-        <input id="n" type="range" min="5" max="100" step="5" value="20" aria-describedby="n-out">
-        <output id="n-out" for="n" aria-live="polite">20</output>
+        <input id="n" type="range" min="5" max="100" step="5" value="10" aria-describedby="n-out">
+        <output id="n-out" for="n" aria-live="polite">10</output>
       </div>
       <div class="stats" aria-live="polite">
         <div class="stat"><b id="s-visits">-</b><span>weekday bus visits at these stops</span></div>
@@ -117,7 +117,7 @@
     <div class="card" style="margin-top:12px">
       <strong>How fast does it add up?</strong>
       <svg id="curve" viewBox="0 0 440 208" role="img" aria-label="Share of all weekday bus visits reached as more stops are sheltered, for both lists"></svg>
-      <div class="key"><span><i style="background:var(--main)"></i>Most people helped</span><span><i style="background:var(--need)"></i>Worst wait</span><span><i style="background:#0e7490"></i>Off campus</span><span><i style="background:#6d28d9"></i>On campus</span></div>
+      <div class="key"><span><i style="background:var(--main)"></i>Most people helped</span><span><i style="background:var(--need)"></i>Worst wait</span><span><i style="background:#0e7490"></i>Far from campus</span><span><i style="background:#6d28d9"></i>Near campus</span></div>
     </div>
   </section>
 
@@ -156,12 +156,12 @@
   var LISTS = {
     main: { key: "rank", name: "most people helped", color: "#2563eb" },
     need: { key: "need_rank", name: "worst wait", color: "#c64600" },
-    off: { key: "rank", campus: 0, name: "outside the UF campus", color: "#0e7490" },
-    on: { key: "rank", campus: 1, name: "on the UF campus", color: "#6d28d9" }
+    far: { key: "rank", campus: 0, name: "far from campus (beyond 1 mile)", color: "#0e7490" },
+    near: { key: "rank", campus: 1, name: "near campus (within 1 mile)", color: "#6d28d9" }
   };
   var campusMap = {};
   var stops = [], total = 0, totalUnsheltered = 0, sorted = {}, cum = {};
-  var listName = "main", n = 20, markers = {}, sel = [];
+  var listName = "main", n = 10, markers = {}, sel = [];
 
   function esc(s) { return String(s).replace(/[&<>"']/g, function (c) {
     return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
