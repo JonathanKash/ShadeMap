@@ -59,6 +59,12 @@ This project follows the NASA GeoEmerge (EMERGE) Data Analysis workflow: acquire
 
 **TODO before submitting:** name the specific EMERGE curriculum textbook and lesson this follows, with a link. The lesson name is not in the repo yet.
 
+## Rider photos
+
+Every stop popup has an **Add a photo of this stop** button. A rider picks or takes a photo, says what date and time they took it, and can add a short note about shade, benches or shelter. The time of day matters here because our satellite data is from the morning and riders wait in the afternoon. Nothing appears on the map until an admin reviews it. Location data inside each photo is removed in the browser before upload. Approved photos show in the stop's popup with the time they were taken.
+
+The button is hidden until the project's Supabase storage is connected, so the map is unchanged without it. Setup and the review steps are in [SUPABASE_SETUP.md](SUPABASE_SETUP.md).
+
 ## How to run it
 
 Python 3.11 or newer.
