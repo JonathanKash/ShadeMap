@@ -1,0 +1,4 @@
+# Older commits from this laptop used a placeholder address (moosie@Franciscos-MacBook-Air.local)
+# that GitHub cannot link to an account. This maps them to the GitHub no-reply address for
+# git shortlog and similar tools. GitHub's own contributor graph ignores .mailmap.
+Francisco Rodriguez <289285163+moosiemessi@users.noreply.github.com> <moosie@Franciscos-MacBook-Air.local>
