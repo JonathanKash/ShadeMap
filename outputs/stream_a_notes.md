@@ -174,6 +174,19 @@ for judges: among stops without a confirmed shelter, need is how hot the
 stop is, times how bare its surroundings are, times how vulnerable the
 neighborhood is. Regenerate: `.venv/Scripts/python src/shade_need.py`.
 
+## App-style map page (`docs/app.html`, new files only, say it out loud to C)
+
+A second, app-style view at /app.html: full-screen light basemap, search box,
+filter chips (all, priority top 20, needs shade most, no shelter), and a
+Google-Maps-style side panel per stop with stats, badges, the no-nearby-
+shelter warning with myGNV and RTS contacts, and rider photos grouped into
+morning, midday, afternoon, evening and night tabs. It reuses C's Supabase
+photo backend exactly (same config.js, same stop_reports table, same
+validation and review flow), so one Supabase setup turns on uploads for both
+pages, and photos submitted on either page appear on both. index.html is
+untouched; the classic map stays the submitted artifact. Data comes from
+docs/app_data.json, baked by src/make_app_data.py from the committed CSVs.
+
 ## EMERGE curriculum requirement (flag for C, from the track PDF in repo root)
 
 The track requires naming at least one EMERGE curriculum and the lesson or method

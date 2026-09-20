@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ShadeMap Gainesville</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+  :root {
+    --bg: #fff; --ink: #202124; --muted: #5f6368; --line: #e8eaed;
+    --accent: #1a73e8; --hot: #c5221f; --warm: #ea8600; --ok: #188038;
+    --shadow: 0 1px 2px rgba(60,64,67,.3), 0 2px 6px 2px rgba(60,64,67,.15);
+    --radius: 12px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; font-family: Roboto, "Segoe UI", system-ui, Arial, sans-serif; color: var(--ink); }
+  #map { position: absolute; inset: 0; }
+
+  /* floating search card, Google Maps style */
+  .search-card {
+    position: absolute; top: 12px; left: 12px; z-index: 1000;
+    width: min(392px, calc(100vw - 24px));
+    background: var(--bg); border-radius: 24px; box-shadow: var(--shadow);
+  }
+  .search-row { display: flex; align-items: center; padding: 4px 8px 4px 16px; }
+  .search-row svg { flex: none; }
+  #q {
+    flex: 1; border: 0; outline: 0; font-size: 15px; padding: 10px 8px;
+    background: transparent; color: var(--ink); min-width: 0;
+  }
+  #clear-q { border: 0; background: none; cursor: pointer; color: var(--muted);
+    font-size: 18px; padding: 6px 10px; border-radius: 50%; display: none; }
+  #clear-q:hover { background: #f1f3f4; }
+  #results {
+    max-height: 320px; overflow-y: auto; border-top: 1px solid var(--line); display: none;
+  }
+  .result { display: flex; gap: 12px; padding: 10px 16px; cursor: pointer; align-items: center; }
+  .result:hover, .result.active { background: #f1f3f4; }
+  .result .r-name { font-size: 14px; }
+  .result .r-sub { font-size: 12px; color: var(--muted); }
+
+  /* filter chips */
+  .chips { position: absolute; top: 68px; left: 12px; z-index: 999; display: flex;
+    gap: 8px; flex-wrap: wrap; max-width: calc(100vw - 24px); }
+  .chip {
+    background: var(--bg); border: 1px solid var(--line); border-radius: 16px;
+    padding: 6px 14px; font-size: 13px; cursor: pointer; box-shadow: var(--shadow);
+    color: var(--ink); white-space: nowrap;
+  }
+  .chip.on { background: #e8f0fe; border-color: #d2e3fc; color: #1967d2; font-weight: 500; }
+
+  /* side panel */
+  .panel {
+    position: absolute; top: 0; bottom: 0; left: 0; z-index: 1100;
+    width: min(408px, 100vw); background: var(--bg); box-shadow: var(--shadow);
+    transform: translateX(-105%); transition: transform .25s ease; overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .panel.open { transform: translateX(0); }
+  .panel-hero { padding: 20px 20px 0; }
+  .panel-x {
+    position: absolute; top: 10px; right: 10px; border: 0; background: var(--bg);
+    width: 36px; height: 36px; border-radius: 50%; font-size: 18px; cursor: pointer;
+    box-shadow: var(--shadow); color: var(--muted);
+  }
+  h1.stop-name { font-size: 21px; font-weight: 500; margin: 0 36px 4px 0; }
+  .sub { color: var(--muted); font-size: 13px; margin-bottom: 10px; }
+  .badges { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0 4px; }
+  .badge { font-size: 12px; border-radius: 6px; padding: 3px 8px; font-weight: 500; }
+  .b-rank { background: #fce8e6; color: var(--hot); }
+  .b-need { background: #fef7e0; color: #b06000; }
+  .b-shelter-none { background: #fce8e6; color: var(--hot); }
+  .b-shelter-unknown { background: #f1f3f4; color: var(--muted); }
+  .b-shelter-sheltered { background: #e6f4ea; color: var(--ok); }
+  .b-nodata { background: #f1f3f4; color: var(--muted); }
+  .routes { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0 2px; }
+  .route-pill { background: #e8f0fe; color: #1967d2; border-radius: 10px;
+    font-size: 12px; font-weight: 500; padding: 2px 9px; }
+
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: var(--line); border: 1px solid var(--line); border-radius: var(--radius);
+    overflow: hidden; margin: 14px 20px; }
+  .stat { background: var(--bg); padding: 12px 14px; }
+  .stat .v { font-size: 18px; font-weight: 500; }
+  .stat .l { font-size: 12px; color: var(--muted); }
+
+  .card { margin: 0 20px 14px; border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 14px 16px; font-size: 13.5px; line-height: 1.45; }
+  .card.warn { background: #fef7e0; border-color: #feefc3; }
+  .card h3 { margin: 0 0 6px; font-size: 14px; }
+  .card a { color: var(--accent); text-decoration: none; }
+  .card a:hover { text-decoration: underline; }
+
+  /* photos */
+  .photos { margin: 0 20px 24px; }
+  .photos h3 { font-size: 14px; margin: 0 0 8px; }
+  .tabs { display: flex; gap: 4px; overflow-x: auto; padding-bottom: 6px; }
+  .tab { border: 1px solid var(--line); background: var(--bg); border-radius: 14px;
+    font-size: 12.5px; padding: 5px 12px; cursor: pointer; white-space: nowrap; color: var(--ink); }
+  .tab.on { background: #e8f0fe; border-color: #d2e3fc; color: #1967d2; font-weight: 500; }
+  .tab .n { color: var(--muted); font-size: 11px; }
+  .tab.on .n { color: #1967d2; }
+  .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+  .gallery figure { margin: 0; }
+  .gallery img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 8px; display: block; }
+  .gallery figcaption { font-size: 11px; color: var(--muted); margin-top: 3px; line-height: 1.35; }
+  .empty { color: var(--muted); font-size: 13px; padding: 14px 0; }
+  .add-btn {
+    display: block; width: 100%; margin-top: 10px; padding: 10px; font-size: 14px;
+    font-weight: 500; color: var(--bg); background: var(--accent); border: 0;
+    border-radius: 20px; cursor: pointer;
+  }
+  .add-btn:hover { background: #1765cc; }
+  .photos .fine { font-size: 11.5px; color: var(--muted); margin-top: 8px; }
+
+  /* upload modal */
+  #up-modal { position: fixed; inset: 0; background: rgba(32,33,36,.55); z-index: 2000;
+    display: flex; align-items: center; justify-content: center; padding: 16px; }
+  #up-modal[hidden] { display: none; }
+  .up-card { background: var(--bg); border-radius: var(--radius); max-width: 420px; width: 100%;
+    max-height: 90vh; overflow-y: auto; padding: 20px; position: relative; }
+  .up-card h2 { font-size: 17px; margin: 0 24px 2px 0; }
+  .up-card .u-stop { color: var(--muted); font-size: 13px; margin: 0 0 12px; }
+  .up-card label.l { display: block; font-size: 13px; font-weight: 500; margin: 12px 0 4px; }
+  .up-card input[type=file], .up-card input[type=date], .up-card input[type=time],
+  .up-card textarea { width: 100%; font-size: 14px; padding: 8px; border: 1px solid var(--line);
+    border-radius: 8px; font-family: inherit; }
+  .u-row { display: flex; gap: 8px; }
+  .u-hp { position: absolute; left: -9999px; }
+  .u-check { display: flex; gap: 8px; font-size: 12.5px; margin-top: 12px; line-height: 1.4; }
+  .u-fine { font-size: 11.5px; color: var(--muted); }
+  .u-status { font-size: 13px; min-height: 18px; margin: 8px 0 0; }
+  .u-status.err { color: var(--hot); } .u-status.ok { color: var(--ok); }
+  .u-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px; }
+  .u-actions button { border: 0; border-radius: 18px; padding: 9px 18px; font-size: 14px;
+    cursor: pointer; font-weight: 500; }
+  .u-cancel { background: var(--bg); color: var(--accent); }
+  .u-send { background: var(--accent); color: var(--bg); }
+  .up-x { position: absolute; top: 10px; right: 12px; border: 0; background: none;
+    font-size: 20px; cursor: pointer; color: var(--muted); }
+
+  .titlebar { position: absolute; bottom: 0; left: 0; right: 0; z-index: 900;
+    background: rgba(255,255,255,.94); font-size: 12px; color: var(--muted);
+    padding: 6px 12px calc(6px + env(safe-area-inset-bottom)); text-align: center; }
+  .titlebar a { color: var(--accent); text-decoration: none; }
+
+  @media (max-width: 640px) {
+    .panel { top: auto; height: 72vh; width: 100vw; border-radius: 16px 16px 0 0;
+      transform: translateY(105%); }
+    .panel.open { transform: translateY(0); }
+    .chips { top: 64px; }
+  }
+  .leaflet-control-zoom { box-shadow: var(--shadow); border: 0 !important; border-radius: 8px; }
+</style>
+</head>
+<body>
+<div id="map"></div>
+
+<div class="search-card">
+  <div class="search-row">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="#5f6368"><path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg>
+    <input id="q" type="search" placeholder="Search bus stops or routes" autocomplete="off" aria-label="Search bus stops or routes">
+    <button id="clear-q" aria-label="Clear search">&times;</button>
+  </div>
+  <div id="results" role="listbox"></div>
+</div>
+
+<div class="chips" id="chips">
+  <button class="chip on" data-f="all">All stops</button>
+  <button class="chip" data-f="top20">Priority top 20</button>
+  <button class="chip" data-f="need">Needs shade most</button>
+  <button class="chip" data-f="unsheltered">No shelter</button>
+</div>
+
+<aside class="panel" id="panel" aria-label="Stop details"></aside>
+
+<div class="titlebar">
+  Gainesville bus stops ranked by summer heat, ridership, shelter and equity.
+  <a href="index.html">Classic map</a> &middot; <a href="https://github.com/JonathanKash/ShadeMap">Method &amp; data</a>
+</div>
+
+<div id="up-modal" hidden></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="config.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  var cfg = window.SHADEMAP_CONFIG || {};
+  var BASE = (cfg.supabaseUrl || "").replace(/\/+$/, "");
+  var KEY = cfg.supabaseAnonKey || "";
+  var BUCKET = cfg.bucket || "stop-photos";
+  var UPLOADS_ON = !!(BASE && KEY);
+  var PATH_OK = /^[0-9a-f-]{36}\.jpg$/;
+  var BUCKETS = ["morning", "midday", "afternoon", "evening", "night"];
+  var BUCKET_LABEL = { morning: "Morning", midday: "Midday", afternoon: "Afternoon", evening: "Evening", night: "Night" };
+  var MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  var COOLDOWN_MS = 30000;
+
+  var stops = [], byId = {}, markers = {}, filter = "all", activeStop = null;
+  var approved = null, activeTab = "morning";
+
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+  function pad(n) { return (n < 10 ? "0" : "") + n; }
+  function fmtTime(t) { var h = parseInt(t.slice(0, 2), 10); return (h % 12 || 12) + ":" + t.slice(3, 5) + " " + (h >= 12 ? "PM" : "AM"); }
+  function fmtDate(d) { var p = d.split("-"); return MONTHS[+p[1] - 1] + " " + (+p[2]) + ", " + p[0]; }
+  function bucketFor(t) {
+    var h = parseInt(t.slice(0, 2), 10);
+    if (h >= 5 && h < 11) return "morning";
+    if (h >= 11 && h < 14) return "midday";
+    if (h >= 14 && h < 18) return "afternoon";
+    if (h >= 18 && h < 22) return "evening";
+    return "night";
+  }
+  function authHeaders(extra) {
+    var h = { apikey: KEY, Authorization: "Bearer " + KEY };
+    for (var k in extra) h[k] = extra[k];
+    return h;
+  }
+
+  // ---- map -----------------------------------------------------------------
+  var map = L.map("map", { zoomControl: false }).setView([29.652, -82.34], 13);
+  L.control.zoom({ position: "bottomright" }).addTo(map);
+  L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
+  }).addTo(map);
+  var canvas = L.canvas({ padding: 0.4 });
+
+  function colorFor(s) {
+    if (s.rank == null) return "#9aa0a6";
+    var p = 1 - (s.rank - 1) / window.APP_N_RANKED; // 1 = worst
+    if (p > 0.95) return "#a50f15";
+    if (p > 0.85) return "#de2d26";
+    if (p > 0.65) return "#fb6a4a";
+    if (p > 0.4) return "#fcae91";
+    return "#fee5d9";
+  }
+  function radiusFor(s) {
+    if (s.rank != null && s.rank <= 20) return 9;
+    return 4 + Math.min(4, Math.sqrt(s.trips || 0) / 4);
+  }
+  function styleFor(s) {
+    var isNeed = s.need_rank != null && s.need_rank <= 20;
+    return {
+      renderer: canvas, radius: radiusFor(s), fillColor: colorFor(s), fillOpacity: 0.85,
+      color: isNeed ? "#b06000" : "#fff", weight: isNeed ? 2.5 : 1
+    };
+  }
+  function visible(s) {
+    if (filter === "top20") return s.rank != null && s.rank <= 20;
+    if (filter === "need") return s.need_rank != null && s.need_rank <= 20;
+    if (filter === "unsheltered") return s.shelter !== "sheltered";
+    return true;
+  }
+  function applyFilter() {
+    stops.forEach(function (s) {
+      var m = markers[s.id];
+      if (visible(s)) { if (!map.hasLayer(m)) m.addTo(map); }
+      else if (map.hasLayer(m)) map.removeLayer(m);
+    });
+  }
+
+  // ---- panel ---------------------------------------------------------------
+  var panel = document.getElementById("panel");
+
+  function statCell(v, l) { return '<div class="stat"><div class="v">' + v + '</div><div class="l">' + l + "</div></div>"; }
+
+  function openPanel(s) {
+    activeStop = s;
+    activeTab = "morning";
+    var b = [];
+    if (s.rank != null && s.rank <= 20) b.push('<span class="badge b-rank">Priority #' + s.rank + "</span>");
+    if (s.need_rank != null && s.need_rank <= 20) b.push('<span class="badge b-need">Needs shade most #' + s.need_rank + "</span>");
+    b.push('<span class="badge b-shelter-' + esc(s.shelter) + '">' +
+      (s.shelter === "sheltered" ? "Sheltered" : s.shelter === "none" ? "No shelter (OSM)" : "Shelter unknown") + "</span>");
+    if (s.excluded) b.push('<span class="badge b-nodata">Not ranked: ' + esc(s.excluded) + "</span>");
+
+    var flagsHtml = "";
+    if (s.flags.length) {
+      var lines = s.flags.map(function (f) {
+        return "<b>Route " + esc(f[0]) + "</b>: " + (f[2]
+          ? "nearest sheltered stop is " + esc(f[2]) + ", about " + f[1] + " min on foot"
+          : "no sheltered stop on this route");
+      }).join("<br>");
+      flagsHtml =
+        '<div class="card warn"><h3>No sheltered stop within a 5 minute walk</h3>' + lines +
+        "<br><br>To ask for a shelter here: report it at " +
+        '<a href="https://www.mygnv.org" target="_blank" rel="noopener">myGNV.org</a> ' +
+        "or call RTS Customer Service at <a href=\"tel:+13523342600\">352-334-2600</a> " +
+        "(Mon to Fri, 8 am to 4 pm). RTS weighs safety, accessibility and use when it picks " +
+        "stop improvements, and this map is evidence.</div>";
+    }
+
+    panel.innerHTML =
+      '<button class="panel-x" aria-label="Close">&times;</button>' +
+      '<div class="panel-hero">' +
+      '<h1 class="stop-name">' + esc(s.name) + "</h1>" +
+      '<div class="sub">' + s.trips + " bus visits per weekday</div>" +
+      '<div class="routes">' + s.routes.map(function (r) { return '<span class="route-pill">Route ' + esc(r) + "</span>"; }).join("") + "</div>" +
+      '<div class="badges">' + b.join("") + "</div>" +
+      "</div>" +
+      '<div class="stats">' +
+      statCell(s.lst_f != null ? s.lst_f + "&deg;F" : "no data", "summer surface temp") +
+      statCell(s.green != null ? s.green + "%" : "no data", "green cover within 100 m") +
+      statCell(s.no_veh != null ? s.no_veh + "%" : "no data", "households with no car") +
+      statCell(s.rank != null ? "#" + s.rank : "not ranked", "of " + window.APP_N_RANKED + " ranked stops") +
+      "</div>" +
+      flagsHtml +
+      '<div class="photos"><h3>Photos of this stop</h3><div id="ph-body"><div class="empty">Loading photos...</div></div></div>';
+
+    panel.querySelector(".panel-x").addEventListener("click", closePanel);
+    panel.classList.add("open");
+    renderPhotos(s);
+  }
+  function closePanel() {
+    panel.classList.remove("open");
+    activeStop = null;
+  }
+
+  // ---- photos, grouped by time of day --------------------------------------
+  function loadApproved() {
+    if (approved) return Promise.resolve(approved);
+    if (!UPLOADS_ON) { approved = {}; return Promise.resolve(approved); }
+    return fetch(BASE + "/rest/v1/stop_reports?approved=eq.true" +
+      "&select=stop_id,photo_path,taken_date,taken_time,time_bucket,note&order=taken_date.desc&limit=1000",
+      { headers: authHeaders() })
+      .then(function (r) { if (!r.ok) throw new Error("load " + r.status); return r.json(); })
+      .then(function (rows) {
+        var by = {};
+        rows.forEach(function (x) { if (PATH_OK.test(x.photo_path)) (by[x.stop_id] = by[x.stop_id] || []).push(x); });
+        approved = by;
+        return approved;
+      })
+      .catch(function () { return {}; });
+  }
+
+  function renderPhotos(s) {
+    loadApproved().then(function (by) {
+      if (!activeStop || activeStop.id !== s.id) return;
+      var box = document.getElementById("ph-body");
+      if (!box) return;
+      var rows = by[s.id] || [];
+      var groups = {};
+      BUCKETS.forEach(function (bk) { groups[bk] = []; });
+      rows.forEach(function (x) { (groups[x.time_bucket] || (groups[x.time_bucket] = [])).push(x); });
+
+      var tabs = BUCKETS.map(function (bk) {
+        return '<button class="tab' + (bk === activeTab ? " on" : "") + '" data-b="' + bk + '">' +
+          BUCKET_LABEL[bk] + ' <span class="n">' + groups[bk].length + "</span></button>";
+      }).join("");
+
+      var cur = groups[activeTab] || [];
+      var body;
+      if (cur.length) {
+        body = '<div class="gallery">' + cur.map(function (x) {
+          return '<figure><img loading="lazy" alt="Rider photo of this stop" src="' +
+            esc(BASE + "/storage/v1/object/public/" + BUCKET + "/" + x.photo_path) + '">' +
+            "<figcaption>" + esc(fmtTime(x.taken_time)) + ", " + esc(fmtDate(x.taken_date)) +
+            (x.note ? "<br>" + esc(x.note) : "") + "</figcaption></figure>";
+        }).join("") + "</div>";
+      } else {
+        body = '<div class="empty">No ' + BUCKET_LABEL[activeTab].toLowerCase() +
+          " photos of this stop yet." + (UPLOADS_ON ? " Be the first." : "") + "</div>";
+      }
+
+      var addBtn = UPLOADS_ON
+        ? '<button class="add-btn" id="add-photo">Add a photo of this stop</button>' +
+          '<p class="fine">Photos are reviewed before they appear. Location data inside the photo is removed before upload.</p>'
+        : '<p class="fine">Rider photo uploads are not switched on yet.</p>';
+
+      box.innerHTML = '<div class="tabs">' + tabs + "</div>" + body + addBtn;
+      box.querySelectorAll(".tab").forEach(function (t) {
+        t.addEventListener("click", function () { activeTab = t.getAttribute("data-b"); renderPhotos(s); });
+      });
+      var add = document.getElementById("add-photo");
+      if (add) add.addEventListener("click", function () { openModal(s); });
+    });
+  }
+
+  // ---- upload modal (same table and rules as the classic map) ---------------
+  var modalHost = document.getElementById("up-modal");
+  var lastFocus = null;
+
+  function today() { var d = new Date(); return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()); }
+  function nowHHMM() { var d = new Date(); return pad(d.getHours()) + ":" + pad(d.getMinutes()); }
+
+  function shrink(file) {
+    return createImageBitmap(file, { imageOrientation: "from-image" }).then(function (bmp) {
+      var MAX = 1280;
+      var scale = Math.min(1, MAX / Math.max(bmp.width, bmp.height));
+      var w = Math.max(1, Math.round(bmp.width * scale)), h = Math.max(1, Math.round(bmp.height * scale));
+      var c = document.createElement("canvas");
+      c.width = w; c.height = h;
+      c.getContext("2d").drawImage(bmp, 0, 0, w, h);
+      if (bmp.close) bmp.close();
+      return new Promise(function (res, rej) {
+        c.toBlob(function (b) { b ? res(b) : rej(new Error("encode failed")); }, "image/jpeg", 0.85);
+      });
+    });
+  }
+  function uuid() {
+    if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+    var b = crypto.getRandomValues(new Uint8Array(16));
+    b[6] = (b[6] & 0x0f) | 0x40; b[8] = (b[8] & 0x3f) | 0x80;
+    var h = Array.prototype.map.call(b, function (x) { return pad(x.toString(16)).slice(-2); }).join("");
+    return [h.slice(0,8), h.slice(8,12), h.slice(12,16), h.slice(16,20), h.slice(20)].join("-");
+  }
+
+  function openModal(s) {
+    lastFocus = document.activeElement;
+    modalHost.innerHTML =
+      '<div class="up-card" role="dialog" aria-modal="true" aria-labelledby="up-title">' +
+      '<button class="up-x" aria-label="Close">&times;</button>' +
+      '<h2 id="up-title">Add a photo of this stop</h2>' +
+      '<p class="u-stop">Stop: ' + esc(s.name) + "</p>" +
+      '<form id="up-form" novalidate>' +
+      '<label class="l" for="u-photo">Photo</label><input id="u-photo" name="photo" type="file" accept="image/*">' +
+      '<label class="l" for="u-date">When did you take it?</label>' +
+      '<div class="u-row"><input id="u-date" name="date" type="date" required><input id="u-time" name="time" type="time" required></div>' +
+      '<label class="l" for="u-note">What does the stop look like? (optional)</label>' +
+      '<textarea id="u-note" name="note" maxlength="280" rows="3" placeholder="Shade, bench, shelter, sun exposure"></textarea>' +
+      '<input class="u-hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">' +
+      '<label class="u-check"><input id="u-consent" name="consent" type="checkbox"> ' +
+      "<span>I took this photo or have permission to share it. It shows no faces or license plates. " +
+      "I agree it may be shown on this map after review.</span></label>" +
+      '<p class="u-fine">Photos are reviewed before they appear. Location data inside the photo is removed before upload.</p>' +
+      '<p class="u-status" id="u-status" role="status" aria-live="polite"></p>' +
+      '<div class="u-actions"><button type="button" class="u-cancel">Cancel</button>' +
+      '<button type="submit" class="u-send">Send photo</button></div>' +
+      "</form></div>";
+    modalHost.hidden = false;
+    var form = modalHost.querySelector("#up-form");
+    form.date.value = today(); form.date.max = today(); form.time.value = nowHHMM();
+    modalHost.querySelector(".up-x").addEventListener("click", closeModal);
+    modalHost.querySelector(".u-cancel").addEventListener("click", closeModal);
+    modalHost.addEventListener("click", function (e) { if (e.target === modalHost) closeModal(); });
+    form.addEventListener("submit", function (ev) { submit(ev, s, form); });
+    form.photo.focus();
+  }
+  function closeModal() {
+    modalHost.hidden = true; modalHost.innerHTML = "";
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !modalHost.hidden) closeModal(); });
+
+  function setStatus(msg, isErr) {
+    var el = modalHost.querySelector("#u-status");
+    if (el) { el.textContent = msg || ""; el.className = "u-status" + (isErr ? " err" : msg ? " ok" : ""); }
+  }
+
+  function submit(ev, s, f) {
+    ev.preventDefault();
+    var send = modalHost.querySelector(".u-send");
+    if (f.website.value) { setStatus("Thank you. Your photo will be reviewed."); return; }
+    var file = f.photo.files && f.photo.files[0];
+    if (!file) return setStatus("Choose a photo first.", true);
+    if (file.type && file.type.indexOf("image/") !== 0) return setStatus("That file is not an image.", true);
+    if (!f.date.value || !f.time.value) return setStatus("Enter the date and time you took the photo.", true);
+    if (f.date.value + "T" + f.time.value > today() + "T" + nowHHMM())
+      return setStatus("The photo cannot be from the future. Check the date and time.", true);
+    if (!f.consent.checked) return setStatus("Please confirm the statement above the send button.", true);
+    var last = 0;
+    try { last = +localStorage.getItem("shademap_last_report") || 0; } catch (e) {}
+    if (Date.now() - last < COOLDOWN_MS) return setStatus("Please wait a few seconds before sending another photo.", true);
+
+    send.disabled = true;
+    setStatus("Preparing photo...");
+    shrink(file).then(function (blob) {
+      setStatus("Uploading...");
+      var path = uuid() + ".jpg";
+      return fetch(BASE + "/storage/v1/object/" + BUCKET + "/" + path, {
+        method: "POST", headers: authHeaders({ "Content-Type": "image/jpeg", "x-upsert": "false" }), body: blob
+      }).then(function (up) {
+        if (!up.ok) throw new Error("upload " + up.status);
+        var time = f.time.value.length === 5 ? f.time.value + ":00" : f.time.value;
+        return fetch(BASE + "/rest/v1/stop_reports", {
+          method: "POST",
+          headers: authHeaders({ "Content-Type": "application/json", Prefer: "return=minimal" }),
+          body: JSON.stringify({
+            stop_id: s.id, photo_path: path, taken_date: f.date.value, taken_time: time,
+            time_bucket: bucketFor(time), note: f.note.value.trim() || null
+          })
+        });
+      }).then(function (ins) {
+        if (!ins.ok) throw new Error("insert " + ins.status);
+        try { localStorage.setItem("shademap_last_report", String(Date.now())); } catch (e) {}
+        setStatus("Thank you. Your photo was sent and will appear after it is reviewed.");
+        send.textContent = "Send another"; send.disabled = false;
+      });
+    }).catch(function (e) {
+      if (window.console) console.error(e);
+      setStatus("Could not send the photo. Check your connection and try again.", true);
+      send.disabled = false;
+    });
+  }
+
+  // ---- search ---------------------------------------------------------------
+  var q = document.getElementById("q"), results = document.getElementById("results"),
+      clearBtn = document.getElementById("clear-q");
+  function runSearch() {
+    var term = q.value.trim().toLowerCase();
+    clearBtn.style.display = term ? "block" : "none";
+    if (!term) { results.style.display = "none"; results.innerHTML = ""; return; }
+    var isRoute = /^\d+$/.test(term);
+    var hits = stops.filter(function (s) {
+      if (isRoute) return s.routes.indexOf(term) !== -1;
+      return s.name.toLowerCase().indexOf(term) !== -1;
+    }).slice(0, 12);
+    results.innerHTML = hits.length ? hits.map(function (s) {
+      return '<div class="result" role="option" data-id="' + esc(s.id) + '">' +
+        '<svg width="16" height="16" viewBox="0 0 24 24" fill="#5f6368"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>' +
+        '<div><div class="r-name">' + esc(s.name) + '</div><div class="r-sub">Routes ' +
+        esc(s.routes.join(", ") || "none") + " &middot; " + s.trips + " visits/day</div></div></div>";
+    }).join("") : '<div class="result"><div class="r-sub">No matching stops</div></div>';
+    results.style.display = "block";
+    results.querySelectorAll(".result[data-id]").forEach(function (el) {
+      el.addEventListener("click", function () {
+        var s = byId[el.getAttribute("data-id")];
+        results.style.display = "none";
+        q.value = s.name;
+        map.setView([s.lat, s.lon], 17);
+        openPanel(s);
+      });
+    });
+  }
+  q.addEventListener("input", runSearch);
+  clearBtn.addEventListener("click", function () { q.value = ""; runSearch(); q.focus(); });
+  document.addEventListener("click", function (e) {
+    if (!e.target.closest(".search-card")) results.style.display = "none";
+  });
+
+  // ---- chips ----------------------------------------------------------------
+  document.getElementById("chips").addEventListener("click", function (e) {
+    var c = e.target.closest(".chip");
+    if (!c) return;
+    document.querySelectorAll(".chip").forEach(function (x) { x.classList.remove("on"); });
+    c.classList.add("on");
+    filter = c.getAttribute("data-f");
+    applyFilter();
+  });
+
+  // ---- boot -----------------------------------------------------------------
+  fetch("app_data.json").then(function (r) { return r.json(); }).then(function (data) {
+    window.APP_N_RANKED = data.n_ranked;
+    stops = data.stops;
+    stops.forEach(function (s) {
+      byId[s.id] = s;
+      var m = L.circleMarker([s.lat, s.lon], styleFor(s));
+      m.on("click", function () { openPanel(s); });
+      markers[s.id] = m;
+    });
+    // draw coolest first so the hottest stops sit on top
+    stops.slice().sort(function (a, b) { return (b.rank || 1e9) - (a.rank || 1e9); })
+      .forEach(function (s) { if (visible(s)) markers[s.id].addTo(map); });
+  });
+})();
+</script>
+</body>
+</html>
