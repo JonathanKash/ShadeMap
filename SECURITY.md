@@ -49,6 +49,20 @@ Everything else is read-only static content.
 - **GitHub Pages sets no CSP header** (Pages cannot set custom headers). The
   escaping discipline above is the XSS control.
 
+## Location and live-bus additions (same audit standard)
+
+- Geolocation runs entirely client side behind the browser permission prompt.
+  The position is drawn on the map and discarded; no code path transmits or
+  stores it, and no Supabase call includes it.
+- The live-bus layer is disabled until `busFeedUrl` is set in
+  `docs/config.js`. The BusTime API key never reaches the client: it lives in
+  a Supabase secret read by `supabase/functions/live-buses/index.ts`, which
+  is the only holder of the key and adds CORS plus a 5 second cache. Feed
+  strings (route, destination) are HTML-escaped before rendering, so a
+  compromised or malicious feed cannot inject script. The proxy is public
+  and read-only; worst case abuse is quota consumption on the function,
+  and the kill switch is blanking `busFeedUrl`.
+
 ## Reviewer guidance
 
 Approve only photos that show a bus stop with no recognizable faces, no

@@ -66,13 +66,30 @@ here and you want it removed, open an issue at the
 <a href="https://github.com/JonathanKash/ShadeMap/issues">project issue tracker</a> and it
 will be taken down.</p>
 
+<h2>Your location</h2>
+<p>The "show my location" button uses your browser's location service, and only after you
+grant permission in the browser prompt. Your position is used on your device to draw the
+blue dot and center the map. It is never sent to this project, never stored, and never
+shared; turning the button off, or leaving the page, discards it. You can also revoke the
+permission in your browser settings at any time, and the rest of the map works exactly the
+same without it.</p>
+
+<h2>Live bus positions</h2>
+<p>If bus markers appear on the map, their positions come from the Regional Transit
+System's public bus tracker feed. Positions can be delayed, missing, or wrong, and buses
+can be rerouted or cancelled without the feed showing it. The markers are a convenience,
+not a promise that a bus is where the map says it is. Check official RTS channels for
+authoritative service information, and never take risks in traffic based on this map. This
+project is not affiliated with RTS, and the feed can stop being available at any time.</p>
+
 <h2>Privacy</h2>
 <p>This site has no accounts, no analytics, and no advertising, and it sets no tracking
 cookies. When you submit a photo, the site stores the photo (with embedded metadata
 removed), the date and time you say it was taken, your optional note, and nothing else. It
 does not collect your name, location, or contact details. Submissions are held in a
 Supabase project until reviewed. Your browser's local storage is used only to space out
-repeat submissions.</p>
+repeat submissions. Your device location, if you enable it, stays on your device as
+described above.</p>
 
 <h2>Code and reuse</h2>
 <p>The analysis code and this site are open source in the
