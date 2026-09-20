@@ -37,3 +37,16 @@ The default read turns `stop_id` into int and breaks joins on string ids.
 - pct_no_vehicle = B08201_002 / B08201_001 * 100 (households with no vehicle).
 - pct_65_plus = sum of B01001 male 020-025 and female 044-049, over B01001_001, times 100.
 - No columns are empty. Tract values are a coarse proxy for who stands at a given stop.
+
+## Route ranking (outputs/route_ranking.csv)
+Regenerate after score.py: `.venv/bin/python src/route_ranking.py`.
+- One sentence: a route ranks higher when its stops are, on average, hotter, busier, less
+  likely to have a shelter, and in tracts with more car-free households.
+- route_rank orders the 26 routes by avg_score, the mean stop score over the route's ranked
+  stops (915 ranked stops; unranked stops are left out). Ties go to more top-50 stops.
+- stops_in_top50 counts the route's stops in the citywide top 50 stops.
+- pct_unsheltered is OSM "none" only. pct_unknown is shown beside it, so read unsheltered as
+  a floor, not a total.
+- Limits to state: a stop's bus visits count every route at that stop, so routes through
+  busy hubs (Reitz Union, The Hub) get a boost. The top routes are mostly UF corridor routes,
+  the same campus-tract effect as in the stop ranking.
