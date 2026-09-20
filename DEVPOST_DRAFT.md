@@ -5,10 +5,12 @@ Every number below comes from the repo (`outputs/impact_summary.md`, `README.md`
 
 ## Blanks only the team can fill
 
-- [ ] **EMERGE curriculum:** name the textbook and lesson we followed, with a link. Kashi's notes say the workflow matches Textbook 1 (Data Analysis). The lesson name is not in the repo yet.
-- [ ] **Teammates:** list all three on the Devpost (Jonathan Kashi, the Stream C teammate, and the Stream B teammate). Check twice.
-- [ ] **Deadline:** the repo docs say 4:30 PM, Kashi's notes from the track PDF say 5 PM. Confirm which and submit well before it.
+- [x] **EMERGE curriculum:** filled in below (Textbook 1, four lessons). Each lesson was checked against its page on geo-di-lab.github.io/emerge-lessons, not just its title. Someone on the team should skim the four lesson pages once and confirm they are happy with the wording, because Dr. Yang leads EMERGE and is a judge.
+- [x] **Teammates:** Lucas Fonte, Francisco Rodriguez, Jonathan Kashi. **Typing names is not enough.** Each person needs a Devpost account and must be added to the project's team on Devpost (invite them, and they accept). Check the team list on the project page twice before submitting.
+- [x] **Deadline:** the track PDF says **submit by 5 PM**. The repo planning docs say 4:30 PM, which is out of date. Aim to submit by 4:30 PM anyway.
+- [ ] **Track name:** the track PDF is titled "NASA and Environmental Data Track". Pick whichever Devpost option matches that (the planning docs called it "NASA / GeoEmerge").
 - [ ] **Demo photos:** add one or two real photos of top stops if the team has them (see `ADMIN_PHOTOS.md`). Skip the sentence in the description if there are none.
+- [ ] **RTS feed link:** the GTFS download URL in `src/gtfs.py` returned a non-zip response when we last tried it from a script (3:15 PM). If it moved, update `GTFS_URL` so "how to run it" still works, and do not link that URL on Devpost.
 
 ## 1. Project name
 
@@ -16,7 +18,7 @@ ShadeMap Gainesville
 
 ## 2. Track
 
-NASA / GeoEmerge
+NASA and Environmental Data (the EMERGE track, CityCamp Gainesville Hack Day)
 
 ## 3. Problem brief
 
@@ -32,20 +34,43 @@ Our own: Gainesville riders wait on unshaded asphalt through Florida summers, an
 
 **Two lists, on purpose.** The main ranking multiplies by bus visits, so busy campus stops lead. A second list, "needs shade most," ignores bus volume so quiet stops in hot, car-free or senior neighborhoods still count. Only 4 stops appear on both top 20 lists, and the map shows the second list as black dots. Because 19 of the main top 20 are on the University of Florida campus, the map also gives the rest of Gainesville its own top 10: off-campus stops carry 74 percent of weekday bus visits, and the off-campus top 10 would otherwise sit at 14th to 35th in the citywide list.
 
-**How we checked it.** We recomputed the bus visit counts and every score from the raw files with separate code and got identical results. Census numbers are estimates, and the campus tract with the most top-20 stops has only 164 households, so we redrew each tract's value within its margin of error 1,000 times. The top 10 stops stay in the top 20 at least 90 percent of the time, and ranks 15 to 20 are close calls. We also checked NASA ECOSTRESS afternoon data: on the clearest afternoon (August 14, 2026, 2:52 PM) the median surface was 44.3 C, against 33.2 C for our morning Landsat composite, so the ranking understates afternoon heat. We use it only to say so.
+**How we checked it.** We recomputed every stop's score with separately written code and got identical results (no rank changed). Census numbers are estimates, and the campus tract with the most top-20 stops has only 164 households, so we redrew each tract's value within its margin of error 1,000 times. The top 10 stops stay in the top 20 at least 90 percent of the time, and ranks 15 to 20 are close calls. We also checked NASA ECOSTRESS afternoon data: on the clearest afternoon (August 14, 2026, 2:52 PM) the median surface was 44.3 C, against 33.2 C for our morning Landsat composite, so the ranking understates afternoon heat. We use it only to say so.
 
 **Limitations, plainly.** OpenStreetMap shelter coverage is partial (106 stops sheltered, 495 none, 370 unknown), so "none" means OpenStreetMap says none, not that we confirmed it. Bus visits are a stand-in for how many people wait, not a rider count. The schedule is RTS's Spring 2026 feed, using one representative Wednesday. 42 stops have no temperature data because of a known gap in the Landsat surface temperature product, and they are shown as "no data," not scored as cool. Census data is tract level. Shade itself is not measured. The list describes where the data says heat exposure is highest and does not recommend what any agency should build.
 
 **Built with.** Python, pandas, geopandas, NASA/USGS Landsat 8 and 9, NASA ECOSTRESS, ESA Sentinel-2, Microsoft Planetary Computer, OpenStreetMap and the Overpass API, RTS GTFS, US Census ACS and TIGER/Line, Leaflet, Supabase (rider photo uploads), GitHub Pages.
 
-**EMERGE.** This follows the NASA GeoEmerge Data Analysis workflow: acquire public environmental data, clean it (per-pixel cloud masking), analyze it (zonal statistics and ranking), and communicate it to a non-expert audience through a map. [FILL: textbook and lesson name, with link.]
+**EMERGE curriculum used: Textbook 1, Data Analysis** ("EMERGE Lessons", https://geo-di-lab.github.io/emerge-lessons/). We worked from four of its lessons:
+
+- **Chapter 3, Vegetation & Water Indices.** NDVI from Sentinel-2 as a median composite around a point. We compute it in a 100 m buffer around each of the 971 stops, in Python with Microsoft Planetary Computer in place of Google Earth Engine, and use it as nearby green cover.
+- **Chapter 4, Temperature, Rainfall & Vegetation.** Land surface temperature and vegetation mapped together. We use finer NASA Landsat (30 m) and ECOSTRESS (70 m) temperature in place of the lesson's 1 km MODIS data and leave out rainfall. Greener stops run cooler in our data (r = -0.55).
+- **Chapter 4, Introduction to Risk Mapping.** Combine environmental layers into a simple risk map. We adapt the idea from mosquito habitat pixels to heat exposure at bus stops, and add bus service, shelter, and census layers.
+- **Chapter 5, Communicate the Science.** Accuracy including uncertainty, plain language, and visuals. Our stated limitations, stability tests, and plain-language legend follow it.
+
+We did not use the geoemerge Python package, Textbook 2 (Geospatial AI), Google Earth Engine, or GLOBE Observer data.
+
+**Data and credits.**
+- NASA/USGS Landsat 8 and 9 Collection 2 Level-2, via Microsoft Planetary Computer: https://planetarycomputer.microsoft.com/dataset/landsat-c2-l2
+- NASA ECOSTRESS ECO_L2T_LSTE v2, via NASA Earthdata / LP DAAC: https://www.earthdata.nasa.gov (afternoon check only)
+- ESA Sentinel-2 L2A, via Microsoft Planetary Computer: https://planetarycomputer.microsoft.com/dataset/sentinel-2-l2a
+- RTS (Regional Transit System) GTFS schedule, Spring 2026: https://go-rts.com
+- OpenStreetMap contributors (shelters and the University of Florida boundary), via the Overpass API: https://www.openstreetmap.org/copyright
+- U.S. Census Bureau ACS 5-year estimates (via Census Reporter, https://censusreporter.org) and TIGER/Line tract shapes
+- Basemap tiles by Esri; maps drawn with Leaflet (https://leafletjs.com); Public Sans typeface (license in `docs/fonts/`)
+- Code: Python with pandas, geopandas, rasterio and rioxarray, odc-stac, pystac-client, planetary-computer, folium, matplotlib and Jupyter; rider photos stored with Supabase; hosted on GitHub Pages.
+
+**Reuse and upkeep.** Everything is in the repo and reruns from committed files (`pip install -r requirements.txt`, then the scripts listed in the README). Another city can swap in its own transit schedule and study area. Shelter corrections and rider photos go through a documented review process (`ADMIN_PHOTOS.md`, `SUPABASE_SETUP.md`, `SECURITY.md`), so a small team or a volunteer can keep the data current. What we would do next: a live bus layer (built, but off until RTS provides an API key), tree canopy and shadow analysis, and ridership counts if RTS shares them.
 
 ## 5. Links
 
 - Repo: https://github.com/JonathanKash/ShadeMap
 - Live map: https://jonathankash.github.io/ShadeMap/
 - Shade planner: https://jonathankash.github.io/ShadeMap/planner.html
+- Classic map (numbered top 20): https://jonathankash.github.io/ShadeMap/classic.html
+- EMERGE Textbook 1: https://geo-di-lab.github.io/emerge-lessons/
 
 ## 6. Team
 
-[FILL: all three teammates.]
+Lucas Fonte, Francisco Rodriguez, Jonathan Kashi.
+
+Add all three through Devpost's team invite, not just in the text. Each teammate needs a Devpost account and has to accept the invite. Check the team list on the project page twice before submitting.
