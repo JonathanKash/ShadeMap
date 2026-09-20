@@ -71,7 +71,7 @@ Any stop with weekday service, satellite data and a shelter status of none or un
 
 ## What a resident can do
 
-Every stop popup links to the City of Gainesville's myGNV request portal and the RTS phone line for asking about a shelter, and to a prefilled GitHub issue for reporting wrong shelter information, which needs a GitHub account and a person to check it. Nothing here promises what the city or RTS will do. Verified corrections go into `outputs/shelter_overrides.csv` with a source.
+In the app view, every stop panel links to a prefilled GitHub issue for reporting wrong shelter information, which needs a GitHub account and a person to check it. Stops with no sheltered stop within a five minute walk on their route (per OpenStreetMap) also show how to ask for one: the City of Gainesville's myGNV request portal and the RTS customer service phone line. The classic map carries both links in every popup. Nothing here promises what the city or RTS will do. Verified corrections go into `outputs/shelter_overrides.csv` with a source.
 
 **For planners: the Shade planner** ([`docs/planner.html`](docs/planner.html), linked from the app view). Pick how many stops could get a shelter, from 5 to 100, and choose either the main ranking or the shade-need list. It shows the weekday bus visits those stops carry, the share of all RTS visits and of visits at stops without a known shelter, the routes they touch, a map, and a CSV download. It is a what-if tool. It does not estimate cost or say what the city will do.
 
