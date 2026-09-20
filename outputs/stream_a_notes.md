@@ -140,6 +140,29 @@ myGNV portal. Wiring this into the map is C's surface; if it does not make
 the freeze it is a clean post-hackathon "how it could be extended" item,
 which the track judging asks about anyway.
 
+## Shade-need identifier (opt-in, `outputs/shade_need.csv`)
+
+A second top 20 that answers a different question than the main score. The
+main score multiplies by trip volume, so it answers "where does a shelter
+help the most riders" and campus dominates. This one answers "where is the
+wait itself worst": among stops with at least 10 weekday bus visits and no
+shelter per OSM,
+
+    shade_need = lst_percentile * (1 - pct_green / 100) * transit_dependence
+
+Heat, times lack of green cover, times neighborhood transit dependence.
+Service is an entry threshold, not a multiplier. 454 stops qualify; columns
+`shade_need_rank` and `top20_shade_need` join on `stop_id`. Only 10 of its
+top 20 overlap with the official top 20. The newcomers are the bare
+parking-lot stops the project pitch describes: the Butler Plaza retail
+strips run 44 to 46 C with 4 to 10 percent green cover.
+
+Suggested use: a distinct marker or badge on the map ("needs shade most"),
+or at minimum a second table in the README and Devpost text. One sentence
+for judges: among served stops with no known shelter, need is how hot the
+stop is, times how little green surrounds it, times how transit-dependent
+the neighborhood is. Regenerate: `.venv/Scripts/python src/shade_need.py`.
+
 ## EMERGE curriculum requirement (flag for C, from the track PDF in repo root)
 
 The track requires naming at least one EMERGE curriculum and the lesson or method
