@@ -87,7 +87,11 @@ In the app view, every stop panel links to a prefilled GitHub issue for reportin
 6. **Afternoon check (NASA ECOSTRESS, not scored).** ECOSTRESS ECO_L2T_LSTE v2 from NASA Earthdata / LP DAAC, summer 2026 afternoon overpasses (12:00 to 5:00 PM). Used only to size the gap between morning Landsat values and afternoon heat, described under Limitations.
 7. **Scoring and map.** `src/score.py` joins the tables and computes the score. `src/make_map.py` builds the classic static map in `docs/classic.html`, and `src/make_app_data.py` bakes the data file the app view (`docs/app.html`, the default page) loads.
 
-**Result counts:** 971 stops, 915 ranked, 42 excluded for no satellite data, 14 excluded for no weekday service.
+**Result counts:** 971 stops, 814 ranked, 106 excluded because OpenStreetMap already
+marks them sheltered (the ranking is a queue for new shade, so a stop that has a shelter
+is not in it), 38 excluded for no satellite data, 13 excluded for no weekday service.
+Stops with unknown shelter status stay eligible: OSM coverage is thinnest in under-mapped
+neighborhoods, and excluding them would bias the queue against exactly those areas.
 
 ### Methods and curriculum
 

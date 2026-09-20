@@ -2,6 +2,11 @@
 
 score = lst_percentile * log1p(daily_trips) * shelter_multiplier * transit_dependence
 
+Eligibility: the ranking is a priority queue for new shade structures, so a
+stop OSM already marks as sheltered is not ranked (excluded_reason says why).
+"unknown" stops stay eligible: OSM coverage is thinnest in under-mapped
+neighborhoods and excluding them would bias against exactly those areas.
+
 Run from the repo root: python src/score.py
 """
 from pathlib import Path
@@ -40,6 +45,8 @@ def score(df):
     no_service = df["daily_trips"].fillna(0).eq(0)
     df.loc[no_service, "excluded_reason"] = "no service on representative weekday"
     df.loc[no_lst, "excluded_reason"] = "no satellite data in 100 m buffer"
+    # a stop that already has a shelter is not in the queue for one
+    df.loc[df["shelter_status"].eq("sheltered"), "excluded_reason"] = "already sheltered (OSM)"
     ranked = df["excluded_reason"].isna()
 
     df["mean_lst_f"] = df["mean_lst_c"] * 9 / 5 + 32
