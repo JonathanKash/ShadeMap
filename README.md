@@ -20,6 +20,8 @@ The full ranking is in [`outputs/scored_stops.csv`](outputs/scored_stops.csv) an
 | 4 | Gator Corner Dining Facility @ Gale Lemerand | 248 | 109.6 F | none |
 | 5 | Southwest Recreation Center | 61 | 108.2 F | none |
 
+**How sure are we of the order?** Read the top 20 as a set of priority stops, not a precise ordering. Stop-level temperature differences are small, close to what one summer of 30 m Landsat can resolve. To test this we split the summer into two independent halves (odd and even days), rebuilt the composite from each, and re-ran the full score. Between 13 and 15 of the 20 stops stayed in the top 20 each time, so the set is mostly stable, and positions within the list, including who is number 1, can swap under measurement noise.
+
 The top 20 is concentrated around the University of Florida campus. That is what the formula produces: campus stops combine hot surroundings with some of the busiest service in the system, and many have no shelter mapped. It is not the result of hand tuning.
 
 ## How a stop is scored
@@ -46,7 +48,8 @@ There is no model, and the weights were not adjusted to change the ranking.
 3. **Shelters.** OpenStreetMap via the Overpass API. Each stop takes the nearest OSM bus stop or platform within 25 m. `shelter=yes` is sheltered, `shelter=no` is none, and everything else is unknown.
 4. **Transit dependence.** ACS 2024 5-year estimates at census tract level: households with no vehicle (table B08201) and residents 65 and older (table B01001, shown in the data but not used in the score). Numbers come from Census Reporter, a keyless mirror of the same ACS tables. Tract shapes are Census TIGER/Line 2024.
 5. **Vegetation context (popups only).** Sentinel-2 L2A at 10 m, 17 summer scenes, cloud-masked, median NDVI composite. For each stop we report the share of pixels within 100 m with NDVI above 0.4 (`pct_green`) in `outputs/stop_canopy.csv`. It is shown in the map popups and is not part of the score. Greener stops run cooler in our data (r = -0.55 against land surface temperature).
-6. **Scoring and map.** `src/score.py` joins the tables and computes the score. `src/make_map.py` builds the static map in `docs/index.html`.
+6. **Afternoon check (NASA ECOSTRESS, not scored).** ECOSTRESS ECO_L2T_LSTE v2 from NASA Earthdata / LP DAAC, summer 2026 afternoon overpasses (12:00 to 5:00 PM). Used only to size the gap between morning Landsat values and afternoon heat, described under Limitations.
+7. **Scoring and map.** `src/score.py` joins the tables and computes the score. `src/make_map.py` builds the static map in `docs/index.html`.
 
 **Result counts:** 971 stops, 915 ranked, 42 excluded for no satellite data, 14 excluded for no weekday service.
 
@@ -78,6 +81,8 @@ Every download is cached in `data/`, so a rerun is fast. The handoff files each 
 - **Shelter data is partial.** OpenStreetMap coverage of bus shelters is uneven. Of the 971 stops, 370 are unknown and 495 are none. "None" means OpenStreetMap says no shelter, not that we confirmed it on the ground, and unknown is treated as somewhere in between.
 - **Bus visits are a ridership proxy.** RTS does not publish per-stop ridership, so we use the number of scheduled bus visits per weekday. The schedule is from the Spring 2026 feed, which ends May 3, 2026. That is the newest feed we found, but it predates this analysis.
 - **Morning satellite temperatures, over one summer.** Landsat passes over Gainesville around 10:30 am, so the temperatures underestimate the mid-afternoon peak a rider feels. The ranking is relative across stops, so the ordering still means something, but the Celsius and Fahrenheit values are not afternoon temperatures. The data is a seasonal median, not a single heat wave.
+  - **How big the gap is.** We checked with NASA ECOSTRESS (70 m). On the clearest afternoon, August 14, 2026 at 2:52 PM, the median surface temperature in the Gainesville tile was 44.3 C (about 112 F) and a quarter of the area was above 50 C (122 F). Our morning Landsat composite median is 33.2 C, so afternoon surfaces run roughly 10 C hotter than the values on the map.
+  - **Why the ranking does not use it.** Only 3 of 20 summer afternoon ECOSTRESS overpasses were usable after cloud screening, because Florida summer afternoons are mostly cloudy. Ranking individual stops from those scenes agreed poorly with the Landsat layer (rank agreement about 0.2), so we did not build a per-stop afternoon ranking. The afternoon figures above describe the city as a whole.
 - **30 m pixels blur the stop with its surroundings.** The 100 m buffer is a neighborhood average, not the temperature of the pad the rider stands on.
 - **42 of 971 stops (4.3 percent) have no temperature data.** This is not cloud cover. The Landsat surface temperature product has a known gap in its emissivity input over part of west-central Gainesville. We chose not to estimate these values: every temperature in the ranking is a measured satellite value. We show these stops as gray and do not rank them, rather than scoring them as cool.
 - **Census data is tract level.** A tract is a coarse proxy for who actually waits at a given stop.
@@ -100,6 +105,8 @@ assets/          screenshots and photos
 ## Data sources
 
 - Landsat 8 and 9 Collection 2 Level-2 (NASA / USGS), via Microsoft Planetary Computer
+- ECOSTRESS ECO_L2T_LSTE v2 (NASA), via NASA Earthdata / LP DAAC, afternoon check only
+- Sentinel-2 L2A (ESA), via Microsoft Planetary Computer, green cover in popups only
 - RTS (Regional Transit System, Gainesville) GTFS feed
 - OpenStreetMap contributors, via the Overpass API
 - U.S. Census Bureau ACS 5-year estimates (via Census Reporter) and TIGER/Line shapes
