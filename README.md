@@ -2,7 +2,7 @@
 
 Riders of Gainesville's RTS buses wait for the bus on unshaded asphalt through Florida summers, and the people who wait the longest are the ones without a car. Nobody has a ranked, data-backed list of which stops are hottest, so ShadeMap builds one from NASA Landsat satellite temperatures, bus schedules, shelter data, and census data.
 
-**Live map:** https://shademapgnv.com (tap any stop for details)
+**Live map:** https://jonathankash.github.io/ShadeMap/ (tap any stop for details)
 
 ![ShadeMap map of Gainesville bus stops colored by priority for shade](assets/map.png)
 
