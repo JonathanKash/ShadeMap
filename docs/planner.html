@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ShadeMap Shade Planner</title>
+<meta name="description" content="If Gainesville could add shelters at only some bus stops, which ones reach the most weekday bus visits? A what-if tool built on the ShadeMap ranking.">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+  :root {
+    --bg: #ffffff; --panel: #f6f7f9; --ink: #1f2933; --muted: #52606d; --line: #dfe3e8;
+    --main: #1a5fb4; --need: #c64600; --none: #b71c1c; --unknown: #e08600; --sheltered: #2e7d32;
+    --radius: 12px;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
+  a { color: var(--main); }
+  a:focus-visible, button:focus-visible, input:focus-visible, tr:focus-visible {
+    outline: 3px solid #1a73e8; outline-offset: 2px; }
+  header { padding: 16px 16px 4px; max-width: 1200px; margin: 0 auto; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  header p { margin: 0 0 8px; color: var(--muted); max-width: 70ch; }
+  nav { font-size: 14px; margin-bottom: 6px; }
+
+  .layout { display: grid; grid-template-columns: minmax(0, 480px) minmax(0, 1fr); gap: 16px;
+    padding: 8px 16px 32px; max-width: 1200px; margin: 0 auto; align-items: start; }
+  @media (max-width: 900px) { .layout { grid-template-columns: minmax(0, 1fr); } }
+
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px; }
+  fieldset { border: 0; padding: 0; margin: 0 0 12px; }
+  legend { font-weight: 600; margin-bottom: 6px; padding: 0; }
+  .opt { display: flex; gap: 8px; align-items: flex-start; padding: 6px 0; cursor: pointer; }
+  .opt input { margin-top: 4px; }
+  .opt small { display: block; color: var(--muted); }
+  .slider-row { display: flex; align-items: center; gap: 12px; }
+  .slider-row input[type=range] { flex: 1; min-width: 0; height: 28px; }
+  #n-out { font-size: 22px; font-weight: 700; min-width: 3ch; text-align: right; }
+
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+  .stat { background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 10px; }
+  .stat b { display: block; font-size: 22px; line-height: 1.2; }
+  .stat span { color: var(--muted); font-size: 13px; }
+  .routes-line { margin: 10px 0 0; color: var(--muted); font-size: 14px; }
+
+  #curve { width: 100%; height: auto; display: block; margin-top: 4px; }
+  .key { display: flex; gap: 14px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+  .key i { display: inline-block; width: 14px; height: 4px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
+
+  #map { height: 420px; border-radius: var(--radius); border: 1px solid var(--line); }
+  @media (max-width: 900px) { #map { height: 340px; } }
+  .map-key { font-size: 13px; color: var(--muted); margin: 6px 2px 0; display: flex; gap: 12px; flex-wrap: wrap; }
+  .dot { display: inline-block; width: 11px; height: 11px; border-radius: 50%; margin-right: 5px; vertical-align: -1px; border: 1px solid #fff; box-shadow: 0 0 0 1px #9aa5b1; }
+
+  .actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 14px 0 8px; }
+  button.dl { background: var(--main); color: #fff; border: 0; border-radius: 8px; padding: 10px 16px;
+    font-size: 15px; font-weight: 600; cursor: pointer; }
+  button.dl:hover { background: #154c91; }
+
+  .tablewrap { max-height: 440px; overflow: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { position: sticky; top: 0; background: #eef1f4; z-index: 1; font-size: 13px; }
+  td.num, th.num { text-align: right; white-space: nowrap; }
+  tbody tr { cursor: pointer; }
+  tbody tr:hover { background: #f1f5fb; }
+  .pill { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: 12px; color: #fff; white-space: nowrap; }
+  .pill.none { background: var(--none); } .pill.unknown { background: #a35f00; } .pill.sheltered { background: var(--sheltered); }
+
+  .notes { max-width: 1200px; margin: 0 auto; padding: 0 16px 32px; color: var(--muted); font-size: 13px; }
+  .notes p { margin: 6px 0; max-width: 90ch; }
+  .err { padding: 16px; color: #b71c1c; }
+</style>
+</head>
+<body>
+<header>
+  <nav><a href="app.html">&larr; Back to the map</a></nav>
+  <h1>Shade planner</h1>
+  <p>If Gainesville could add shelters at only some bus stops, which ones reach the most weekday bus visits?
+     Pick how many stops, and see who and what that covers. This is a what-if, not a plan or a cost estimate.</p>
+</header>
+
+<div class="layout">
+  <section aria-label="Controls and results">
+    <div class="card">
+      <fieldset>
+        <legend>Which list of stops?</legend>
+        <label class="opt"><input type="radio" name="list" value="main" checked>
+          <span>Most people helped<small>The main ranking: hot, busy, unsheltered, car-free area.</small></span></label>
+        <label class="opt"><input type="radio" name="list" value="need">
+          <span>Where the wait itself is worst<small>Ignores how busy a stop is, so quiet stops in hot, car-free or senior neighborhoods count.</small></span></label>
+      </fieldset>
+      <label for="n" style="font-weight:600">How many stops get a shelter?</label>
+      <div class="slider-row">
+        <input id="n" type="range" min="5" max="100" step="5" value="20" aria-describedby="n-out">
+        <output id="n-out" for="n" aria-live="polite">20</output>
+      </div>
+      <div class="stats" aria-live="polite">
+        <div class="stat"><b id="s-visits">-</b><span>weekday bus visits at these stops</span></div>
+        <div class="stat"><b id="s-share">-</b><span>of all RTS weekday bus visits</span></div>
+        <div class="stat"><b id="s-gain">-</b><span>of these stops have no known shelter today</span></div>
+        <div class="stat"><b id="s-unsh">-</b><span>of all visits at stops without a known shelter</span></div>
+      </div>
+      <p class="routes-line" id="routes-line"></p>
+    </div>
+
+    <div class="card" style="margin-top:12px">
+      <strong>How fast does it add up?</strong>
+      <svg id="curve" viewBox="0 0 440 208" role="img" aria-label="Share of all weekday bus visits reached as more stops are sheltered, for both lists"></svg>
+      <div class="key"><span><i style="background:var(--main)"></i>Most people helped</span><span><i style="background:var(--need)"></i>Worst wait</span></div>
+    </div>
+  </section>
+
+  <section aria-label="Map and list">
+    <div id="map" role="application" aria-label="Map of the selected stops"></div>
+    <div class="map-key">
+      <span><span class="dot" style="background:var(--none)"></span>No shelter (OSM)</span>
+      <span><span class="dot" style="background:var(--unknown)"></span>Shelter unknown</span>
+      <span><span class="dot" style="background:var(--sheltered)"></span>Already sheltered</span>
+      <span><span class="dot" style="background:#c5cbd3"></span>Other stops</span>
+    </div>
+    <div class="actions">
+      <button class="dl" id="dl" type="button">Download these stops (CSV)</button>
+      <span id="list-title" style="color:var(--muted);font-size:14px"></span>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th class="num">#</th><th>Stop</th><th>Routes</th><th class="num">Visits/day</th><th>Shelter</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<div class="notes">
+  <p><b>How to read this.</b> A bus visit is one scheduled bus at a stop on a typical weekday (Wednesday, Feb 11, 2026 in the RTS Spring 2026 schedule). It is a stand-in for how many people wait there, not a rider count.</p>
+  <p><b>Limits.</b> Shelter status comes from OpenStreetMap, which is partial, so "unknown" means not mapped, not "none". Heat is summer morning satellite data and understates the afternoon peak. Some campus stops are close together, so the list can include several stops at one place. Nothing here estimates cost or says what the city will do.</p>
+  <p><a href="index.html">Classic map</a> &middot; <a href="https://github.com/JonathanKash/ShadeMap">Method and data</a></p>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+(function () {
+  var COLORS = { none: "#b71c1c", unknown: "#e08600", sheltered: "#2e7d32" };
+  var LABEL = { none: "No shelter", unknown: "Unknown", sheltered: "Sheltered" };
+  var LISTS = {
+    main: { key: "rank", name: "most people helped", color: "#1a5fb4" },
+    need: { key: "need_rank", name: "worst wait", color: "#c64600" }
+  };
+  var stops = [], total = 0, totalUnsheltered = 0, sorted = {}, cum = {};
+  var listName = "main", n = 20, markers = {}, sel = [];
+
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) {
+    return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  function fmt(x) { return Number(x).toLocaleString("en-US"); }
+  function pct(a, b) { return b ? (100 * a / b) : 0; }
+  function pctText(v) { return (v < 10 ? v.toFixed(1) : Math.round(v)) + "%"; }
+
+  var map = L.map("map", { preferCanvas: true }).setView([29.652, -82.34], 12);
+  L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",
+    { maxZoom: 16, attribution: "Tiles &copy; Esri" }).addTo(map);
+  var context = L.layerGroup().addTo(map), picked = L.layerGroup().addTo(map);
+
+  function prepare(data) {
+    stops = data.stops;
+    stops.forEach(function (s) { total += s.trips; if (s.shelter !== "sheltered") totalUnsheltered += s.trips; });
+    Object.keys(LISTS).forEach(function (k) {
+      var key = LISTS[k].key;
+      sorted[k] = stops.filter(function (s) { return s[key] != null; })
+                       .sort(function (a, b) { return a[key] - b[key]; });
+      var c = 0; cum[k] = sorted[k].map(function (s) { c += s.trips; return c; });
+    });
+    stops.forEach(function (s) {
+      L.circleMarker([s.lat, s.lon], { radius: 2.5, weight: 0, fillColor: "#c5cbd3", fillOpacity: .9, interactive: false }).addTo(context);
+    });
+  }
+
+  function popup(s, i) {
+    return "<b>" + esc(s.name) + "</b><br>#" + (i + 1) + " on this list<br>Routes: " + esc(s.routes.join(", ") || "none") +
+      "<br>" + fmt(s.trips) + " weekday bus visits<br>Shelter (OSM): " + LABEL[s.shelter] +
+      "<br>Summer morning heat nearby: " + s.lst_f + " F";
+  }
+
+  function render(refit) {
+    var list = sorted[listName]; n = Math.min(n, list.length);
+    sel = list.slice(0, n);
+    var visits = cum[listName][n - 1];
+    var gain = sel.filter(function (s) { return s.shelter !== "sheltered"; });
+    var gainVisits = gain.reduce(function (a, s) { return a + s.trips; }, 0);
+    document.getElementById("n-out").textContent = n;
+    document.getElementById("s-visits").textContent = fmt(visits);
+    document.getElementById("s-share").textContent = pctText(pct(visits, total));
+    document.getElementById("s-gain").textContent = gain.length + " of " + n;
+    document.getElementById("s-unsh").textContent = pctText(pct(gainVisits, totalUnsheltered));
+    document.getElementById("list-title").textContent = "Top " + n + ", " + LISTS[listName].name;
+
+    var rc = {};
+    sel.forEach(function (s) { s.routes.forEach(function (r) { rc[r] = (rc[r] || 0) + 1; }); });
+    var rk = Object.keys(rc).sort(function (a, b) { return rc[b] - rc[a] || a - b; });
+    document.getElementById("routes-line").textContent = rk.length + " routes touched. Most stops on: " +
+      rk.slice(0, 3).map(function (r) { return "route " + r + " (" + rc[r] + ")"; }).join(", ") + ".";
+
+    var tb = document.getElementById("rows"); tb.innerHTML = "";
+    picked.clearLayers(); markers = {};
+    sel.forEach(function (s, i) {
+      var m = L.circleMarker([s.lat, s.lon], { radius: 7, weight: 2, color: "#fff", fillColor: COLORS[s.shelter], fillOpacity: 1 })
+        .bindPopup(popup(s, i)).addTo(picked);
+      markers[s.id] = m;
+      var tr = document.createElement("tr"); tr.tabIndex = 0; tr.setAttribute("data-id", s.id);
+      tr.innerHTML = '<td class="num">' + (i + 1) + "</td><td>" + esc(s.name) + "</td><td>" + esc(s.routes.join(", ")) +
+        '</td><td class="num">' + fmt(s.trips) + '</td><td><span class="pill ' + s.shelter + '">' + LABEL[s.shelter] + "</span></td>";
+      tb.appendChild(tr);
+    });
+    if (refit && sel.length) map.fitBounds(L.latLngBounds(sel.map(function (s) { return [s.lat, s.lon]; })), { padding: [30, 30], maxZoom: 15 });
+    drawCurve();
+  }
+
+  function drawCurve() {
+    var W = 440, H = 208, l = 40, r = 10, t = 10, b = 48, pw = W - l - r, ph = H - t - b, max = 100;
+    var svg = ['<g stroke="#dfe3e8" stroke-width="1" font-size="11" fill="#52606d">'];
+    var ymax = 0;
+    Object.keys(LISTS).forEach(function (k) { ymax = Math.max(ymax, pct(cum[k][Math.min(max, cum[k].length) - 1], total)); });
+    ymax = Math.ceil(ymax / 4) * 4 || 4;
+    for (var g = 0; g <= 4; g++) {
+      var v = ymax * g / 4, y = t + ph - ph * g / 4;
+      svg.push('<line x1="' + l + '" x2="' + (W - r) + '" y1="' + y + '" y2="' + y + '"/><text x="' + (l - 6) + '" y="' + (y + 4) + '" text-anchor="end" stroke="none">' + Math.round(v) + '%</text>');
+    }
+    [0, 25, 50, 75, 100].forEach(function (x) {
+      svg.push('<text x="' + (l + pw * x / max) + '" y="' + (H - 28) + '" text-anchor="middle" stroke="none">' + x + '</text>');
+    });
+    svg.push('<text x="' + (l + pw / 2) + '" y="' + (H - 8) + '" text-anchor="middle" stroke="none">number of stops sheltered</text></g>');
+    Object.keys(LISTS).forEach(function (k) {
+      var pts = [[0, 0]];
+      for (var i = 1; i <= Math.min(max, cum[k].length); i++) pts.push([i, pct(cum[k][i - 1], total)]);
+      svg.push('<polyline fill="none" stroke="' + LISTS[k].color + '" stroke-width="' + (k === listName ? 3 : 1.75) + '" points="' +
+        pts.map(function (p) { return (l + pw * p[0] / max).toFixed(1) + "," + (t + ph - ph * p[1] / ymax).toFixed(1); }).join(" ") + '"/>');
+    });
+    var cx = l + pw * n / max, cy = t + ph - ph * pct(cum[listName][n - 1], total) / ymax;
+    svg.push('<line x1="' + cx + '" x2="' + cx + '" y1="' + t + '" y2="' + (t + ph) + '" stroke="#1f2933" stroke-dasharray="3 3"/>' +
+      '<circle cx="' + cx + '" cy="' + cy + '" r="5" fill="' + LISTS[listName].color + '" stroke="#fff" stroke-width="2"/>');
+    document.getElementById("curve").innerHTML = svg.join("");
+  }
+
+  function csvCell(v) { v = String(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }
+  document.getElementById("dl").addEventListener("click", function () {
+    var head = ["list_position", "stop_id", "stop_name", "routes", "weekday_bus_visits", "summer_morning_heat_f", "shelter_status_osm", "pct_households_no_vehicle"];
+    var rows = sel.map(function (s, i) {
+      return [i + 1, s.id, s.name, s.routes.join(" "), s.trips, s.lst_f, s.shelter, s.no_veh].map(csvCell).join(",");
+    });
+    var blob = new Blob([head.join(",") + "\n" + rows.join("\n") + "\n"], { type: "text/csv;charset=utf-8" });
+    var a = document.createElement("a"); a.href = URL.createObjectURL(blob);
+    a.download = "shademap_top_" + n + "_" + listName + ".csv";
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+  });
+
+  var slider = document.getElementById("n");
+  slider.addEventListener("input", function () { n = +slider.value; render(false); });
+  slider.addEventListener("change", function () { render(true); });
+  Array.prototype.forEach.call(document.querySelectorAll('input[name="list"]'), function (r) {
+    r.addEventListener("change", function () { listName = r.value; render(true); });
+  });
+  function focusRow(tr) {
+    var id = tr.getAttribute("data-id"), m = markers[id]; if (!m) return;
+    map.setView(m.getLatLng(), Math.max(map.getZoom(), 15)); m.openPopup();
+    document.getElementById("map").scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+  document.getElementById("rows").addEventListener("click", function (e) { var tr = e.target.closest("tr"); if (tr) focusRow(tr); });
+  document.getElementById("rows").addEventListener("keydown", function (e) {
+    if (e.key === "Enter" && e.target.tagName === "TR") focusRow(e.target); });
+
+  fetch("app_data.json").then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function (d) { prepare(d); render(true); })
+    .catch(function () {
+      document.querySelector(".layout").innerHTML = '<p class="err">Could not load the stop data. Try reloading the page.</p>';
+    });
+})();
+</script>
+</body>
+</html>

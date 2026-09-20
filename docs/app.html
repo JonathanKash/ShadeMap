@@ -145,6 +145,8 @@
   .titlebar a { color: var(--accent); text-decoration: none; }
 
   @media (max-width: 640px) {
+    /* the two-line footer covered the Leaflet attribution and its links on phones */
+    .leaflet-bottom { bottom: 58px; }
     .panel { top: auto; height: 72vh; width: 100vw; border-radius: 16px 16px 0 0;
       transform: translateY(105%); }
     .panel.open { transform: translateY(0); }
@@ -176,7 +178,7 @@
 
 <div class="titlebar">
   Gainesville bus stops ranked by summer heat, ridership, shelter and equity.
-  <a href="index.html">Classic map</a> &middot; <a href="https://github.com/JonathanKash/ShadeMap">Method &amp; data</a>
+  <a href="planner.html">Shade planner</a> &middot; <a href="index.html">Classic map</a> &middot; <a href="https://github.com/JonathanKash/ShadeMap">Method &amp; data</a>
 </div>
 
 <div id="up-modal" hidden></div>

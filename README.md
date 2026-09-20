@@ -69,6 +69,8 @@ Any stop with weekday service, satellite data and a shelter status of none or un
 
 Every stop popup links to the City of Gainesville's myGNV request portal and the RTS phone line for asking about a shelter, and to a prefilled GitHub issue for reporting wrong shelter information, which needs a GitHub account and a person to check it. Nothing here promises what the city or RTS will do. Verified corrections go into `outputs/shelter_overrides.csv` with a source.
 
+**For planners: the Shade planner** ([`docs/planner.html`](docs/planner.html), linked from the app view). Pick how many stops could get a shelter, from 5 to 100, and choose either the main ranking or the shade-need list. It shows the weekday bus visits those stops carry, the share of all RTS visits and of visits at stops without a known shelter, the routes they touch, a map, and a CSV download. It is a what-if tool. It does not estimate cost or say what the city will do.
+
 ## Method
 
 1. **Heat (NASA Landsat).** Land surface temperature comes from Landsat 8 and 9 Collection 2 Level-2 (`lwir11` band, 30 m resolution), fetched from the [Microsoft Planetary Computer](https://planetarycomputer.microsoft.com/dataset/landsat-c2-l2) STAC API with no manual downloads. We used 37 scenes from June 2 to September 15, 2026 over Alachua County. Each pixel is cloud-masked individually using the `qa_pixel` band, then the median across all scenes is taken. The USGS scale factor (0.00341802) and offset (149.0) convert to Kelvin, then to Celsius. Each stop gets a 100 m buffer (built in EPSG:6440, Florida North, meters), and we take the mean of the pixels inside it. The county-wide median of the composite is 33.2 C.
