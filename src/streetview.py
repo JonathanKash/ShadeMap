@@ -1,10 +1,12 @@
-"""Street-level photos of the top-ranked stops from Mapillary, saved to assets/.
+"""Street-level photos of the top-ranked stops from Mapillary, saved to
+data/mapillary_candidates/ (gitignored). Look at every image, then copy only the ones that
+actually show the stop into assets/. First run (2016 imagery) showed 7 of 8 were road shots.
 
 Usage (repo root):  .venv/bin/python src/streetview.py [N]     # default N = 8
 
 Free: no card. Needs a Mapillary client token in env var MAPILLARY_TOKEN, or a one-line
 file data/mapillary_token.txt (data/ is gitignored). The token is sent as a header and is
-never written to assets/ or the index.
+never written to the output folder or the index.
 
 Why top 8, not top 3: some stops have no photo nearby, and several top stops are the same
 physical place (Southwest Recreation Center appears at more than one rank). Fetch extra
@@ -28,7 +30,7 @@ import pandas as pd
 import requests
 
 ROOT = Path(__file__).resolve().parent.parent
-ASSETS = ROOT / "assets"
+ASSETS = ROOT / "data" / "mapillary_candidates"  # gitignored: copy only vetted picks into assets/
 API = "https://graph.mapillary.com/images"
 BOX_DEG = 0.0006          # about 65 m each way
 FACING_OK_DEG = 60        # camera heading within this of the bearing to the stop counts as facing it
@@ -84,7 +86,7 @@ def main(n: int = 8) -> None:
     top = pd.read_csv(ROOT / "outputs" / "top_20_stops.csv", dtype={"stop_id": str}).head(n)
     ctx = pd.read_csv(ROOT / "outputs" / "stops_context.csv", dtype={"stop_id": str})
     top = top.merge(ctx[["stop_id", "stop_lat", "stop_lon"]], on="stop_id")
-    ASSETS.mkdir(exist_ok=True)
+    ASSETS.mkdir(parents=True, exist_ok=True)
 
     rows = []
     for r in top.itertuples():
