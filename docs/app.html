@@ -691,10 +691,12 @@
       statCell(s.no_veh != null ? s.no_veh + "%" : "no data", "households with no car") +
       statCell(s.rank != null ? "#" + s.rank : "not ranked", "of " + window.APP_N_RANKED + " ranked stops") +
       "</div>" +
+      // no advocacy pitch on a stop excluded for already having a shelter
+      (s.excluded === "already sheltered (OSM)" ? "" :
       '<div class="card" style="background:var(--accent-soft);border-color:var(--accent-line)"><h3>Want shade here?</h3>' +
       "Turn this stop's data into a one page case you can print, email to the city, or bring to a meeting. " +
       'It names the commissioner for this stop\'s district.<br><br>' +
-      '<a class="add-btn" style="text-align:center;text-decoration:none" href="case.html?stop=' + encodeURIComponent(s.id) + '">Make the case for this stop</a></div>' +
+      '<a class="add-btn" style="text-align:center;text-decoration:none" href="case.html?stop=' + encodeURIComponent(s.id) + '">Make the case for this stop</a></div>') +
       flagsHtml + reportHtml +
       '<div class="photos"><h3>Photos of this stop</h3><div id="ph-body"><div class="empty">Loading photos...</div></div></div>';
 
