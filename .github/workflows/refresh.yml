@@ -1,0 +1,69 @@
+# Seasonal data refresh: rebuild the satellite composite, rescore, rebake the
+# site data. Runs quarterly and on demand. If any step fails, nothing is
+# committed and the site keeps serving the last good data.
+name: refresh-data
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 06:10 UTC on the 1st of March, June, September and December
+    - cron: "10 6 1 3,6,9,12 *"
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Pre-fetch the GTFS zip (the RTS server rejects python's user agent)
+        run: |
+          mkdir -p data
+          curl -sL -A "Mozilla/5.0" -o data/rts_gtfs.zip \
+            "https://go-rts.com/wp-content/uploads/2026/01/RTSGTFS_Spring2026_V6.zip"
+          file data/rts_gtfs.zip | grep -qi zip
+
+      - name: Pre-fetch commission district boundaries
+        run: |
+          curl -sL -o data/commission_districts.geojson \
+            "https://data.cityofgainesville.org/api/geospatial/4pxv-ww5v?method=export&format=GeoJSON"
+
+      # Note: the Landsat window is pinned to summer 2026 in src/lst.py (DATE_RANGE),
+      # so the heat layer is stable by design; this refresh mainly picks up GTFS
+      # service changes and OpenStreetMap shelter mapping as the community adds it.
+      # Bump DATE_RANGE next summer to refresh the heat layer too.
+      - name: Rebuild everything
+        run: |
+          python src/gtfs.py
+          cd src && python context.py && cd ..
+          python src/lst.py
+          python src/lst.py canopy
+          python src/nearest_shelter.py
+          python src/shade_need.py
+          python src/score.py
+          python src/route_ranking.py
+          python src/make_app_data.py
+          python src/make_map.py
+
+      - name: Commit refreshed outputs
+        run: |
+          git config user.name "shademap-refresh"
+          git config user.email "actions@users.noreply.github.com"
+          git add outputs/ docs/
+          if git diff --cached --quiet; then
+            echo "No changes this quarter."
+          else
+            git commit -m "Quarterly data refresh (automated)"
+            git push
+          fi

@@ -219,6 +219,12 @@
     box-shadow: var(--shadow); max-width: calc(100vw - 40px); }
   .toast[hidden] { display: none; }
 
+  /* heat advisory banner, above the footer */
+  .heat-banner { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+    z-index: 951; background: #b45309; color: #fff; font-size: 13px; padding: 8px 16px;
+    border-radius: 10px; box-shadow: var(--shadow); max-width: min(560px, calc(100vw - 24px)); }
+  @media (max-width: 640px) { .heat-banner { bottom: 64px; } }
+
   /* live buses */
   .bus-tag { background: var(--accent); color: #fff; border-radius: 10px; font-size: 11px;
     font-weight: 700; padding: 1px 0; border: 2px solid #fff; box-shadow: 0 1px 3px rgba(0,0,0,.35);
@@ -275,7 +281,7 @@
 
 <div class="titlebar" id="titlebar">
   <strong class="brand">ShadeMap</strong> ranks Gainesville bus stops by summer heat, ridership, shelter and equity.
-  <a href="planner.html">Shade planner</a> <a href="classic.html">Classic map</a> <a href="https://github.com/JonathanKash/ShadeMap">Method &amp; data</a> <a href="disclosures.html">About &amp; disclosures</a>
+  <a href="list.html">List view</a> <a href="planner.html">Shade planner</a> <a href="classic.html">Classic map</a> <a href="https://github.com/JonathanKash/ShadeMap">Method &amp; data</a> <a href="disclosures.html">About &amp; disclosures</a>
 </div>
 <script>
 (function () {  // keep the map attribution and legend above the footer, however many lines it wraps to
@@ -697,6 +703,9 @@
       statCell(s.no_veh != null ? s.no_veh + "%" : "no data", "households with no car") +
       statCell(s.rank != null ? "#" + s.rank : "not ranked", "of " + window.APP_N_RANKED + " ranked stops") +
       "</div>" +
+      (wins[s.id] ? '<div class="card" style="background:#e6f4ea;border-color:#b7dfc0"><h3>Shade win</h3>' +
+        "A shelter was added at this stop" + (wins[s.id].date ? " on " + esc(wins[s.id].date) : "") + "." +
+        (wins[s.id].note ? " " + esc(wins[s.id].note) : "") + "</div>" : "") +
       // no advocacy pitch on a stop excluded for already having a shelter
       (s.excluded === "already sheltered (OSM)" ? "" :
       '<div class="card" style="background:var(--accent-soft);border-color:var(--accent-line)"><h3>Want shade here?</h3>' +
@@ -963,7 +972,61 @@
     stops.slice().sort(function (a, b) { return (needTop(a) - needTop(b)) || ((b.rank || 1e9) - (a.rank || 1e9)); })
       .forEach(function (s) { if (visible(s)) markers[s.id].addTo(map); });
     initRoutes();
+
+    // deep link: ?stop=<id> opens that stop's panel (used by the list view)
+    var qsStop = new URLSearchParams(location.search).get("stop");
+    if (qsStop && byId[qsStop]) {
+      map.setView([byId[qsStop].lat, byId[qsStop].lon], 17);
+      openPanel(byId[qsStop]);
+    }
+
+    // shelter verification progress, appended to the legend
+    var known = stops.filter(function (s) { return s.shelter !== "unknown"; }).length;
+    var note = document.querySelector(".legend .note");
+    if (note) {
+      note.innerHTML += "<br><b>" + known + " of " + stops.length + "</b> stops have a known shelter " +
+        "status. Help verify the rest: tap a stop and use the shelter correction link.";
+    }
   });
+
+  // wins: shelters that got built at stops this map flagged (docs/wins.json)
+  var wins = {};
+  fetch("wins.json").then(function (r) { return r.ok ? r.json() : { wins: [] }; })
+    .then(function (d) {
+      (d.wins || []).forEach(function (w) {
+        if (!w.stop_id || !w.date) return;
+        wins[w.stop_id] = w;
+        var lat = parseFloat(w.lat), lon = parseFloat(w.lon);
+        if (isFinite(lat) && isFinite(lon)) {
+          L.circleMarker([lat, lon], { radius: 8, color: "#188038", weight: 3,
+            fillColor: "#e6f4ea", fillOpacity: 1 })
+            .bindPopup("<b>Shade win</b><br>A shelter was added here" +
+              (w.date ? " on " + esc(w.date) : "") + "." +
+              (w.note ? "<br>" + esc(w.note) : ""))
+            .addTo(map);
+        }
+      });
+      var n = Object.keys(wins).length;
+      var note = document.querySelector(".legend .note");
+      if (n && note) note.innerHTML += "<br><b style='color:#188038'>" + n +
+        (n === 1 ? " stop has" : " stops have") + " gotten a shelter since this map launched.</b>";
+    }).catch(function () {});
+
+  // heat advisory banner (National Weather Service, keyless, fails silent)
+  fetch("https://api.weather.gov/alerts/active?point=29.6516,-82.3248")
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (d) {
+      if (!d || !d.features) return;
+      var heat = d.features.map(function (f) { return f.properties; })
+        .filter(function (p) { return p && /heat/i.test(p.event || ""); })[0];
+      if (!heat) return;
+      var el = document.createElement("div");
+      el.className = "heat-banner";
+      el.setAttribute("role", "status");
+      el.innerHTML = "&#9728;&#65039; <b>" + esc(heat.event) + "</b> is in effect for this area. " +
+        "Shade at bus stops matters most on days like today.";
+      document.body.appendChild(el);
+    }).catch(function () {});
 })();
 </script>
 </body>

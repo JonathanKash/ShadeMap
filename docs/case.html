@@ -91,7 +91,31 @@
       }
       com.at_large.forEach(function (a) { lines.push(esc(a.name) + ", " + esc(a.title)); });
       lines.push(esc(com.mayor.name) + ", " + esc(com.mayor.title));
+      var district_rep = (s.district && com.districts[s.district]) ? com.districts[s.district] : null;
+      var subject = "Shade at the " + s.name + " bus stop (RTS stop " + s.id + ")";
+      var body =
+        (district_rep ? "Dear " + district_rep.title + " " + district_rep.name.split(" ").slice(-1)[0] : "Dear City Commissioners") + ",\n\n" +
+        "I am writing to ask that the bus stop at " + s.name + " (RTS stop " + s.id +
+        (s.routes.length ? ", Route" + (s.routes.length > 1 ? "s" : "") + " " + s.routes.join(", ") : "") +
+        ") be considered for a shade structure.\n\n" +
+        "Public data on this stop, from the independent ShadeMap Gainesville analysis of NASA satellite and city data:\n" +
+        (s.lst_f != null ? "- Average summer surface temperature within 100 m: " + s.lst_f + " F\n" : "") +
+        "- Bus visits on a typical weekday: " + s.trips + "\n" +
+        (s.green != null ? "- Green cover within 100 m: " + s.green + " percent\n" : "") +
+        (s.no_veh != null ? "- Households with no vehicle in this census tract: " + s.no_veh + " percent\n" : "") +
+        "- Shelter at this stop per OpenStreetMap: " + (s.shelter === "none" ? "none" : s.shelter) + "\n\n" +
+        "RTS states that stop improvements weigh safety and accessibility first, then how many people use the stop. " +
+        "The data above speaks to exactly those criteria.\n\n" +
+        "Full data and method: https://jonathankash.github.io/ShadeMap/case.html?stop=" + encodeURIComponent(s.id) + "\n\n" +
+        "Thank you for your time,\n";
+      var mailto = "mailto:" + encodeURIComponent(com.shared_email) +
+        "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
       who =
+        '<div class="box"><h2>Send it now</h2>' +
+        "The fastest version of this case is an email that is already written. It goes to the " +
+        "City Commission's shared inbox, addressed to this stop's commissioner, with the numbers " +
+        "above included. Add your name and anything personal, like how often you wait here.<br><br>" +
+        '<a class="print-btn" style="display:inline-block;text-decoration:none" href="' + esc(mailto) + '">Draft the email</a></div>' +
         '<div class="box"><h2>Who represents this stop</h2>' + lines.join("<br>") +
         "<br><br>City Commission: <a href=\"mailto:" + esc(com.shared_email) + "\">" + esc(com.shared_email) +
         "</a> or " + esc(com.shared_phone) +

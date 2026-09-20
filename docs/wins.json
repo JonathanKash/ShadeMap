@@ -1,0 +1,4 @@
+{
+  "_howto": "When a shelter gets built at a stop this map flagged, add an entry to wins below and push. It renders as a green marker and a Shade win card in the stop panel. Fields: stop_id (GTFS id as a string), date (YYYY-MM-DD the shelter appeared or was announced), lat and lon (stop coordinates), note (optional one sentence, e.g. which list it was on and who pushed for it).",
+  "wins": []
+}
