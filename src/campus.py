@@ -7,9 +7,11 @@ Why: the main ranking is dominated by University of Florida campus stops (19 of 
 so the rest of Gainesville disappears from the top of the list. Two zones fix that:
   near campus          = within 1 mile of the UF campus, campus included
   far from campus      = everything beyond 1 mile
-Distance is measured from the EDGE of the campus (the OpenStreetMap boundary of the University
-of Florida, main campus plus East Campus), not from a center point: UF is about 3 km across,
-so a mile around a center point would not even cover the campus.
+Distance is measured from the EDGE of the main campus (the OpenStreetMap boundary of the University
+of Florida), not from a center point: UF is about 3 km across, so a mile around a center point
+would not even cover the campus. The separate 20-acre "East Campus" outline is NOT used: it is
+2.7 miles from the main campus and gave a second one-mile ring that pulled 54 stops in northeast
+Gainesville (NE 15th St, Waldo Rd) into "near campus", 2.5 to 3.9 miles from the campus itself.
 
 Ranking inside each zone uses the SAME score as the main ranking (heat percentile is still
 citywide); nothing is re-weighted. Near campus includes student apartments and much of
@@ -62,9 +64,12 @@ def fetch_boundary() -> dict:
 def campus_polygon() -> gpd.GeoSeries:
     polys = []
     for e in fetch_boundary()["elements"]:
+        if e.get("tags", {}).get("name") != "University of Florida":
+            continue  # skip "University of Florida East Campus", see the module docstring
         lines = [LineString([(p["lon"], p["lat"]) for p in m["geometry"]]) for m in e.get("members", [])
                  if m["type"] == "way" and m.get("role") in ("outer", "") and len(m.get("geometry", [])) > 1]
         polys += list(polygonize(unary_union(lines)))
+    assert polys, "main campus relation not found in the Overpass response"
     poly = gpd.GeoSeries([unary_union(polys)], crs="EPSG:4326").to_crs("EPSG:6440")
     area_km2 = poly.area.iloc[0] / 1e6
     assert 5 < area_km2 < 12, f"campus area {area_km2:.1f} km2 is implausible (UF main campus is about 8 km2)"
@@ -74,6 +79,14 @@ def campus_polygon() -> gpd.GeoSeries:
 
 def main() -> None:
     poly = campus_polygon().iloc[0]
+    zone = gpd.GeoSeries([poly.simplify(15), poly.buffer(NEAR_M, resolution=24).simplify(15)], crs="EPSG:6440").to_crs("EPSG:4326")
+    feats = [{"type": "Feature", "properties": {"kind": k}, "geometry": json.loads(json.dumps(g.__geo_interface__))}
+             for k, g in zip(("campus", "ring"), zone)]
+    def _round(o):  # 5 decimals is about 1 m, plenty for an outline, keeps the file small
+        return [_round(x) for x in o] if isinstance(o, (list, tuple)) else round(o, 5)
+    for f in feats:
+        f["geometry"]["coordinates"] = _round(f["geometry"]["coordinates"])
+    (DOCS / "campus_zone.geojson").write_text(json.dumps({"type": "FeatureCollection", "features": feats}, separators=(",", ":")))
     d = pd.read_csv(OUT / "scored_stops.csv", dtype={"stop_id": str})
     pts = gpd.GeoSeries(gpd.points_from_xy(d.stop_lon, d.stop_lat), crs="EPSG:4326").to_crs("EPSG:6440")
     d["dist_to_campus_m"] = [round(poly.distance(p), 1) for p in pts]
