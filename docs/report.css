@@ -1,0 +1,49 @@
+/* Community photo feature. Hidden until docs/config.js is filled in. */
+.report-btn { display: none; }
+.reports-on .report-btn {
+  display: block; width: 100%; margin-top: 8px; padding: 9px 10px; border: 1px solid #1f2933;
+  border-radius: 6px; background: #fff; color: #1f2933; font: 600 13px system-ui, sans-serif; cursor: pointer;
+}
+.reports-on .report-btn:hover { background: #f1f3f5; }
+
+.ugc-head { margin-top: 8px; font-weight: 600; }
+.ugc-item { margin: 6px 0 0; }
+.ugc-item img { width: 100%; max-height: 170px; object-fit: cover; border-radius: 4px; display: block; }
+.ugc-item figcaption { font-size: 11px; color: #52606d; margin-top: 2px; }
+
+#report-modal {
+  position: fixed; inset: 0; z-index: 10000; background: rgba(17, 24, 39, 0.55);
+  display: flex; align-items: center; justify-content: center; padding: 12px;
+  font: 14px/1.4 system-ui, sans-serif; color: #1f2933;
+}
+#report-modal[hidden] { display: none; }
+#report-modal .rm-card {
+  position: relative; box-sizing: border-box; width: min(440px, 100%); max-height: 100%;
+  overflow-y: auto; background: #fff; border-radius: 10px; padding: 16px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+}
+#report-modal h2 { margin: 0 32px 2px 0; font-size: 18px; }
+#report-modal .rm-x {
+  position: absolute; top: 6px; right: 8px; width: 36px; height: 36px; border: 0; background: none;
+  font-size: 26px; line-height: 1; color: #52606d; cursor: pointer;
+}
+#report-modal .rm-stop { margin: 0 0 8px; color: #52606d; }
+#report-modal .rm-l { display: block; margin: 12px 0 4px; font-weight: 600; }
+#report-modal input[type="file"], #report-modal input[type="date"], #report-modal input[type="time"], #report-modal textarea {
+  box-sizing: border-box; width: 100%; padding: 9px; border: 1px solid #cbd2d9; border-radius: 6px;
+  font: inherit; font-size: 16px; /* 16px stops iOS from zooming the page on focus */ background: #fff; color: inherit;
+}
+#report-modal .rm-row { display: flex; gap: 8px; }
+#report-modal .rm-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+#report-modal .rm-check { display: flex; gap: 8px; align-items: flex-start; margin-top: 14px; }
+#report-modal .rm-check input { width: 20px; height: 20px; margin-top: 2px; flex: none; }
+#report-modal .rm-fine { margin: 10px 0 0; font-size: 12px; color: #52606d; }
+#report-modal .rm-status { min-height: 18px; margin: 8px 0 0; font-weight: 600; }
+#report-modal .rm-err { color: #b42318; }
+#report-modal .rm-ok { color: #067647; }
+#report-modal .rm-actions { display: flex; gap: 8px; margin-top: 12px; }
+#report-modal .rm-actions button {
+  flex: 1; min-height: 44px; border-radius: 6px; border: 1px solid #1f2933; font: 600 15px system-ui, sans-serif; cursor: pointer;
+}
+#report-modal .rm-cancel { background: #fff; color: #1f2933; }
+#report-modal .rm-send { background: #1f2933; color: #fff; }
+#report-modal .rm-send:disabled { opacity: 0.55; cursor: default; }
